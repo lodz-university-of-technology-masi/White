@@ -1,0 +1,20 @@
+.navbar-brand {
+  color: cornflowerblue;
+}
+
+.list-item {
+  color: #b5b5b5;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.list-item:hover{
+  color: white;
+  cursor: pointer;
+}
+
+.list-item:focus {
+  outline:0;
+  background-color: black;
+  color: white;
+}
