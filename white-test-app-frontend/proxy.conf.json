@@ -1,9 +1,9 @@
 {
-  "/": {
+  "/api/**": {
     "target": {
       "port": "8080",
       "host": "localhost",
-      "protocol": "https:"
+      "protocol": "http:"
     },
     "secure": false,
     "changeOrigin": true,

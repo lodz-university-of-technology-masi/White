@@ -10,11 +10,14 @@ import {HttpService} from './services/http-service.service';
 import {HttpClientModule} from '@angular/common/http';
 import {Configuration} from './configuration';
 import {FormsModule} from '@angular/forms';
+import { TestTemplatesComponent } from './test-templates/test-templates.component';
+import {TestTemplateService} from './services/test-template.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
+    TestTemplatesComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import {FormsModule} from '@angular/forms';
   providers: [
     Configuration,
     HttpErrorHandlerService,
-    HttpService
+    HttpService,
+    TestTemplateService
   ],
   bootstrap: [AppComponent]
 })
