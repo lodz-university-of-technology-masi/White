@@ -29,6 +29,10 @@ public class TestTemplate {
     @JoinColumn(name = "en_id", referencedColumnName = "id", insertable = false, updatable = false)
     private TestTemplateContent enVersion;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "author_id", referencedColumnName = "username", insertable = false, updatable = false)
+    private Account author;
+
     @Version
     private Long version;
 
@@ -65,6 +69,15 @@ public class TestTemplate {
 
     public TestTemplate setEnVersion(TestTemplateContent enVersion) {
         this.enVersion = enVersion;
+        return this;
+    }
+
+    public Account getAuthor() {
+        return author;
+    }
+
+    public TestTemplate setAuthor(Account author) {
+        this.author = author;
         return this;
     }
 
