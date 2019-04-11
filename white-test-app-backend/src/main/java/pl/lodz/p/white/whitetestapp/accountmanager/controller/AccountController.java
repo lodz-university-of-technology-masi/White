@@ -1,4 +1,4 @@
-package pl.lodz.p.white.whitetestapp.controller;
+package pl.lodz.p.white.whitetestapp.accountmanager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -6,19 +6,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import pl.lodz.p.white.whitetestapp.model.Answer;
-import pl.lodz.p.white.whitetestapp.service.AnswerService;
+import pl.lodz.p.white.whitetestapp.model.Account;
+import pl.lodz.p.white.whitetestapp.accountmanager.service.AccountService;
 
 @Controller
 @RestController
-@RequestMapping("/api/answer")
-public class AnswerController {
+@RequestMapping("/api/account")
+public class AccountController {
 
-    @Autowired
-    AnswerService service;
+    AccountService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    Answer get(@PathVariable("id") Long id){
+    Account get(@PathVariable("id") String id) {
         return service.getOne(id);
+    }
+
+    @Autowired
+    public AccountController(AccountService service) {
+        this.service = service;
     }
 }
