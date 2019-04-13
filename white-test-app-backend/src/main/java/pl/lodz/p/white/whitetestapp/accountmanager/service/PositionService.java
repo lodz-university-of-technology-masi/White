@@ -5,4 +5,6 @@ import pl.lodz.p.white.whitetestapp.model.Position;
 public interface PositionService {
 
     Position getOne(String id);
+
+    void addNew(Position position);
 }
