@@ -42,7 +42,7 @@ public class PositionController {
         }
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     ResponseEntity addNewPosition(@RequestBody Position position) {
         ApiResponse response = new ApiResponse();
         if (service.getOne(position.getName()) != null) {
