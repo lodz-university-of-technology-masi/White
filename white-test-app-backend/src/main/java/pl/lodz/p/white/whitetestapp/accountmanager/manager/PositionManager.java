@@ -21,6 +21,7 @@ public class PositionManager implements PositionService {
 
     @Autowired
     public PositionManager(PositionRepository repository) {
+
         this.repository = repository;
     }
 
@@ -36,13 +37,9 @@ public class PositionManager implements PositionService {
                 .findAll()
                 .stream()
                 .map(PositionMapper::toPositionResponse)
-                .flatMap(List::stream)
                 .collect(Collectors.toList());
     }
 
-    @Autowired
-    public PositionManager(PositionRepository repository) {
-        this.repository = repository;
 
     @Transactional(readOnly = false)
     public void addNew(Position position) {
