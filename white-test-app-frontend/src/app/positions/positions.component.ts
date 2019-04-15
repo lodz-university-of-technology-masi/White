@@ -26,7 +26,8 @@ export class PositionsComponent implements OnInit {
   }
 
   ngOnInit() {
-   this.loadPositions();
+    this.position = new Position();
+    this.loadPositions();
   }
   loadPositions() {
     this.positionsService.getAllPositions().subscribe( t => {this.positions = t; console.log(t); } );

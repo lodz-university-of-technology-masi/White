@@ -22,5 +22,4 @@ export class PositionsService {
   getAllPositions(): Observable<Position[]> {
     return this.httpService.get<Position[]>(this.endpoint);
   }
-
 }

@@ -21,7 +21,6 @@ public class PositionManager implements PositionService {
 
     @Autowired
     public PositionManager(PositionRepository repository) {
-
         this.repository = repository;
     }
 
@@ -40,10 +39,8 @@ public class PositionManager implements PositionService {
                 .collect(Collectors.toList());
     }
 
-
     @Transactional(readOnly = false)
     public void addNew(Position position) {
         repository.save(position);
-
     }
 }

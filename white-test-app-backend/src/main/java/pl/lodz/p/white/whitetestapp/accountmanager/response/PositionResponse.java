@@ -13,6 +13,4 @@ public class PositionResponse {
         this.name = name;
         return this;
     }
-
-
 }
