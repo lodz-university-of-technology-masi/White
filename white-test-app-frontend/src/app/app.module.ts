@@ -12,27 +12,32 @@ import {Configuration} from './configuration';
 import {FormsModule} from '@angular/forms';
 import { TestTemplatesComponent } from './test-templates/test-templates.component';
 import {TestTemplateService} from './services/test-template.service';
+import { PositionsComponent } from './positions/positions.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {PositionsService} from './services/positions.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    TestTemplatesComponent
+    TestTemplatesComponent,
+    PositionsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
-    ModalModule.forRoot(),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [
     Configuration,
     HttpErrorHandlerService,
     HttpService,
-    TestTemplateService
+    TestTemplateService,
+    PositionsService
   ],
   bootstrap: [AppComponent]
 })
