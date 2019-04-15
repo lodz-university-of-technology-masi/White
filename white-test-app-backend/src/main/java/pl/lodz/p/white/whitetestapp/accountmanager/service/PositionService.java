@@ -8,5 +8,9 @@ import java.util.List;
 public interface PositionService {
 
     Position getOne(String id);
+
     List<PositionResponse> getAllPositions();
+
+    void addNew(Position position);
+
 }
