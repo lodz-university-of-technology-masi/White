@@ -11,6 +11,7 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 export class PositionsComponent implements OnInit {
 
   position: Position;
+  positions: Position[];
   closeResult: string;
 
   constructor(private positionsService: PositionsService,
@@ -25,6 +26,10 @@ export class PositionsComponent implements OnInit {
   }
 
   ngOnInit() {
-   this.position = new Position();
+    this.position = new Position();
+    this.loadPositions();
+  }
+  loadPositions() {
+    this.positionsService.getAllPositions().subscribe( t => {this.positions = t; console.log(t); } );
   }
 }

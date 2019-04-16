@@ -19,3 +19,26 @@
 </ng-template>
 
 <button class="btn btn-primary mb-2" (click)="open(content)">Dodaj</button>
+
+<h1>Stanowiska</h1>
+
+<table class="table table-striped" align="center">
+  <thead>
+  <tr>
+    <th>Nazwa</th>
+    <th>Operacja</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let position of positions">
+    <td>{{position.name}}</td>
+
+    <td>
+      <a routerLink="/test/{{position.id}}">
+        <button type="submit" class="btn btn-primary mb-2">Edytuj</button>
+      </a>
+    </td>
+  </tr>
+  </tbody>
+</table>

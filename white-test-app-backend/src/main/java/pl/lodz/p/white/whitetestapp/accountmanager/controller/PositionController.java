@@ -19,10 +19,15 @@ import pl.lodz.p.white.whitetestapp.model.Position;
 @RequestMapping("/api/position")
 public class PositionController {
 
-    public static final String POSITION_WITH_THIS_NAME_DOESN_T_EXISTS = "Position with this name doesn't exists";
-    public static final String POSITION_COULDN_T_BE_CREATED = "Position couldn't be created";
-    public static final String POSITION_WAS_CREATED = "Position was created";
-    PositionService service;
+   public static final String POSITION_WITH_THIS_NAME_DOESN_T_EXISTS = "Position with this name doesn't exists";
+   public static final String POSITION_COULDN_T_BE_CREATED = "Position couldn't be created";
+   public static final String POSITION_WAS_CREATED = "Position was created";
+   private PositionService service;
+
+    @RequestMapping(method = RequestMethod.GET)
+    ResponseEntity getAllPositions() {
+        return ResponseEntity.ok(service.getAllPositions());
+    }
 
     @Autowired
     public PositionController(PositionService service) {
@@ -52,7 +57,6 @@ public class PositionController {
             service.addNew(position);
             response.setMessage(POSITION_WAS_CREATED);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
-
         }
     }
 }
