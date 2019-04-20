@@ -10,4 +10,6 @@ public interface TestTemplateService {
     TestTemplate getOne(Long id);
 
     List<TestTemplateResponse> getAll();
+
+    TestTemplate addNewTestTemplate(TestTemplate testTemplate);
 }

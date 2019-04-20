@@ -31,6 +31,11 @@ public class TestTemplateManager implements TestTemplateService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public TestTemplate addNewTestTemplate(TestTemplate testTemplate) {
+        return repository.save(testTemplate);
+    }
+
     @Autowired
     public TestTemplateManager(TestTemplateRepository repository) {
         this.repository = repository;
