@@ -19,9 +19,9 @@ import pl.lodz.p.white.whitetestapp.testmanager.service.TestTemplateService;
 @RequestMapping("/api/testtemplate")
 public class TestTemplateController {
 
-    public static final String GIVEN_DATA_WAS_NULL = "Given data was null";
-    public static final String OBJECT_UPDATE = "Object update";
-    public static final String UNABLE_TO_EXECUTE_QUERY = "Query returned no records";
+    private static final String GIVEN_DATA_WAS_NULL = "Given data was incorrect";
+    private static final String OBJECT_UPDATE = "Object updated";
+    private static final String UNABLE_TO_EXECUTE_QUERY = "Query unabled to succeed";
     private TestTemplateService service;
     private PositionService positionService;
 

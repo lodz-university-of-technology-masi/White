@@ -6,6 +6,7 @@ public class TestTemplateResponse {
     private String position;
     private String author;
     private String lang;
+    private Long testTemplateId;
 
     public Long getId() {
         return id;
@@ -49,6 +50,15 @@ public class TestTemplateResponse {
 
     public TestTemplateResponse setLang(String lang) {
         this.lang = lang;
+        return this;
+    }
+
+    public Long getTestTemplateId() {
+        return testTemplateId;
+    }
+
+    public TestTemplateResponse setTestTemplateId(Long testTemplateId) {
+        this.testTemplateId = testTemplateId;
         return this;
     }
 }

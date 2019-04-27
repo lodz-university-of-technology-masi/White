@@ -13,6 +13,7 @@ import static pl.lodz.p.white.whitetestapp.utils.Utils.optGet;
 public class TestTemplateMapper {
 
     public static List<TestTemplateResponse> toTestTemplateResponse(TestTemplate testTemplate) {
+        Long templateId = testTemplate.getId();
         String author = optGet(testTemplate.getAuthor(), Account::getUsername);
         String position = optGet(testTemplate.getPosition(), Position::getName);
         return asList(
@@ -20,12 +21,14 @@ public class TestTemplateMapper {
                         .setId(testTemplate.getPlVersion().getId())
                         .setAuthor(author)
                         .setLang("PL")
-                        .setPosition(position),
+                        .setPosition(position)
+                        .setTestTemplateId(templateId),
                 new TestTemplateResponse()
                         .setId(testTemplate.getEnVersion().getId())
                         .setAuthor(author)
                         .setLang("EN")
                         .setPosition(position)
+                        .setTestTemplateId(templateId)
         );
     }
 }
