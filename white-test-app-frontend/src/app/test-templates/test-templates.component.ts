@@ -10,6 +10,7 @@ import {TestTemplateService} from '../services/test-template.service';
 export class TestTemplatesComponent implements OnInit {
 
   testTemplates: TestTemplate[];
+  newTemplate: TestTemplate;
 
   constructor(private testTemplateService: TestTemplateService) {
   }
@@ -20,6 +21,12 @@ export class TestTemplatesComponent implements OnInit {
 
   loadTemplates() {
     this.testTemplateService.getAll().subscribe( t => {this.testTemplates = t; console.log(t); } );
+  }
+
+  addNew() {
+    this.testTemplateService.add(this.newTemplate).subscribe(s => {
+    }, e => {
+    });
   }
 
 }

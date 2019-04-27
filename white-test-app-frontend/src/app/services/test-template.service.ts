@@ -3,6 +3,7 @@ import {HttpService} from './http-service.service';
 import {Configuration} from '../configuration';
 import {TestTemplate} from '../test-templates/model/test-template';
 import {Observable} from 'rxjs';
+import {NewTemplate} from '../test-templates/model/new-template';
 
 
 @Injectable({
@@ -18,5 +19,9 @@ export class TestTemplateService {
 
   getAll(): Observable<TestTemplate[]> {
     return this.httpService.get<TestTemplate[]>(this.endpoint);
+  }
+
+  add(template: NewTemplate) {
+    return this.httpService.post(this.endpoint, template);
   }
 }
