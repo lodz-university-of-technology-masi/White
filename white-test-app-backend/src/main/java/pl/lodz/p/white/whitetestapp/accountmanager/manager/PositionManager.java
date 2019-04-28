@@ -2,16 +2,15 @@ package pl.lodz.p.white.whitetestapp.accountmanager.manager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.white.whitetestapp.accountmanager.response.PositionResponse;
 import pl.lodz.p.white.whitetestapp.accountmanager.response.mapper.PositionMapper;
-import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.white.whitetestapp.accountmanager.service.PositionService;
 import pl.lodz.p.white.whitetestapp.model.Position;
 import pl.lodz.p.white.whitetestapp.repository.PositionRepository;
 
-import java.util.Optional;
-
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +36,10 @@ public class PositionManager implements PositionService {
                 .stream()
                 .map(PositionMapper::toPositionResponse)
                 .collect(Collectors.toList());
+    }
+    @Override
+    public Position findOne(String id){
+        return repository.findById(id).orElse(null);
     }
 
     @Transactional(readOnly = false)

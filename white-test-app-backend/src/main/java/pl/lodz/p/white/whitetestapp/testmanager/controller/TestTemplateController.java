@@ -41,15 +41,15 @@ public class TestTemplateController {
         return ResponseEntity.ok(service.getAll());
     }
 
-    @RequestMapping(value = "/setposition/{id}/{positionId}", method = RequestMethod.POST)
-    ResponseEntity assignPositionToQuestion(@PathVariable("id") Long id, @PathVariable("positionId") String positionId) {
+    @RequestMapping(value = "/setposition/{id}/{positionId}", method = RequestMethod.PUT)
+    ResponseEntity assignPositionToTest(@PathVariable("id") Long id, @PathVariable("positionId") String positionId) {
         ApiResponse response = new ApiResponse();
-        TestTemplate expected = service.getOne(id);
+        TestTemplate expected = service.findOne(id);
         Position expectedPosition = positionService.getOne(positionId);
         if(expectedPosition == null || expected == null){
             response.setMessage(GIVEN_DATA_WAS_NULL);
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(response);
-        } else if(service.setPositionForTest(id,expectedPosition) == 1){
+        } else if(service.setPositionForTest(expected,expectedPosition) == 1){
             response.setMessage(OBJECT_UPDATE);
             return ResponseEntity.status(HttpStatus.OK).body(response);
         } else {

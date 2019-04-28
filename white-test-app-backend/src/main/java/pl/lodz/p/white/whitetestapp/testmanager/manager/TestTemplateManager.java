@@ -34,6 +34,12 @@ public class TestTemplateManager implements TestTemplateService {
     }
 
     @Override
+    public TestTemplate findOne(Long id){
+        TestTemplate object = repository.findById(id).orElse(null);
+        return object;
+    }
+
+    @Override
     public List<TestTemplateResponse> getAll() {
         return repository
                 .findAll()
@@ -44,11 +50,10 @@ public class TestTemplateManager implements TestTemplateService {
     }
 
     @Override
-    public int setPositionForTest(Long testId, Position position) {
+    public int setPositionForTest(TestTemplate test, Position position) {
         try{
-            TestTemplate object = repository.getOne(testId);
-            object.setPosition(position);
-            repository.saveAndFlush(object);
+            test.setPosition(position);
+            repository.saveAndFlush(test);
             return 1;
         } catch (PersistenceException e){
             return 0;

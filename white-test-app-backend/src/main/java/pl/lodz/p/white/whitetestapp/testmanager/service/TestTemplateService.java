@@ -10,7 +10,9 @@ public interface TestTemplateService {
 
     TestTemplate getOne(Long id);
 
+    TestTemplate findOne(Long id);
+
     List<TestTemplateResponse> getAll();
 
-    int setPositionForTest(Long testId, Position position);
+    int setPositionForTest(TestTemplate test, Position position);
 }
