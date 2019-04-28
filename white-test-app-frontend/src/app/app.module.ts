@@ -15,6 +15,9 @@ import {TestTemplateService} from './services/test-template.service';
 import { PositionsComponent } from './positions/positions.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {PositionsService} from './services/positions.service';
+import {ToastrModule} from 'ng6-toastr-notifications';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MessageService} from './services/message.service';
 
 @NgModule({
   declarations: [
@@ -30,14 +33,17 @@ import {PositionsService} from './services/positions.service';
     CollapseModule.forRoot(),
     HttpClientModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     Configuration,
     HttpErrorHandlerService,
     HttpService,
     TestTemplateService,
-    PositionsService
+    PositionsService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

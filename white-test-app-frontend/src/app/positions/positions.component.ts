@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PositionsService} from '../services/positions.service';
 import {Position} from './model/position';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {MessageService} from '../services/message.service';
 
 @Component({
   selector: 'app-positions',
@@ -15,20 +16,27 @@ export class PositionsComponent implements OnInit {
   closeResult: string;
 
   constructor(private positionsService: PositionsService,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private messageService: MessageService) {
+  }
 
   open(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {}, (reason) => {});
   }
 
   addNew() {
-    this.positionsService.addNew(this.position).subscribe(success => {});
+    this.positionsService.addNew(this.position).subscribe(success => {
+      this.messageService.success('Sukces');
+    }, error => {
+      this.messageService.error('Błąd');
+    });
   }
 
   ngOnInit() {
     this.position = new Position();
     this.loadPositions();
   }
+
   loadPositions() {
     this.positionsService.getAllPositions().subscribe( t => {this.positions = t; console.log(t); } );
   }
