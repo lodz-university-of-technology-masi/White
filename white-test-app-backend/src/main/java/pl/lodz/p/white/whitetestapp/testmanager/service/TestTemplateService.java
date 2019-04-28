@@ -1,5 +1,6 @@
 package pl.lodz.p.white.whitetestapp.testmanager.service;
 
+import pl.lodz.p.white.whitetestapp.model.Position;
 import pl.lodz.p.white.whitetestapp.model.TestTemplate;
 import pl.lodz.p.white.whitetestapp.testmanager.response.TestTemplateResponse;
 
@@ -9,5 +10,9 @@ public interface TestTemplateService {
 
     TestTemplate getOne(Long id);
 
+    TestTemplate findOne(Long id);
+
     List<TestTemplateResponse> getAll();
+
+    int setPositionForTest(TestTemplate test, Position position);
 }
