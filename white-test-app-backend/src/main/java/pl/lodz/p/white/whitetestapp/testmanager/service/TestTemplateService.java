@@ -12,5 +12,5 @@ public interface TestTemplateService {
 
     List<TestTemplateResponse> getAll();
 
-    int setPositionForTest(Long testId, Position positionId);
+    int setPositionForTest(Long testId, Position position);
 }
