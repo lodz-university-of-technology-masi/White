@@ -45,7 +45,8 @@ public class TestTemplateController {
     ResponseEntity assignPositionToTest(@PathVariable("id") Long id, @PathVariable("positionId") String positionId) {
         ApiResponse response = new ApiResponse();
         TestTemplate expected = service.findOne(id);
-        Position expectedPosition = positionService.getOne(positionId);
+        String fixedPosId = positionId.replace("+", " ");
+        Position expectedPosition = positionService.getOne(fixedPosId);
         if(expectedPosition == null || expected == null){
             response.setMessage(GIVEN_DATA_WAS_NULL);
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(response);

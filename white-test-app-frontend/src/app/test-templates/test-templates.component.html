@@ -1,3 +1,4 @@
+
 <h1>Testy</h1>
 
 <table class="table table-striped" align="center">
@@ -19,7 +20,7 @@
     <td>{{test.lang}}</td>
     <td>
       <a routerLink="/test/{{test.id}}">
-        <button type="submit" class="btn btn-primary mb-2">Edytuj</button>
+        <button type="submit" class="btn btn-primary mb-2" (click)="open(edit_modal,test)">Edytuj</button>
       </a>
     </td>
   </tr>
