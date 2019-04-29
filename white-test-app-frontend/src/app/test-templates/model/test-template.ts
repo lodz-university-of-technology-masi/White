@@ -4,4 +4,5 @@ export class TestTemplate {
   author: string;
   position: string;
   lang: string;
+  testTemplateId: number;
 }

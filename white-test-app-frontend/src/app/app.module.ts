@@ -10,7 +10,7 @@ import {HttpService} from './services/http-service.service';
 import {HttpClientModule} from '@angular/common/http';
 import {Configuration} from './configuration';
 import {FormsModule} from '@angular/forms';
-import { TestTemplatesComponent } from './test-templates/test-templates.component';
+import {NgbdModalContent, NgbdModalEditPosition, TestTemplatesComponent} from './test-templates/test-templates.component';
 import {TestTemplateService} from './services/test-template.service';
 import { PositionsComponent } from './positions/positions.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -24,7 +24,9 @@ import {MessageService} from './services/message.service';
     AppComponent,
     NavbarComponent,
     TestTemplatesComponent,
-    PositionsComponent
+    PositionsComponent,
+    NgbdModalContent,
+    NgbdModalEditPosition
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,8 @@ import {MessageService} from './services/message.service';
     PositionsService,
     MessageService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [NgbdModalContent, NgbdModalEditPosition]
 })
 export class AppModule {
 }

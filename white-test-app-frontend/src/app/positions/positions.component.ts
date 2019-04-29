@@ -21,12 +21,13 @@ export class PositionsComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {}, (reason) => {});
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => { }, (reason) => {});
   }
 
   addNew() {
     this.positionsService.addNew(this.position).subscribe(success => {
       this.messageService.success('Sukces');
+      this.loadPositions();
     }, error => {
       this.messageService.error('Błąd');
     });
