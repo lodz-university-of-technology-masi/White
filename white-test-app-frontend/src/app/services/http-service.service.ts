@@ -26,14 +26,14 @@ export class HttpService {
     });
   }
 
-  // put<T>(endpoint: string, body, httpOptions = {}): Observable<T> {
-  //   return this.http.put<T>(endpoint, body, {
-  //     headers: this.headers,
-  //     ...httpOptions
-  //   });
-  // }
+  put<T>(endpoint: string, body, httpOptions = {}): Observable<T> {
+    return this.http.put<T>(endpoint, body, {
+      headers: this.headers,
+      ...httpOptions
+    });
+  }
 
-  put<T>(endpoint: string, httpOptions = {}): Observable<T> {
+  putWithoutBody<T>(endpoint: string, httpOptions = {}): Observable<T> {
     return this.http.put<T>(endpoint, {
       headers: this.headers,
       ...httpOptions

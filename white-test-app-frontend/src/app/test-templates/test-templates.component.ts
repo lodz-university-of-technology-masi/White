@@ -7,31 +7,7 @@ import {Position} from '../positions/model/position';
 
 @Component({
   selector: 'ngbd-modal-edit-position',
-  template: `
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-position-title">Edycja stanowiska w teście</h4>
-      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form>
-        <div class="form-group" *ngIf="positions">
-          <select [(ngModel)]="selectedPosition" name="first">
-            <option *ngFor="let position of positions">
-              {{position.name}}
-            </option>
-          </select>
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark"
-              (click)="activeModal.close('Save click'); assignPositionToTest(test.testTemplateId) ">
-        Zapisz
-      </button>
-    </div>
-  `
+  templateUrl: './edit-position-in-test.html'
 })
 export class NgbdModalEditPosition implements OnInit {
   @Input() test;
@@ -67,25 +43,7 @@ export class NgbdModalEditPosition implements OnInit {
 
 @Component({
   selector: 'ngbd-modal-content',
-  template: `
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Edycja testu</h4>
-      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <button type="button" class="btn btn-primary mb-2" (click)="open(test)">Zmień stanowisko</button>
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Save click');">Zapisz</button>
-    </div>
-
-  `
+  templateUrl: './edit-test-modal.html'
 })
 export class NgbdModalContent {
   @Input() test;

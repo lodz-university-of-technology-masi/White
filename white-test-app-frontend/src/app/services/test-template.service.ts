@@ -23,7 +23,7 @@ export class TestTemplateService {
 
   assignPositionToTest(id, positionId) {
     const url = this.endpoint + `/setposition/${id}/${positionId}`;
-    return this.httpService.put<ApiResponse>(url);
+    return this.httpService.putWithoutBody<ApiResponse>(url);
   }
 
 }
