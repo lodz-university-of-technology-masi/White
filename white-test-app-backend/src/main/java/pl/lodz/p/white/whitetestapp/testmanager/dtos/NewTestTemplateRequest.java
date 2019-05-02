@@ -42,4 +42,13 @@ public class NewTestTemplateRequest {
         this.author = author;
         return this;
     }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public NewTestTemplateRequest setLang(String lang) {
+        this.lang = lang;
+        return this;
+    }
 }

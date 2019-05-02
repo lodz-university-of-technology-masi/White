@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import pl.lodz.p.white.whitetestapp.model.ApiResponse;
 import pl.lodz.p.white.whitetestapp.model.TestTemplate;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.NewTestTemplateRequest;
 import pl.lodz.p.white.whitetestapp.testmanager.service.TestTemplateService;
 
 @Controller
@@ -33,13 +34,13 @@ public class TestTemplateController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity addNewTestTemplate(@RequestBody TestTemplate testTemplate) {
+    ResponseEntity addNewTestTemplate(@RequestBody NewTestTemplateRequest newTestTemplateRequest) {
         ApiResponse response = new ApiResponse();
-        if (service.getOne(testTemplate.getId()) != null) {
+        if (service.getOne(newTestTemplateRequest.getId()) != null) {
             response.setMessage(TEST_TEMPLATE_COULDN_T_BE_CREATED);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         } else {
-            service.addNewTestTemplate(testTemplate);
+            service.addNewTestTemplate(newTestTemplateRequest);
             response.setMessage(TEST_TEMPLATE_WAS_CREATED);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }
