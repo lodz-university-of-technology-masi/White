@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.lodz.p.white.whitetestapp.model.TestTemplate;
 import pl.lodz.p.white.whitetestapp.repository.TestTemplateRepository;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.NewTestTemplateRequest;
 import pl.lodz.p.white.whitetestapp.testmanager.response.TestTemplateResponse;
 import pl.lodz.p.white.whitetestapp.testmanager.response.mapper.TestTemplateMapper;
 import pl.lodz.p.white.whitetestapp.testmanager.service.TestTemplateService;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class TestTemplateManager implements TestTemplateService {
 
-    TestTemplateRepository repository;
+    private TestTemplateRepository repository;
 
     @Override
     public TestTemplate getOne(Long id) {
@@ -32,8 +33,8 @@ public class TestTemplateManager implements TestTemplateService {
     }
 
     @Override
-    public TestTemplate addNewTestTemplate(TestTemplate testTemplate) {
-        return repository.save(testTemplate);
+    public TestTemplate addNewTestTemplate(NewTestTemplateRequest newTestTemplateRequest) {
+        return repository.saveAndFlush(); //TODO: map to testTemplate
     }
 
     @Autowired

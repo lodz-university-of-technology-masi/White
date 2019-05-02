@@ -1,6 +1,7 @@
 package pl.lodz.p.white.whitetestapp.testmanager.service;
 
 import pl.lodz.p.white.whitetestapp.model.TestTemplate;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.NewTestTemplateRequest;
 import pl.lodz.p.white.whitetestapp.testmanager.response.TestTemplateResponse;
 
 import java.util.List;
@@ -11,5 +12,5 @@ public interface TestTemplateService {
 
     List<TestTemplateResponse> getAll();
 
-    TestTemplate addNewTestTemplate(TestTemplate testTemplate);
+    TestTemplate addNewTestTemplate(NewTestTemplateRequest testTemplate);
 }
