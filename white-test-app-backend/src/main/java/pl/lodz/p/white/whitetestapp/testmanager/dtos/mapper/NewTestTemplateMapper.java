@@ -14,7 +14,7 @@ public class NewTestTemplateMapper {
 
     public static TestTemplate toTestTemplate(NewTestTemplateRequest newTestTemplateRequest){
         Account author = accountRepository.findByUsername(newTestTemplateRequest.getAuthor());
-        Position position = positionRepository.findByName(newTestTemplateRequest.getTestName());
+        Position position = positionRepository.findByName(newTestTemplateRequest.getPosition());
         String lang = newTestTemplateRequest.getLang();
 
         TestTemplate newTestTemplate = new TestTemplate();
