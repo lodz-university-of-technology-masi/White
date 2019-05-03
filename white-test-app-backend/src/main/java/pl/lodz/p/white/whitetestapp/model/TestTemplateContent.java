@@ -24,9 +24,6 @@ public class TestTemplateContent {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Account> users;
 
-    @Version
-    private Long version;
-
     public Long getId() {
         return id;
     }
@@ -51,15 +48,6 @@ public class TestTemplateContent {
 
     public TestTemplateContent setUsers(List<Account> users) {
         this.users = users;
-        return this;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public TestTemplateContent setVersion(Long version) {
-        this.version = version;
         return this;
     }
 }
