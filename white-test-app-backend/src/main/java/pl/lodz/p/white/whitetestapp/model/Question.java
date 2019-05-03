@@ -31,9 +31,6 @@ public class Question {
     @Enumerated(STRING)
     private QuestionType questionType;
 
-    @Version
-    private Long version;
-
     public Long getId() {
         return id;
     }
@@ -67,15 +64,6 @@ public class Question {
 
     public Question setQuestionType(QuestionType questionType) {
         this.questionType = questionType;
-        return this;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public Question setVersion(Long version) {
-        this.version = version;
         return this;
     }
 }
