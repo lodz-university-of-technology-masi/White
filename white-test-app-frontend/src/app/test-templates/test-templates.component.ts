@@ -4,6 +4,7 @@ import {TestTemplateService} from '../services/test-template.service';
 import {NgbActiveModal, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {PositionsService} from '../services/positions.service';
 import {Position} from '../positions/model/position';
+import {MessageService} from '../services/message.service';
 
 @Component({
   selector: 'ngbd-modal-edit-position',
@@ -75,6 +76,7 @@ export class TestTemplatesComponent implements OnInit {
   positions: Position[];
 
   constructor(private testTemplateService: TestTemplateService,
+              private messageService: MessageService,
               private modalService: NgbModal) {
   }
 
@@ -97,6 +99,14 @@ export class TestTemplatesComponent implements OnInit {
     }, (reason) => {
       this.loadTemplates();
     });
+  }
+
+  translate(templateId: number, currentLang: string) {
+    this.testTemplateService.translate(templateId, currentLang).subscribe(s => {
+        this.messageService.success('Sukces');
+        this.loadTemplates();
+      },
+      e => this.messageService.error('Błąd'));
   }
 
 }

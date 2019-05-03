@@ -11,8 +11,11 @@ public class TranslatorManager implements TranslatorService {
     private Translate translate;
 
     public TranslatorManager() {
-        this.translate = TranslateOptions.newBuilder().setApiKey("AIzaSyDeOcjvFJprDnFryVjGm9WP2KWVYUjSojA").build().getService();
-
+        this.translate = TranslateOptions
+                .newBuilder()
+                .setApiKey("AIzaSyDeOcjvFJprDnFryVjGm9WP2KWVYUjSojA")
+                .build()
+                .getService();
     }
 
     @Override

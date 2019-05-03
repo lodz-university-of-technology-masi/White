@@ -72,10 +72,10 @@ public class TestTemplateManager implements TestTemplateService {
     @Override
     public void translate(Long id, String sourceLang) {
         String targetLang = sourceLang.equals(PL) ? EN : PL;
-        repository.findById(id).ifPresent( testTemplate -> {
+        repository.findById(id).ifPresent(testTemplate -> {
             TestTemplateContent source;
             TestTemplateContent target = new TestTemplateContent();
-            if(sourceLang.equals(PL)) {
+            if (sourceLang.equals(PL)) {
                 source = testTemplate.getPlVersion();
                 testTemplate.setEnVersion(target);
             } else {
@@ -98,7 +98,7 @@ public class TestTemplateManager implements TestTemplateService {
         String questionContent = translatorService.translateSentence(question.getContent(), sourceLang, targetLang);
         translateQuestion.setContent(questionContent);
 
-        question.getAnswers().forEach( answer -> {
+        question.getAnswers().forEach(answer -> {
             Answer translateAnswer = translateAnswer(sourceLang, targetLang, answer);
             translateQuestion.getAnswers().add(translateAnswer);
         });

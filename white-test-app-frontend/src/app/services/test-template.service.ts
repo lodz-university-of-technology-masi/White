@@ -26,4 +26,8 @@ export class TestTemplateService {
     return this.httpService.putWithoutBody<ApiResponse>(url);
   }
 
+  translate(id: number, currentLang: string) {
+    return this.httpService.put(this.endpoint + '/translate/' + id + '?lang=' + currentLang, {});
+  }
+
 }
