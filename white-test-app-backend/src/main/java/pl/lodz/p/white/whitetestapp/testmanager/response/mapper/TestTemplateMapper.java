@@ -8,6 +8,8 @@ import pl.lodz.p.white.whitetestapp.testmanager.response.TestTemplateResponse;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import static pl.lodz.p.white.whitetestapp.Constants.EN;
+import static pl.lodz.p.white.whitetestapp.Constants.PL;
 import static pl.lodz.p.white.whitetestapp.utils.Utils.optGet;
 
 public class TestTemplateMapper {
@@ -20,13 +22,13 @@ public class TestTemplateMapper {
                 new TestTemplateResponse()
                         .setId(testTemplate.getPlVersion().getId())
                         .setAuthor(author)
-                        .setLang("PL")
+                        .setLang(PL)
                         .setPosition(position)
                         .setTestTemplateId(templateId),
                 new TestTemplateResponse()
                         .setId(testTemplate.getEnVersion().getId())
                         .setAuthor(author)
-                        .setLang("EN")
+                        .setLang(EN)
                         .setPosition(position)
                         .setTestTemplateId(templateId)
         );

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.lodz.p.white.whitetestapp.accountmanager.service.PositionService;
 import pl.lodz.p.white.whitetestapp.model.ApiResponse;
@@ -57,5 +58,11 @@ public class TestTemplateController {
             response.setMessage(UNABLE_TO_EXECUTE_QUERY);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
+    }
+
+    @RequestMapping(value = "/translate/{id}", method = RequestMethod.PUT)
+    ResponseEntity translateTest(@PathVariable("id") Long id, @RequestParam("lang") String sourceLang) {
+        service.translate(id, sourceLang);
+        return ResponseEntity.ok().build();
     }
 }
