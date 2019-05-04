@@ -1,3 +1,5 @@
+<button class="btn btn-primary mb-2" (click)="open(content)">Dodaj</button>
+
 <h1>Testy</h1>
 <ng-template #new-test-content let-modal>
   <div class="modal-header">
@@ -8,9 +10,31 @@
   </div>
   <div class="modal-body">
     <form>
-      <div class="form-group">
+      <div class="form-row form-group">
         <label>Nazwa: &nbsp;</label>
-        <input [(ngModel)]="position.name" type="text"  name="Nazwa">
+        <label>
+          <input [(ngModel)]="newTemplate.testName" type="text" name="Nazwa">
+        </label>
+      </div>
+
+      <div class="form-row form-group">
+        <label for="lang" class="required-sign">Język</label>
+        <select [(ngModel)]="newTemplate.lang" class="form-control field-restriction"
+                id="lang"
+                name="lang">
+          <option [ngValue]="PL">polski</option>
+          <option [ngValue]="EN">angielski</option>
+        </select>
+      </div>
+
+      <div class="form-row form-group">
+        <label for="position"
+               class="required-sign">Stanowisko</label>
+        <select [(ngModel)]="newTemplate.position" class="form-control field-restriction"
+                id="position"
+                name="position">
+          <option *ngFor="let p of positions" [ngValue]="p">p</option>
+        </select>
       </div>
     </form>
   </div>
