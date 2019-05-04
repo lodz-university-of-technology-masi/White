@@ -39,7 +39,7 @@ public class TestTemplateController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    TestTemplate get(@PathVariable("id") Long id) {
+    TestTemplate get(@PathVariable("id") Long id) throws EntityNotFoundException {
         return service.getOne(id);
     }
 
@@ -49,16 +49,13 @@ public class TestTemplateController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity addNewTestTemplate(@RequestBody NewTestTemplateRequest newTestTemplateRequest) {
+    ResponseEntity addNewTestTemplate(@RequestBody NewTestTemplateRequest newTestTemplateRequest) throws EntityNotFoundException, WrongRequestException {
         ApiResponse response = new ApiResponse();
-        if (service.getOne(newTestTemplateRequest.getId()) != null) {
-            response.setMessage(TEST_TEMPLATE_COULDN_T_BE_CREATED);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-        } else {
-            service.addNewTestTemplate(newTestTemplateRequest);
-            response.setMessage(TEST_TEMPLATE_WAS_CREATED);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        }
+        service.getOne(newTestTemplateRequest.getId());
+        service.addNewTestTemplate(newTestTemplateRequest);
+        response.setMessage(TEST_TEMPLATE_WAS_CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
     }
 
     @RequestMapping(value = "/setposition/{id}/{positionId}", method = RequestMethod.PUT)

@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
 import pl.lodz.p.white.whitetestapp.exception.FailedSaveException;
+import pl.lodz.p.white.whitetestapp.exception.WrongRequestException;
 import pl.lodz.p.white.whitetestapp.model.Answer;
 import pl.lodz.p.white.whitetestapp.model.Position;
 import pl.lodz.p.white.whitetestapp.model.Question;
 import pl.lodz.p.white.whitetestapp.model.TestTemplate;
 import pl.lodz.p.white.whitetestapp.model.TestTemplateContent;
+import pl.lodz.p.white.whitetestapp.repository.AccountRepository;
+import pl.lodz.p.white.whitetestapp.repository.PositionRepository;
 import pl.lodz.p.white.whitetestapp.repository.TestTemplateRepository;
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.NewTestTemplateRequest;
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.mapper.NewTestTemplateMapper;
@@ -29,19 +32,23 @@ public class TestTemplateManager implements TestTemplateService {
 
     TestTemplateRepository repository;
     TranslatorService translatorService;
+    AccountRepository accountRepository;
+    PositionRepository positionRepository;
 
     @Autowired
-    public TestTemplateManager(TestTemplateRepository repository, TranslatorService translatorService) {
+    public TestTemplateManager(TestTemplateRepository repository, TranslatorService translatorService, AccountRepository accountRepository, PositionRepository positionRepository) {
         this.repository = repository;
         this.translatorService = translatorService;
+        this.accountRepository = accountRepository;
+        this.positionRepository = positionRepository;
     }
 
     @Override
-    public TestTemplate getOne(Long id)  {
+    public TestTemplate getOne(Long id) throws EntityNotFoundException {
         try {
             return repository.getOne(id);
         } catch (PersistenceException e) {
-            return null;
+            throw new EntityNotFoundException();
         }
     }
 
@@ -62,16 +69,16 @@ public class TestTemplateManager implements TestTemplateService {
     }
 
     @Override
-    public TestTemplate addNewTestTemplate(NewTestTemplateRequest newTestTemplateRequest) {
-        TestTemplate testTemplate = NewTestTemplateMapper.toTestTemplate(newTestTemplateRequest);
+    public TestTemplate addNewTestTemplate(NewTestTemplateRequest newTestTemplateRequest) throws WrongRequestException {
+        TestTemplate testTemplate = NewTestTemplateMapper.toTestTemplate(newTestTemplateRequest, accountRepository, positionRepository);
         return repository.saveAndFlush(testTemplate);
     }
 
     public void setPositionForTest(TestTemplate test, Position position) throws FailedSaveException {
-        try{
+        try {
             test.setPosition(position);
             repository.saveAndFlush(test);
-        } catch (PersistenceException e){
+        } catch (PersistenceException e) {
             throw new FailedSaveException(FailedSaveException.OPERATION_EXECUTION_ERROR_SAVE);
         }
     }
