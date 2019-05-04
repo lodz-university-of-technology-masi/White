@@ -15,4 +15,7 @@ public interface TestTemplateService {
     List<TestTemplateResponse> getAll();
 
     int setPositionForTest(TestTemplate test, Position position);
+
+    void translate(Long id, String sourceLang);
+
 }

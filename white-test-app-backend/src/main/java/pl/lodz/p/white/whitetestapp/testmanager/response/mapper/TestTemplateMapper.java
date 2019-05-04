@@ -5,9 +5,12 @@ import pl.lodz.p.white.whitetestapp.model.Position;
 import pl.lodz.p.white.whitetestapp.model.TestTemplate;
 import pl.lodz.p.white.whitetestapp.testmanager.response.TestTemplateResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import static pl.lodz.p.white.whitetestapp.Constants.EN;
+import static pl.lodz.p.white.whitetestapp.Constants.PL;
 import static pl.lodz.p.white.whitetestapp.utils.Utils.optGet;
 
 public class TestTemplateMapper {
@@ -16,19 +19,25 @@ public class TestTemplateMapper {
         Long templateId = testTemplate.getId();
         String author = optGet(testTemplate.getAuthor(), Account::getUsername);
         String position = optGet(testTemplate.getPosition(), Position::getName);
-        return asList(
-                new TestTemplateResponse()
-                        .setId(testTemplate.getPlVersion().getId())
-                        .setAuthor(author)
-                        .setLang("PL")
-                        .setPosition(position)
-                        .setTestTemplateId(templateId),
-                new TestTemplateResponse()
-                        .setId(testTemplate.getEnVersion().getId())
-                        .setAuthor(author)
-                        .setLang("EN")
-                        .setPosition(position)
-                        .setTestTemplateId(templateId)
-        );
+        List<TestTemplateResponse> response =  new ArrayList<>();
+
+        if(testTemplate.getPlVersion() != null) {
+            response.add(new TestTemplateResponse()
+                    .setId(testTemplate.getPlVersion().getId())
+                    .setAuthor(author)
+                    .setLang(PL)
+                    .setPosition(position)
+                    .setTestTemplateId(templateId));
+        }
+
+        if(testTemplate.getEnVersion() != null) {
+            response.add( new TestTemplateResponse()
+                    .setId(testTemplate.getEnVersion().getId())
+                    .setAuthor(author)
+                    .setLang(EN)
+                    .setPosition(position)
+                    .setTestTemplateId(templateId));
+        }
+        return response;
     }
 }
