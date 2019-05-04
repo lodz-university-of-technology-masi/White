@@ -25,8 +25,7 @@ import pl.lodz.p.white.whitetestapp.testmanager.service.TestTemplateService;
 @RequestMapping("/api/testtemplate")
 public class TestTemplateController {
 
-    public static final String TEST_TEMPLATE_COULDN_T_BE_CREATED = "Test template couldn't be created";
-    public static final String TEST_TEMPLATE_WAS_CREATED = "Test template was created";
+    private static final String TEST_TEMPLATE_WAS_CREATED = "Test template was created";
     private static final String OBJECT_UPDATE = "Object updated";
     private static final String OBJECT_DELETE = "Object deleted";
 
