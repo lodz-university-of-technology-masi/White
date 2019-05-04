@@ -9,3 +9,6 @@ insert into test_result (id,template_id) values (1039, 1678);
 insert into test_template_content_questions(test_template_content_id, questions_id) VALUES (1032, 1002);
 insert into question_answers (question_id, answers_id) values (1002, 1001);
 
+INSERT INTO roles(name) VALUES('MODERATOR');
+INSERT INTO roles(name) VALUES('REDACTOR');
+INSERT INTO roles(name) VALUES('CANDIDATE');

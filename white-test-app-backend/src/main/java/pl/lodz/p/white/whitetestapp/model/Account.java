@@ -25,7 +25,7 @@ public class Account {
     private String passwordHash;
 
     @Enumerated(STRING)
-    private Role role;
+    private Role2 role;
 
     @Enumerated(STRING)
     private Lang lang;
@@ -69,11 +69,11 @@ public class Account {
         return this;
     }
 
-    public Role getRole() {
+    public Role2 getRole() {
         return role;
     }
 
-    public Account setRole(Role role) {
+    public Account setRole(Role2 role) {
         this.role = role;
         return this;
     }
