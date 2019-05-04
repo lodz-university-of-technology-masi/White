@@ -1,11 +1,17 @@
 package pl.lodz.p.white.whitetestapp.testmanager.dtos;
 
+import pl.lodz.p.white.whitetestapp.model.Question;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class NewTestTemplateRequest {
     private Long id;
     private String testName;
     private String position;
     private String author;
     private String lang;
+    private List<Question> questions = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -49,6 +55,15 @@ public class NewTestTemplateRequest {
 
     public NewTestTemplateRequest setLang(String lang) {
         this.lang = lang;
+        return this;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public NewTestTemplateRequest setQuestions(List<Question> questions) {
+        this.questions = questions;
         return this;
     }
 }
