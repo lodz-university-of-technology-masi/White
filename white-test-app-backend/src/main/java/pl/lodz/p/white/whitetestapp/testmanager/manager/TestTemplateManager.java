@@ -126,5 +126,12 @@ public class TestTemplateManager implements TestTemplateService {
         return translateAnswer;
     }
 
-
+    @Override
+    public void deleteTestTemplateById(Long id) throws EntityNotFoundException {
+        try {
+            repository.deleteById(id);
+        } catch (PersistenceException e) {
+            throw new EntityNotFoundException();
+        }
+    }
 }
