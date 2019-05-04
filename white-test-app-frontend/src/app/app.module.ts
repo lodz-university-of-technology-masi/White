@@ -10,18 +10,23 @@ import {HttpService} from './services/http-service.service';
 import {HttpClientModule} from '@angular/common/http';
 import {Configuration} from './configuration';
 import {FormsModule} from '@angular/forms';
-import { TestTemplatesComponent } from './test-templates/test-templates.component';
+import {NgbdModalContent, NgbdModalEditPosition, TestTemplatesComponent} from './test-templates/test-templates.component';
 import {TestTemplateService} from './services/test-template.service';
 import { PositionsComponent } from './positions/positions.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {PositionsService} from './services/positions.service';
+import {ToastrModule} from 'ng6-toastr-notifications';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MessageService} from './services/message.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     TestTemplatesComponent,
-    PositionsComponent
+    PositionsComponent,
+    NgbdModalContent,
+    NgbdModalEditPosition
   ],
   imports: [
     BrowserModule,
@@ -30,16 +35,20 @@ import {PositionsService} from './services/positions.service';
     CollapseModule.forRoot(),
     HttpClientModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     Configuration,
     HttpErrorHandlerService,
     HttpService,
     TestTemplateService,
-    PositionsService
+    PositionsService,
+    MessageService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [NgbdModalContent, NgbdModalEditPosition]
 })
 export class AppModule {
 }

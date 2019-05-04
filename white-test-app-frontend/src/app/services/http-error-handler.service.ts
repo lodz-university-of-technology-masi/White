@@ -4,6 +4,7 @@ import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest}
 import {ErrorObservable} from 'rxjs-compat/observable/ErrorObservable';
 import {Observable, throwError} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
+import {MessageService} from './message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class HttpErrorHandlerService implements HttpInterceptor {
   private forbiddenErrorCode = 403;
   private internalErrorCode = 500;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private messageService: MessageService) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -30,13 +32,15 @@ export class HttpErrorHandlerService implements HttpInterceptor {
           } else {
             // The backend returned an unsuccessful response code.
             // The response body may contain clues as to what went wrong,
-            if (error.status === this.notAuthorizedUserErrorCode || error.status === this.internalErrorCode) {
-              // TODO
+            if (error.status === this.notAuthorizedUserErrorCode) {
+             // this.router.navigateByUrl('/login'); //TODO: odkomentowac i dostosować path gdy będzie już logowanie
+              this.messageService.error('Nieautoryzowany dostęp');
             } else if (error.status === this.forbiddenErrorCode) {
-              // TODO
+              this.messageService.error('Zabroniona akcja');
             } else if (error.status === this.badRequest) {
-              // TODO
+              this.messageService.error('Błąd');
             } else {
+              this.messageService.error('Błąd serwera');
               console.error(
                 `Backend returned code ${error.status}, ` +
                 `body was: ${error.error}`);

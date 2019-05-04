@@ -1,3 +1,3 @@
 export class Position {
-  name: String;
+  name: string;
 }

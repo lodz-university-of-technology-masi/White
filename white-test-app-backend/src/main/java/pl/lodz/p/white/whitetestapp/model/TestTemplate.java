@@ -1,14 +1,6 @@
 package pl.lodz.p.white.whitetestapp.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Version;
+import javax.persistence.*;
 
 @Entity
 @Table
@@ -18,23 +10,20 @@ public class TestTemplate {
     private Long id;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "position_id", referencedColumnName = "name", insertable = false, updatable = false)
+    @JoinColumn(name = "position_id", referencedColumnName = "name")
     private Position position;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "pl_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "pl_id", referencedColumnName = "id")
     private TestTemplateContent plVersion;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "en_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "en_id", referencedColumnName = "id")
     private TestTemplateContent enVersion;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "author_id", referencedColumnName = "username", insertable = false, updatable = false)
+    @JoinColumn(name = "author_id", referencedColumnName = "username")
     private Account author;
-
-    @Version
-    private Long version;
 
     public Long getId() {
         return id;
@@ -78,15 +67,6 @@ public class TestTemplate {
 
     public TestTemplate setAuthor(Account author) {
         this.author = author;
-        return this;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public TestTemplate setVersion(Long version) {
-        this.version = version;
         return this;
     }
 }

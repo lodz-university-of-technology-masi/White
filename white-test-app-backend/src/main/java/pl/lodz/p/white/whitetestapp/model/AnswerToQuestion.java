@@ -1,15 +1,14 @@
 package pl.lodz.p.white.whitetestapp.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.GenerationType;
-import javax.persistence.Version;
-import javax.persistence.ManyToOne;
-import javax.persistence.CascadeType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Column;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table
@@ -25,9 +24,6 @@ public class AnswerToQuestion {
     @Column(length = 5000)
     private String answer;
     private Boolean isCorrect;
-
-    @Version
-    private Long version;
 
     public Long getId() {
         return id;
@@ -65,12 +61,4 @@ public class AnswerToQuestion {
         return this;
     }
 
-    public Long getVersion() {
-        return version;
-    }
-
-    public AnswerToQuestion setVersion(Long version) {
-        this.version = version;
-        return this;
-    }
 }
