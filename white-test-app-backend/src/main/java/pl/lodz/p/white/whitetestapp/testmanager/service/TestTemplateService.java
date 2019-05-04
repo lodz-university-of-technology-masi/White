@@ -2,6 +2,7 @@ package pl.lodz.p.white.whitetestapp.testmanager.service;
 
 import pl.lodz.p.white.whitetestapp.model.Position;
 import pl.lodz.p.white.whitetestapp.model.TestTemplate;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.NewTestTemplateRequest;
 import pl.lodz.p.white.whitetestapp.testmanager.response.TestTemplateResponse;
 
 import java.util.List;
@@ -14,8 +15,9 @@ public interface TestTemplateService {
 
     List<TestTemplateResponse> getAll();
 
+    TestTemplate addNewTestTemplate(NewTestTemplateRequest testTemplate);
+
     int setPositionForTest(TestTemplate test, Position position);
 
     void translate(Long id, String sourceLang);
-
 }

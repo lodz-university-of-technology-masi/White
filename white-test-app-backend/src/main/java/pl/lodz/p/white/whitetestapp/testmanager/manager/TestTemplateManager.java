@@ -8,6 +8,8 @@ import pl.lodz.p.white.whitetestapp.model.Question;
 import pl.lodz.p.white.whitetestapp.model.TestTemplate;
 import pl.lodz.p.white.whitetestapp.model.TestTemplateContent;
 import pl.lodz.p.white.whitetestapp.repository.TestTemplateRepository;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.NewTestTemplateRequest;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.mapper.NewTestTemplateMapper;
 import pl.lodz.p.white.whitetestapp.testmanager.response.TestTemplateResponse;
 import pl.lodz.p.white.whitetestapp.testmanager.response.mapper.TestTemplateMapper;
 import pl.lodz.p.white.whitetestapp.testmanager.service.TestTemplateService;
@@ -39,7 +41,6 @@ public class TestTemplateManager implements TestTemplateService {
         } catch (PersistenceException e) {
             return null;
         }
-
     }
 
     @Override
@@ -59,6 +60,11 @@ public class TestTemplateManager implements TestTemplateService {
     }
 
     @Override
+    public TestTemplate addNewTestTemplate(NewTestTemplateRequest newTestTemplateRequest) {
+        TestTemplate testTemplate = NewTestTemplateMapper.toTestTemplate(newTestTemplateRequest);
+        return repository.saveAndFlush(testTemplate);
+    }
+
     public int setPositionForTest(TestTemplate test, Position position) {
         try{
             test.setPosition(position);
