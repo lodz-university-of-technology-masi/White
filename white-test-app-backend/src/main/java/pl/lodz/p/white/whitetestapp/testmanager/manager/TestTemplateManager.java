@@ -2,6 +2,8 @@ package pl.lodz.p.white.whitetestapp.testmanager.manager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
+import pl.lodz.p.white.whitetestapp.exception.FailedSaveException;
 import pl.lodz.p.white.whitetestapp.model.Answer;
 import pl.lodz.p.white.whitetestapp.model.Position;
 import pl.lodz.p.white.whitetestapp.model.Question;
@@ -35,7 +37,7 @@ public class TestTemplateManager implements TestTemplateService {
     }
 
     @Override
-    public TestTemplate getOne(Long id) {
+    public TestTemplate getOne(Long id)  {
         try {
             return repository.getOne(id);
         } catch (PersistenceException e) {
@@ -44,8 +46,8 @@ public class TestTemplateManager implements TestTemplateService {
     }
 
     @Override
-    public TestTemplate findOne(Long id){
-        TestTemplate object = repository.findById(id).orElse(null);
+    public TestTemplate findOne(Long id) throws EntityNotFoundException {
+        TestTemplate object = repository.findById(id).orElseThrow(EntityNotFoundException::new);
         return object;
     }
 
@@ -65,13 +67,12 @@ public class TestTemplateManager implements TestTemplateService {
         return repository.saveAndFlush(testTemplate);
     }
 
-    public int setPositionForTest(TestTemplate test, Position position) {
+    public void setPositionForTest(TestTemplate test, Position position) throws FailedSaveException {
         try{
             test.setPosition(position);
             repository.saveAndFlush(test);
-            return 1;
         } catch (PersistenceException e){
-            return 0;
+            throw new FailedSaveException(FailedSaveException.OPERATION_EXECUTION_ERROR_SAVE);
         }
     }
 

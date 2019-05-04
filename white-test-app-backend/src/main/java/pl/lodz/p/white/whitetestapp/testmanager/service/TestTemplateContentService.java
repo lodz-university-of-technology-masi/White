@@ -1,5 +1,7 @@
 package pl.lodz.p.white.whitetestapp.testmanager.service;
 
+import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
+import pl.lodz.p.white.whitetestapp.exception.FailedSaveException;
 import pl.lodz.p.white.whitetestapp.model.Question;
 import pl.lodz.p.white.whitetestapp.model.TestTemplateContent;
 
@@ -7,7 +9,7 @@ public interface TestTemplateContentService {
 
     TestTemplateContent getOne(Long id);
 
-    TestTemplateContent findOne(Long id);
+    TestTemplateContent findOne(Long id) throws EntityNotFoundException;
 
-    int addQuestionToContent(TestTemplateContent content, Question question);
+    void addQuestionToContent(TestTemplateContent content, Question question) throws FailedSaveException;
 }

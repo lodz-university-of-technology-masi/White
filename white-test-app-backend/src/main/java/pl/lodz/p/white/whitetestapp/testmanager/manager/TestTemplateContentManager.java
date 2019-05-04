@@ -2,6 +2,8 @@ package pl.lodz.p.white.whitetestapp.testmanager.manager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
+import pl.lodz.p.white.whitetestapp.exception.FailedSaveException;
 import pl.lodz.p.white.whitetestapp.model.Question;
 import pl.lodz.p.white.whitetestapp.model.TestTemplateContent;
 import pl.lodz.p.white.whitetestapp.repository.TestTemplateContentRepository;
@@ -20,19 +22,18 @@ public class TestTemplateContentManager implements TestTemplateContentService {
     }
 
     @Override
-    public TestTemplateContent findOne(Long id) {
-        TestTemplateContent object =  repository.findById(id).orElse(null);
+    public TestTemplateContent findOne(Long id) throws EntityNotFoundException {
+        TestTemplateContent object =  repository.findById(id).orElseThrow(EntityNotFoundException::new);
         return object;
     }
 
     @Override
-    public int addQuestionToContent(TestTemplateContent content, Question question) {
+    public void addQuestionToContent(TestTemplateContent content, Question question) throws FailedSaveException {
         try {
             content.getQuestions().add(question);
             repository.saveAndFlush(content);
-            return 1;
         } catch (PersistenceException e){
-            return 0;
+            throw new FailedSaveException(FailedSaveException.OPERATION_EXECUTION_ERROR_SAVE);
         }
     }
 
