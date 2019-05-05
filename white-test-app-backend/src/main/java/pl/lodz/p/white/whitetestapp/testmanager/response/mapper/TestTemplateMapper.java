@@ -20,22 +20,26 @@ public class TestTemplateMapper {
         String position = optGet(testTemplate.getPosition(), Position::getName);
         List<TestTemplateResponse> response =  new ArrayList<>();
 
-        if(testTemplate.getPlVersion() != null && !testTemplate.isDeleted()) {
-            response.add(new TestTemplateResponse()
-                    .setId(testTemplate.getPlVersion().getId())
-                    .setAuthor(author)
-                    .setLang(PL)
-                    .setPosition(position)
-                    .setTestTemplateId(templateId));
+        if(testTemplate.getPlVersion() != null ) {
+            if (!testTemplate.getPlVersion().isDeleted()) {
+                response.add(new TestTemplateResponse()
+                        .setId(testTemplate.getPlVersion().getId())
+                        .setAuthor(author)
+                        .setLang(PL)
+                        .setPosition(position)
+                        .setTestTemplateId(templateId));
+            }
         }
 
-        if(testTemplate.getEnVersion() != null && !testTemplate.isDeleted()) {
-            response.add( new TestTemplateResponse()
-                    .setId(testTemplate.getEnVersion().getId())
-                    .setAuthor(author)
-                    .setLang(EN)
-                    .setPosition(position)
-                    .setTestTemplateId(templateId));
+        if(testTemplate.getEnVersion() != null) {
+            if (!testTemplate.getEnVersion().isDeleted()) {
+                response.add(new TestTemplateResponse()
+                        .setId(testTemplate.getEnVersion().getId())
+                        .setAuthor(author)
+                        .setLang(EN)
+                        .setPosition(position)
+                        .setTestTemplateId(templateId));
+            }
         }
         return response;
     }
