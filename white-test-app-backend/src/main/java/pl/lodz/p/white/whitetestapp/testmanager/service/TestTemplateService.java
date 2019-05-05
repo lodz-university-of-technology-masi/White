@@ -24,5 +24,5 @@ public interface TestTemplateService {
 
     void translate(Long id, String sourceLang);
 
-    void deleteTestTemplateById(Long id) throws EntityNotFoundException;
+    void deleteTestById(Long id, String lang) throws EntityNotFoundException;
 }

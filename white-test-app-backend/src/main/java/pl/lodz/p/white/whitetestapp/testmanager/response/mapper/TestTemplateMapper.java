@@ -8,7 +8,6 @@ import pl.lodz.p.white.whitetestapp.testmanager.response.TestTemplateResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Arrays.asList;
 import static pl.lodz.p.white.whitetestapp.Constants.EN;
 import static pl.lodz.p.white.whitetestapp.Constants.PL;
 import static pl.lodz.p.white.whitetestapp.utils.Utils.optGet;
@@ -21,7 +20,7 @@ public class TestTemplateMapper {
         String position = optGet(testTemplate.getPosition(), Position::getName);
         List<TestTemplateResponse> response =  new ArrayList<>();
 
-        if(testTemplate.getPlVersion() != null) {
+        if(testTemplate.getPlVersion() != null && !testTemplate.isDeleted()) {
             response.add(new TestTemplateResponse()
                     .setId(testTemplate.getPlVersion().getId())
                     .setAuthor(author)
@@ -30,7 +29,7 @@ public class TestTemplateMapper {
                     .setTestTemplateId(templateId));
         }
 
-        if(testTemplate.getEnVersion() != null) {
+        if(testTemplate.getEnVersion() != null && !testTemplate.isDeleted()) {
             response.add( new TestTemplateResponse()
                     .setId(testTemplate.getEnVersion().getId())
                     .setAuthor(author)

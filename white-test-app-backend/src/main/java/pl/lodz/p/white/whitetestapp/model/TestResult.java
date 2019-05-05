@@ -23,7 +23,6 @@ public class TestResult {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "template_id", referencedColumnName = "id", insertable = false, updatable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private TestTemplate testTemplate;
 
     @OneToMany(cascade = CascadeType.ALL)

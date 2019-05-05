@@ -80,9 +80,9 @@ public class TestTemplateController {
     }
 
     @DeleteMapping(value="/{id}")
-     ResponseEntity deleteTestTemplate(@PathVariable Long id) throws EntityNotFoundException {
+     ResponseEntity deleteTest(@PathVariable Long id, @RequestParam("lang") String lang) throws EntityNotFoundException {
         ApiResponse response = new ApiResponse();
-        service.deleteTestTemplateById(id);
+        service.deleteTestById(id, lang);
         response.setMessage(OBJECT_DELETE);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
