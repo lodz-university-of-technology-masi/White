@@ -1,10 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TestTemplate} from './model/test-template';
 import {TestTemplateService} from '../services/test-template.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {NewTemplate} from './model/new-template';
-import {PositionsService} from '../services/positions.service';
 import {NgbActiveModal, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {NewTemplate} from './model/new-template';
 import {PositionsService} from '../services/positions.service';
 import {Position} from '../positions/model/position';
 import {MessageService} from '../services/message.service';
@@ -69,6 +67,41 @@ export class NgbdModalContent {
 }
 
 @Component({
+  selector: 'ngbd-modal-new-modal',
+  templateUrl: './new-test-modal.html'
+})
+export class NgbdModalNewTest implements OnInit {
+  positions: string[];
+  newTemplate: NewTemplate;
+
+  constructor(public activeModal: NgbActiveModal,
+              private testTemplateService: TestTemplateService,
+              private messageService: MessageService,
+              private modalService: NgbModal,
+              private positionsService: PositionsService) {
+
+  }
+
+  ngOnInit(): void {
+    this.newTemplate = new NewTemplate();
+    this.getPositions();
+  }
+
+  private getPositions() {
+    this.positionsService.getAllPositions().subscribe(positions => this.positions = positions.map(p => p.name));
+  }
+
+  addNew() {
+    this.testTemplateService.add(this.newTemplate).subscribe(s => {
+      this.messageService.success('Sukces');
+    }, e => {
+      this.messageService.error('Błąd');
+    });
+  }
+
+}
+
+@Component({
   selector: 'app-test-templates',
   templateUrl: './test-templates.component.html',
   styleUrls: ['./test-templates.component.css']
@@ -76,9 +109,8 @@ export class NgbdModalContent {
 export class TestTemplatesComponent implements OnInit {
 
   testTemplates: TestTemplate[];
-  newTemplate: NewTemplate;
-  positions: string[];
   positions: Position[];
+  ngModalNewTest = NgbdModalNewTest;
 
   constructor(private testTemplateService: TestTemplateService,
               private positionService: PositionsService,
@@ -115,16 +147,11 @@ export class TestTemplatesComponent implements OnInit {
       e => this.messageService.error('Błąd'));
   }
 
-  addNew() {
-    this.testTemplateService.add(this.newTemplate).subscribe(s => {
-    }, e => {
-    });
-  }
-
-  open(content) {
-    this.positionService.getAllPositions().subscribe(positions => this.positions = positions.map(p => p.name));
+  openModal(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.loadTemplates();
     }, (reason) => {
+      this.loadTemplates();
     });
   }
 

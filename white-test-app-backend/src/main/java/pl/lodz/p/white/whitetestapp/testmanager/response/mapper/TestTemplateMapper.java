@@ -24,6 +24,7 @@ public class TestTemplateMapper {
         if(testTemplate.getPlVersion() != null) {
             response.add(new TestTemplateResponse()
                     .setId(testTemplate.getPlVersion().getId())
+                    .setName(testTemplate.getName())
                     .setAuthor(author)
                     .setLang(PL)
                     .setPosition(position)
@@ -33,6 +34,7 @@ public class TestTemplateMapper {
         if(testTemplate.getEnVersion() != null) {
             response.add( new TestTemplateResponse()
                     .setId(testTemplate.getEnVersion().getId())
+                    .setName(testTemplate.getName())
                     .setAuthor(author)
                     .setLang(EN)
                     .setPosition(position)

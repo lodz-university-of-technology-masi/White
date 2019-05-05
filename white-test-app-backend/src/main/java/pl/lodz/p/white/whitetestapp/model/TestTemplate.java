@@ -25,6 +25,17 @@ public class TestTemplate {
     @JoinColumn(name = "author_id", referencedColumnName = "username")
     private Account author;
 
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public TestTemplate setName(String name) {
+        this.name = name;
+        return this;
+    }
+
     public Long getId() {
         return id;
     }
