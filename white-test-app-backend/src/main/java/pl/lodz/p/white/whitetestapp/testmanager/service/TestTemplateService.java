@@ -23,4 +23,6 @@ public interface TestTemplateService {
     void setPositionForTest(TestTemplate test, Position position) throws FailedSaveException;
 
     void translate(Long id, String sourceLang);
+
+    void deleteTestById(Long id, String lang) throws EntityNotFoundException;
 }

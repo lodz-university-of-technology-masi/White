@@ -126,5 +126,18 @@ public class TestTemplateManager implements TestTemplateService {
         return translateAnswer;
     }
 
-
+    @Override
+    public void deleteTestById(Long id, String lang) throws EntityNotFoundException {
+        try {
+            TestTemplate testToDelete = repository.getOne(id);
+            if (lang.equals(PL)) {
+                testToDelete.getPlVersion().setDeleted(true);
+            } else {
+                testToDelete.getEnVersion().setDeleted(true);
+            }
+            repository.saveAndFlush(testToDelete);
+        } catch (PersistenceException e) {
+            throw new EntityNotFoundException();
+        }
+    }
 }

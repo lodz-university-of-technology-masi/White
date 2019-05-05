@@ -25,6 +25,8 @@ public class TestTemplate {
     @JoinColumn(name = "author_id", referencedColumnName = "username")
     private Account author;
 
+    private boolean isDeleted = false;
+
     private String name;
 
     public String getName() {
@@ -79,5 +81,13 @@ public class TestTemplate {
     public TestTemplate setAuthor(Account author) {
         this.author = author;
         return this;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 }

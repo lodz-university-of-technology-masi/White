@@ -8,7 +8,6 @@ import pl.lodz.p.white.whitetestapp.testmanager.response.TestTemplateResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Arrays.asList;
 import static pl.lodz.p.white.whitetestapp.Constants.EN;
 import static pl.lodz.p.white.whitetestapp.Constants.PL;
 import static pl.lodz.p.white.whitetestapp.utils.Utils.optGet;
@@ -21,24 +20,26 @@ public class TestTemplateMapper {
         String position = optGet(testTemplate.getPosition(), Position::getName);
         List<TestTemplateResponse> response =  new ArrayList<>();
 
-        if(testTemplate.getPlVersion() != null) {
-            response.add(new TestTemplateResponse()
-                    .setId(testTemplate.getPlVersion().getId())
-                    .setName(testTemplate.getName())
-                    .setAuthor(author)
-                    .setLang(PL)
-                    .setPosition(position)
-                    .setTestTemplateId(templateId));
+        if(testTemplate.getPlVersion() != null ) {
+            if (!testTemplate.getPlVersion().isDeleted()) {
+                response.add(new TestTemplateResponse()
+                        .setId(testTemplate.getPlVersion().getId())
+                        .setAuthor(author)
+                        .setLang(PL)
+                        .setPosition(position)
+                        .setTestTemplateId(templateId));
+            }
         }
 
         if(testTemplate.getEnVersion() != null) {
-            response.add( new TestTemplateResponse()
-                    .setId(testTemplate.getEnVersion().getId())
-                    .setName(testTemplate.getName())
-                    .setAuthor(author)
-                    .setLang(EN)
-                    .setPosition(position)
-                    .setTestTemplateId(templateId));
+            if (!testTemplate.getEnVersion().isDeleted()) {
+                response.add(new TestTemplateResponse()
+                        .setId(testTemplate.getEnVersion().getId())
+                        .setAuthor(author)
+                        .setLang(EN)
+                        .setPosition(position)
+                        .setTestTemplateId(templateId));
+            }
         }
         return response;
     }
