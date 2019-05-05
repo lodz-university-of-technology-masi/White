@@ -61,9 +61,10 @@
     <td>{{test.author}}</td>
     <td>{{test.lang}}</td>
     <td>
-      <a routerLink="/test/{{test.id}}">
-        <button type="submit" class="btn btn-primary mb-2">Edytuj</button>
-      </a>
+        <button type="submit" class="btn btn-primary mb-2" (click)="open(edit_modal,test)">Edytuj</button>
+      <button type="submit" class="btn btn-primary mb-2" (click)="translate(test.testTemplateId, test.lang)">
+        Przetłumacz
+      </button>
     </td>
   </tr>
   </tbody>

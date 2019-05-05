@@ -2,16 +2,16 @@ package pl.lodz.p.white.whitetestapp.accountmanager.manager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.white.whitetestapp.accountmanager.response.PositionResponse;
 import pl.lodz.p.white.whitetestapp.accountmanager.response.mapper.PositionMapper;
-import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.white.whitetestapp.accountmanager.service.PositionService;
+import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
 import pl.lodz.p.white.whitetestapp.model.Position;
 import pl.lodz.p.white.whitetestapp.repository.PositionRepository;
 
-import java.util.Optional;
-
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,9 +25,9 @@ public class PositionManager implements PositionService {
     }
 
     @Override
-    public Position getOne(String id) {
+    public Position getOne(String id) throws EntityNotFoundException {
         Optional<Position> position = repository.findById(id);
-        return position.orElse(null);
+        return position.orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
@@ -37,6 +37,10 @@ public class PositionManager implements PositionService {
                 .stream()
                 .map(PositionMapper::toPositionResponse)
                 .collect(Collectors.toList());
+    }
+    @Override
+    public Position findOne(String id) throws EntityNotFoundException {
+        return repository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     @Transactional(readOnly = false)

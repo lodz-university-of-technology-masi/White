@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpService} from './http-service.service';
 import {Configuration} from '../configuration';
 import {TestTemplate} from '../test-templates/model/test-template';
 import {Observable} from 'rxjs';
 import {NewTemplate} from '../test-templates/model/new-template';
+import {ApiResponse} from '../test-templates/model/ApiResponse';
 
 
 @Injectable({
@@ -24,4 +25,14 @@ export class TestTemplateService {
   add(template: NewTemplate) {
     return this.httpService.post(this.endpoint, template);
   }
+
+  assignPositionToTest(id, positionId) {
+    const url = this.endpoint + `/setposition/${id}/${positionId}`;
+    return this.httpService.putWithoutBody<ApiResponse>(url);
+  }
+
+  translate(id: number, currentLang: string) {
+    return this.httpService.put(this.endpoint + '/translate/' + id + '?lang=' + currentLang, {});
+  }
+
 }

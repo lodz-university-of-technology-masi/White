@@ -1,12 +1,11 @@
 package pl.lodz.p.white.whitetestapp.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.OneToMany;
-import javax.persistence.Version;
-import javax.persistence.CascadeType;
+import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +32,6 @@ public class Account {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<TestResult> testResults = new ArrayList<>();
-
-    @Version
-    private Long version;
 
     public String getUsername() {
         return username;
@@ -100,12 +96,4 @@ public class Account {
         return this;
     }
 
-    public Long getVersion() {
-        return version;
-    }
-
-    public Account setVersion(Long version) {
-        this.version = version;
-        return this;
-    }
 }

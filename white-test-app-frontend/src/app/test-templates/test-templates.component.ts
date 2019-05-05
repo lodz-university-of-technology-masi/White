@@ -1,9 +1,72 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TestTemplate} from './model/test-template';
 import {TestTemplateService} from '../services/test-template.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NewTemplate} from './model/new-template';
 import {PositionsService} from '../services/positions.service';
+import {NgbActiveModal, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {PositionsService} from '../services/positions.service';
+import {Position} from '../positions/model/position';
+import {MessageService} from '../services/message.service';
+
+@Component({
+  selector: 'ngbd-modal-edit-position',
+  templateUrl: './edit-position-in-test.html'
+})
+export class NgbdModalEditPosition implements OnInit {
+  @Input() test;
+  testTemplates: TestTemplate[];
+  positions: Position[];
+  selectedPosition: string;
+
+  constructor(public activeModal: NgbActiveModal,
+              private testTemplateService: TestTemplateService,
+              private modalService: NgbModal,
+              private positionsService: PositionsService) {
+
+  }
+
+  ngOnInit(): void {
+    this.getPositions();
+  }
+
+  private getPositions() {
+    this.positionsService.getAllPositions().subscribe(t => {
+      this.positions = t;
+      console.log(t);
+    });
+  }
+
+  assignPositionToTest(id: number) {
+    const name = this.selectedPosition.replace('/\s/g', '+');
+    this.testTemplateService.assignPositionToTest(id, name).subscribe(success => {
+    }, error => {
+    });
+  }
+}
+
+@Component({
+  selector: 'ngbd-modal-content',
+  templateUrl: './edit-test-modal.html'
+})
+export class NgbdModalContent {
+  @Input() test;
+
+  open(test) {
+    const modal: NgbModalRef = this.modalService.open(NgbdModalEditPosition, {ariaLabelledBy: 'modal-basic-title'});
+    modal.componentInstance.test = test;
+    modal.result.then((result) => {
+      console.log(result);
+    }, (reason) => {
+      console.log(reason);
+    });
+  }
+
+  constructor(public activeModal: NgbActiveModal,
+              private modalService: NgbModal) {
+
+  }
+}
 
 @Component({
   selector: 'app-test-templates',
@@ -15,10 +78,12 @@ export class TestTemplatesComponent implements OnInit {
   testTemplates: TestTemplate[];
   newTemplate: NewTemplate;
   positions: string[];
+  positions: Position[];
 
   constructor(private testTemplateService: TestTemplateService,
               private positionService: PositionsService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -26,7 +91,28 @@ export class TestTemplatesComponent implements OnInit {
   }
 
   loadTemplates() {
-    this.testTemplateService.getAll().subscribe( t => {this.testTemplates = t; console.log(t); } );
+    this.testTemplateService.getAll().subscribe(t => {
+      this.testTemplates = t;
+      console.log(t);
+    });
+  }
+
+  open(content, test) {
+    const modal: NgbModalRef = this.modalService.open(NgbdModalContent, {ariaLabelledBy: 'modal-basic-title'});
+    modal.componentInstance.test = test;
+    modal.result.then((result) => {
+      this.loadTemplates();
+    }, (reason) => {
+      this.loadTemplates();
+    });
+  }
+
+  translate(templateId: number, currentLang: string) {
+    this.testTemplateService.translate(templateId, currentLang).subscribe(s => {
+        this.messageService.success('Sukces');
+        this.loadTemplates();
+      },
+      e => this.messageService.error('Błąd'));
   }
 
   addNew() {

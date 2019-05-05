@@ -9,7 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Version;
 import java.util.List;
 
 @Entity
@@ -25,9 +24,6 @@ public class TestResult {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<AnswerToQuestion> answers;
-
-    @Version
-    private Long version;
 
     public Long getId() {
         return id;
@@ -53,15 +49,6 @@ public class TestResult {
 
     public TestResult setAnswers(List<AnswerToQuestion> answers) {
         this.answers = answers;
-        return this;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public TestResult setVersion(Long version) {
-        this.version = version;
         return this;
     }
 }
