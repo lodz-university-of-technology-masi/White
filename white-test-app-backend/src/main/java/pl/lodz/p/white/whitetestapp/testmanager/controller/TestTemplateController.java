@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import pl.lodz.p.white.whitetestapp.accountmanager.service.PositionService;
 import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
 import pl.lodz.p.white.whitetestapp.exception.FailedSaveException;
