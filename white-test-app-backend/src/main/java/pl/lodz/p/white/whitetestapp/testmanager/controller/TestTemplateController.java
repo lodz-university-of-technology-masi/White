@@ -51,7 +51,6 @@ public class TestTemplateController {
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity addNewTestTemplate(@RequestBody NewTestTemplateRequest newTestTemplateRequest) throws EntityNotFoundException, WrongRequestException {
         ApiResponse response = new ApiResponse();
-        service.getOne(newTestTemplateRequest.getId());
         service.addNewTestTemplate(newTestTemplateRequest);
         response.setMessage(TEST_TEMPLATE_WAS_CREATED);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

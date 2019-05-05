@@ -27,6 +27,17 @@ public class TestTemplate {
 
     private boolean isDeleted = false;
 
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public TestTemplate setName(String name) {
+        this.name = name;
+        return this;
+    }
+
     public Long getId() {
         return id;
     }
