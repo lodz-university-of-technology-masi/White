@@ -18,6 +18,9 @@ import {PositionsService} from './services/positions.service';
 import {ToastrModule} from 'ng6-toastr-notifications';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MessageService} from './services/message.service';
+import { TestResultComponent } from './test-result/test-result.component';
+import {TestTemplateContentService} from './services/test-template-content.service';
+import {TestResultService} from './services/test-result.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import {MessageService} from './services/message.service';
     PositionsComponent,
     NgbdModalContent,
     NgbdModalEditPosition,
-    NgbdModalNewTest
+    NgbdModalNewTest,
+    TestResultComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +50,8 @@ import {MessageService} from './services/message.service';
     HttpService,
     TestTemplateService,
     PositionsService,
+    TestTemplateContentService,
+    TestResultService,
     MessageService
   ],
   bootstrap: [AppComponent],

@@ -25,6 +25,10 @@
       <button type="submit" class="btn btn-primary mb-2" (click)="translate(test.testTemplateId, test.lang)">
         Przetłumacz
       </button>
+      <a routerLink="/test/{{test.id}}">
+        <button type="submit" class="btn btn-primary mb-2">Weź udział</button>
+      </a>
+
     </td>
   </tr>
   </tbody>
