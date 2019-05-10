@@ -43,7 +43,7 @@ public class TestTemplateContentManager implements TestTemplateContentService {
     @Override
     public byte[] generatePDF(TestTemplateContent requestedTest) throws DocumentCreationException {
         PdfGeneratorService service = new PdfGeneratorManager();
-        return service.generate();
+        return service.generate(requestedTest);
     }
 
     @Autowired
