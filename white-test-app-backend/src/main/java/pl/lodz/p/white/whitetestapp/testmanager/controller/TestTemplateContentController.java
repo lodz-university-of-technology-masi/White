@@ -57,7 +57,7 @@ public class TestTemplateContentController {
         }
     }
 
-    @RequestMapping(value = "/downloadpdf/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE, consumes = MediaType.ALL_VALUE)
+    @RequestMapping(value = "/downloadpdf/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_PDF_VALUE, consumes = MediaType.ALL_VALUE)
     ResponseEntity<byte[]> generatePdf(@PathVariable("id") Long id, @RequestBody TestInformationRequest testInformationRequest) throws WrongRequestException, DocumentCreationException {
         try {
             TestTemplateContent requestedTest = service.findOne(id);
