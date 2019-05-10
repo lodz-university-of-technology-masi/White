@@ -30,7 +30,7 @@ public class Account {
     @Enumerated(STRING)
     private Lang lang;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL)
     private List<TestResult> testResults = new ArrayList<>();
 
     public String getUsername() {
