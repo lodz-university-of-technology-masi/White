@@ -1,14 +1,16 @@
 package pl.lodz.p.white.whitetestapp.testmanager.controller;
 
+import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.query.Procedure;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
+import org.springframework.web.bind.annotation.*;
+import pl.lodz.p.white.whitetestapp.exception.DocumentCreationException;
 import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
 import pl.lodz.p.white.whitetestapp.exception.FailedSaveException;
 import pl.lodz.p.white.whitetestapp.exception.WrongRequestException;
@@ -17,6 +19,8 @@ import pl.lodz.p.white.whitetestapp.model.Question;
 import pl.lodz.p.white.whitetestapp.model.TestTemplateContent;
 import pl.lodz.p.white.whitetestapp.testmanager.service.QuestionService;
 import pl.lodz.p.white.whitetestapp.testmanager.service.TestTemplateContentService;
+
+import java.io.ByteArrayOutputStream;
 
 @Controller
 @RestController
@@ -50,6 +54,25 @@ public class TestTemplateContentController {
             return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (EntityNotFoundException e) {
             throw new WrongRequestException(WrongRequestException.NOT_EXISTING_DATA_REQUESTED);
+        }
+    }
+
+    @RequestMapping(value = "/downloadpdf/{id}", method = RequestMethod.GET,produces = MediaType.APPLICATION_PDF_VALUE, consumes = MediaType.ALL_VALUE)
+    @ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
+    ResponseEntity<byte[]> generatePdf(@PathVariable("id") Long id) throws WrongRequestException, DocumentCreationException {
+        try {
+            TestTemplateContent requestedTest = service.findOne(id);
+            byte[] contents = service.generatePDF(requestedTest);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            String filename = "output.pdf";
+            headers.setContentDispositionFormData(filename, filename);
+            headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+            return new ResponseEntity<byte[]>(contents, headers, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            throw new WrongRequestException(WrongRequestException.NOT_EXISTING_DATA_REQUESTED);
+        } catch (DocumentCreationException e) {
+            throw new DocumentCreationException(DocumentCreationException.ERROR_CREATING_DOCUMENT);
         }
     }
 

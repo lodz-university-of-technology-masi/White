@@ -14,7 +14,7 @@ import java.io.IOException;
 public class PdfGeneratorManager implements PdfGeneratorService {
 
     @Override
-    public ByteArrayOutputStream generate() throws DocumentCreationException {
+    public byte[] generate() throws DocumentCreationException {
         try {
             Document document = new Document();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -24,7 +24,7 @@ public class PdfGeneratorManager implements PdfGeneratorService {
             document.add(new Paragraph("Lorem ipsum"));
             document.close();
             baos.close();
-            return baos;
+            return baos.toByteArray();
         } catch (DocumentException | IOException e) {
             throw new DocumentCreationException();
         }

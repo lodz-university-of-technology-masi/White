@@ -2,10 +2,13 @@ package pl.lodz.p.white.whitetestapp.testmanager.manager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.lodz.p.white.whitetestapp.exception.DocumentCreationException;
 import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
 import pl.lodz.p.white.whitetestapp.exception.FailedSaveException;
 import pl.lodz.p.white.whitetestapp.model.Question;
 import pl.lodz.p.white.whitetestapp.model.TestTemplateContent;
+import pl.lodz.p.white.whitetestapp.pdfgenerator.manager.PdfGeneratorManager;
+import pl.lodz.p.white.whitetestapp.pdfgenerator.service.PdfGeneratorService;
 import pl.lodz.p.white.whitetestapp.repository.TestTemplateContentRepository;
 import pl.lodz.p.white.whitetestapp.testmanager.service.TestTemplateContentService;
 
@@ -35,6 +38,12 @@ public class TestTemplateContentManager implements TestTemplateContentService {
         } catch (PersistenceException e){
             throw new FailedSaveException(FailedSaveException.OPERATION_EXECUTION_ERROR_SAVE);
         }
+    }
+
+    @Override
+    public byte[] generatePDF(TestTemplateContent requestedTest) throws DocumentCreationException {
+        PdfGeneratorService service = new PdfGeneratorManager();
+        return service.generate();
     }
 
     @Autowired
