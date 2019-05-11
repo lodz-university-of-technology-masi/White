@@ -155,4 +155,12 @@ export class TestTemplatesComponent implements OnInit {
     });
   }
 
+  deleteTest(id: number, currentLang: string){
+    this.testTemplateService.deleteTest(id, currentLang).subscribe(d => {
+      this.messageService.success('Sukces');
+      this.loadTemplates();
+    },
+        e => this.messageService.error('Błąd'));
+  }
+
 }

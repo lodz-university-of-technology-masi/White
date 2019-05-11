@@ -28,7 +28,7 @@
       <a routerLink="/test/{{test.id}}">
         <button type="submit" class="btn btn-primary mb-2">Weź udział</button>
       </a>
-
+      <button type="button" class="btn btn-danger mb-2" (click)="deleteTest(test.testTemplateId, test.lang)">Usuń</button>
     </td>
   </tr>
   </tbody>
