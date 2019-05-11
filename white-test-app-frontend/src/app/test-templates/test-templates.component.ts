@@ -6,6 +6,8 @@ import {NewTemplate} from './model/new-template';
 import {PositionsService} from '../services/positions.service';
 import {Position} from '../positions/model/position';
 import {MessageService} from '../services/message.service';
+import {TestTemplateContentService} from '../services/test-template-content.service';
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: 'ngbd-modal-edit-position',
@@ -45,7 +47,8 @@ export class NgbdModalEditPosition implements OnInit {
 
 @Component({
   selector: 'ngbd-modal-content',
-  templateUrl: './edit-test-modal.html'
+  templateUrl: './edit-test-modal.html',
+  styleUrls: ['./edit-test-modal.css']
 })
 export class NgbdModalContent {
   @Input() test;
@@ -60,8 +63,24 @@ export class NgbdModalContent {
     });
   }
 
+
+  exportPDF(test) {
+    this.testService.generatePDF(test.id, test).subscribe((response) => {
+      this.messageService.success('Sukces');
+      const filename = response.headers.get('filename');
+      const blob = new Blob([response.body], {type: 'pdf'});
+      const url = URL.createObjectURL(blob);
+      saveAs(blob, filename);
+      window.open(url);
+    }, e => {
+      this.messageService.error('Błąd');
+    });
+  }
+
   constructor(public activeModal: NgbActiveModal,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private testService: TestTemplateContentService,
+              private messageService: MessageService) {
 
   }
 }
@@ -155,12 +174,12 @@ export class TestTemplatesComponent implements OnInit {
     });
   }
 
-  deleteTest(id: number, currentLang: string){
+  deleteTest(id: number, currentLang: string) {
     this.testTemplateService.deleteTest(id, currentLang).subscribe(d => {
-      this.messageService.success('Sukces');
-      this.loadTemplates();
-    },
-        e => this.messageService.error('Błąd'));
+        this.messageService.success('Sukces');
+        this.loadTemplates();
+      },
+      e => this.messageService.error('Błąd'));
   }
 
 }
