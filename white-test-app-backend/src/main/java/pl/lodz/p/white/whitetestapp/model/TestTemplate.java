@@ -13,11 +13,11 @@ public class TestTemplate {
     @JoinColumn(name = "position_id", referencedColumnName = "name")
     private Position position;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(mappedBy = "testTemplate", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "pl_id", referencedColumnName = "id")
     private TestTemplateContent plVersion;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(mappedBy = "testTemplate", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "en_id", referencedColumnName = "id")
     private TestTemplateContent enVersion;
 

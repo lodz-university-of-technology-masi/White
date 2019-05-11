@@ -21,8 +21,13 @@ public class TestResultController {
     TestResultService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    TestResult get(@PathVariable("id") Long id){
-        return service.getOne(id);
+    ResponseEntity get(@PathVariable("id") Long id) throws WrongRequestException {
+        return ResponseEntity.ok(service.getOne(id));
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    ResponseEntity getAll() throws WrongRequestException {
+        return ResponseEntity.ok(service.getAll());
     }
 
     @RequestMapping(method = RequestMethod.POST)

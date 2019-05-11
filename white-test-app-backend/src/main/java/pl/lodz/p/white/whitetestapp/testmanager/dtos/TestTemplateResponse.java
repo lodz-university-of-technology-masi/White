@@ -1,4 +1,4 @@
-package pl.lodz.p.white.whitetestapp.testmanager.response;
+package pl.lodz.p.white.whitetestapp.testmanager.dtos;
 
 public class TestTemplateResponse {
     private Long id;
