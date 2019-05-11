@@ -67,8 +67,10 @@ public class TestTemplateContentController {
             String filename = testInformationRequest.getName() + "_" +
                     testInformationRequest.getPosition() + "_" +
                     testInformationRequest.getLang() + ".pdf";
+            filename = filename.replaceAll("\\s+", "_");
             headers.setContentDispositionFormData(filename, filename);
             headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+            headers.add("filename", filename);
             return new ResponseEntity<byte[]>(contents, headers, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             throw new WrongRequestException(WrongRequestException.NOT_EXISTING_DATA_REQUESTED);
