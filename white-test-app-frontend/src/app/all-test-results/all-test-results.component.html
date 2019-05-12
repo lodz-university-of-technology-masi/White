@@ -1,0 +1,24 @@
+<h1>Rozwiązania testów</h1>
+
+
+<table class="table table-striped" align="center">
+  <thead>
+  <tr>
+    <th>Nazwa</th>
+    <th>Uczestnik</th>
+    <th>Operacja</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let result of testResults">
+    <td>{{result.testName}}</td>
+    <td>{{result.participant}}</td>
+    <td>
+      <a routerLink="/results/check/{{result.id}}">
+        <button type="submit" class="btn btn-primary mb-2">Sprawdź</button>
+      </a>
+    </td>
+  </tr>
+  </tbody>
+</table>

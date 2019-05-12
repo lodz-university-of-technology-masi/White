@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {TestTemplateDetail} from '../test-templates/model/test-template-detail';
+import {TestTemplateContentService} from '../services/test-template-content.service';
+import {TestResultService} from '../services/test-result.service';
+import {MessageService} from '../services/message.service';
+import {ActivatedRoute} from '@angular/router';
+import {TestCheck} from './model/test-check';
+import {QuestionCheck} from './model/question-check';
 
 @Component({
   selector: 'app-test-check',
@@ -6,10 +13,42 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./test-check.component.css']
 })
 export class TestCheckComponent implements OnInit {
+  testResultId: number;
+  template: TestTemplateDetail;
+  testTemplateId: number;
+  testChecked: TestCheck = new TestCheck();
 
-  constructor() { }
+  constructor(private templateContentService: TestTemplateContentService,
+              private testResultService: TestResultService,
+              private messageService: MessageService,
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.testResultId = +params['id'];
+      this.testResultService.get(this.testResultId).subscribe(tr => {
+        this.testChecked = tr;
+        this.loadTemplate();
+      });
+    });
+  }
+
+  loadTemplate() {
+    this.templateContentService.get(this.testChecked.testTemplateId).subscribe(t => {
+      console.log(t);
+      this.template = t;
+    });
+  }
+
+  save() {
+    this.testChecked.questionChecks = [];
+    this.template.questions.forEach(q => this.testChecked.questionChecks.push(new QuestionCheck(q.id, q.isCorrect)));
+    this.testResultService.addChecked(this.testChecked).subscribe(s => this.messageService.success('Sukces'),
+      e => {
+        this.messageService.error('Błąd');
+        console.log(e);
+      });
   }
 
 }

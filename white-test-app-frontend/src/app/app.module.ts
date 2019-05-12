@@ -21,6 +21,8 @@ import {MessageService} from './services/message.service';
 import { TestResultComponent } from './test-result/test-result.component';
 import {TestTemplateContentService} from './services/test-template-content.service';
 import {TestResultService} from './services/test-result.service';
+import { TestCheckComponent } from './test-check/test-check.component';
+import { AllTestResultsComponent } from './all-test-results/all-test-results.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import {TestResultService} from './services/test-result.service';
     NgbdModalContent,
     NgbdModalEditPosition,
     NgbdModalNewTest,
-    TestResultComponent
+    TestResultComponent,
+    TestCheckComponent,
+    AllTestResultsComponent
   ],
   imports: [
     BrowserModule,
