@@ -9,6 +9,7 @@ import pl.lodz.p.white.whitetestapp.testmanager.dtos.CandidateAnswerToQuestionDt
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.CandidateTestResultRequest;
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.QuestionCheckDto;
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.TestCheckRequest;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.TestResultDetailResponse;
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.TestResultResponse;
 
 import java.util.ArrayList;
@@ -58,5 +59,13 @@ public class TestResultMapper {
                 .setId(testResult.getId())
                 .setParticipant(testResult.getParticipant().getUsername())
                 .setTestName(testResult.getTestTemplate().getTestTemplate().getName());
+    }
+
+    public static TestResultDetailResponse toTestResultDetailResponse(TestResult testResult) {
+        return new TestResultDetailResponse()
+                .setId(testResult.getId())
+                .setParticipant(testResult.getParticipant().getUsername())
+                .setTestName(testResult.getTestTemplate().getTestTemplate().getName())
+                .setTestTemplateId(testResult.getTestTemplate().getId());
     }
 }

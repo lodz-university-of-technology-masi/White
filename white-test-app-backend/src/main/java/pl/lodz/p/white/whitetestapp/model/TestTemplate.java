@@ -1,5 +1,7 @@
 package pl.lodz.p.white.whitetestapp.model;
 
+import org.hibernate.annotations.ManyToAny;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,11 +15,11 @@ public class TestTemplate {
     @JoinColumn(name = "position_id", referencedColumnName = "name")
     private Position position;
 
-    @OneToOne(mappedBy = "testTemplate", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "pl_id", referencedColumnName = "id")
     private TestTemplateContent plVersion;
 
-    @OneToOne(mappedBy = "testTemplate", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "en_id", referencedColumnName = "id")
     private TestTemplateContent enVersion;
 

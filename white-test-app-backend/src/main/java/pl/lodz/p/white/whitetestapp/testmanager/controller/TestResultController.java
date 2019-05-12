@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.lodz.p.white.whitetestapp.exception.WrongRequestException;
 import pl.lodz.p.white.whitetestapp.model.TestResult;
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.CandidateTestResultRequest;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.TestCheckRequest;
 import pl.lodz.p.white.whitetestapp.testmanager.service.TestResultService;
 
 @Controller
@@ -26,13 +27,19 @@ public class TestResultController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    ResponseEntity getAll() throws WrongRequestException {
+    ResponseEntity getAll() {
         return ResponseEntity.ok(service.getAll());
     }
 
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity add(@RequestBody CandidateTestResultRequest candidateTestResultRequest) throws WrongRequestException {
         service.add(candidateTestResultRequest);
+        return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    ResponseEntity addChecked(@RequestBody TestCheckRequest testCheckRequest) throws WrongRequestException {
+        service.addChecked(testCheckRequest);
         return ResponseEntity.ok().build();
     }
 
