@@ -14,6 +14,7 @@ import pl.lodz.p.white.whitetestapp.testmanager.dtos.TestResultResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TestResultMapper {
 
@@ -48,7 +49,7 @@ public class TestResultMapper {
                 a.setCorrect(questionChecks
                         .stream()
                         .filter(qc -> a.getId().equals(qc.getId()))
-                        .map(QuestionCheckDto::isCorrect)
+                        .map(QuestionCheckDto::getCorrect)
                         .findFirst()
                         .orElse(false)));
         return testResult;
@@ -64,8 +65,19 @@ public class TestResultMapper {
     public static TestResultDetailResponse toTestResultDetailResponse(TestResult testResult) {
         return new TestResultDetailResponse()
                 .setId(testResult.getId())
-                .setParticipant(testResult.getParticipant().getUsername())
+                .setQuestionChecks(testResult.getAnswers()
+                        .stream()
+                        .map(TestResultMapper::toQuestionCheckDto)
+                        .collect(Collectors.toList()))
                 .setTestName(testResult.getTestTemplate().getTestTemplate().getName())
                 .setTestTemplateId(testResult.getTestTemplate().getId());
+    }
+
+    private static QuestionCheckDto toQuestionCheckDto(AnswerToQuestion answerToQuestion) {
+        return new QuestionCheckDto()
+                .setId(answerToQuestion.getId())
+                .setQuestionId(answerToQuestion.getQuestion().getId())
+                .setCorrect(answerToQuestion.getCorrect())
+                .setAnswer(answerToQuestion.getAnswer());
     }
 }

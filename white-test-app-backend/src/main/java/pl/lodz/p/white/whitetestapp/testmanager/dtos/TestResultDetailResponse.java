@@ -1,9 +1,12 @@
 package pl.lodz.p.white.whitetestapp.testmanager.dtos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TestResultDetailResponse {
     private long testTemplateId;
     private long id;
-    private String participant;
+    private List<QuestionCheckDto> questionChecks = new ArrayList<>();
     private String testName;
 
     public long getTestTemplateId() {
@@ -24,17 +27,17 @@ public class TestResultDetailResponse {
         return this;
     }
 
-    public String getParticipant() {
-        return participant;
-    }
-
-    public TestResultDetailResponse setParticipant(String participant) {
-        this.participant = participant;
-        return this;
-    }
-
     public String getTestName() {
         return testName;
+    }
+
+    public List<QuestionCheckDto> getQuestionChecks() {
+        return questionChecks;
+    }
+
+    public TestResultDetailResponse setQuestionChecks(List<QuestionCheckDto> questionChecks) {
+        this.questionChecks = questionChecks;
+        return this;
     }
 
     public TestResultDetailResponse setTestName(String testName) {
