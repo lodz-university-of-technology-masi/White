@@ -1,7 +1,7 @@
 <form *ngIf="template" #form="ngForm" (ngSubmit)="save()">
   <div *ngFor="let question of template.questions" class="form-row form-group">
     <label>{{question.content}}</label>
-    <ui-switch name="{{question.id}}" [(ngModel)]="question.correct" style="margin-left: 5px"></ui-switch>
+    <ui-switch name="{{question.id}}" [(ngModel)]="question.correct"></ui-switch>
     <textarea disabled *ngIf="question.questionType === 'OPEN'" required type="text" class="form-control" [value]="question.answer"
               name="Nazwa"></textarea>
     <div *ngIf="question.questionType === 'CHOICE'">
