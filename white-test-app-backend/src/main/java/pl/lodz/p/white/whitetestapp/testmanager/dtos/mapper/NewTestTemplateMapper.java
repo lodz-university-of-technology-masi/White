@@ -22,11 +22,11 @@ public class NewTestTemplateMapper {
             newTestTemplate.setAuthor(author);
             newTestTemplate.setPosition(position);
             if (lang.contains("EN")) {
-                newTestTemplate.setEnVersion(new TestTemplateContent());
+                newTestTemplate.setEnVersion(new TestTemplateContent().setTestTemplate(newTestTemplate));
                 newTestTemplate.setPlVersion(null);
             } else if (lang.contains("PL")) {
                 newTestTemplate.setEnVersion(null);
-                newTestTemplate.setPlVersion(new TestTemplateContent());
+                newTestTemplate.setPlVersion(new TestTemplateContent().setTestTemplate(newTestTemplate));
             }
             return newTestTemplate;
         } catch (NullPointerException e) {

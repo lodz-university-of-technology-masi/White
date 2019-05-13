@@ -5,12 +5,16 @@ import pl.lodz.p.white.whitetestapp.model.AnswerToQuestion;
 import pl.lodz.p.white.whitetestapp.model.TestResult;
 import pl.lodz.p.white.whitetestapp.repository.QuestionRepository;
 import pl.lodz.p.white.whitetestapp.repository.TestTemplateContentRepository;
-import pl.lodz.p.white.whitetestapp.repository.TestTemplateRepository;
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.CandidateAnswerToQuestionDto;
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.CandidateTestResultRequest;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.QuestionCheckDto;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.TestCheckRequest;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.TestResultDetailResponse;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.TestResultResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TestResultMapper {
 
@@ -37,5 +41,43 @@ public class TestResultMapper {
                         .orElseThrow(() -> new WrongRequestException(WrongRequestException.NOT_EXISTING_DATA_REQUESTED)))
                 .setAnswer(answerToQuestionDto.getAnswer());
 
+    }
+
+    public static TestResult toTestResult(TestCheckRequest testCheckRequest, TestResult testResult) {
+        List<QuestionCheckDto> questionChecks = testCheckRequest.getQuestionChecks();
+        testResult.getAnswers().forEach(a ->
+                a.setCorrect(questionChecks
+                        .stream()
+                        .filter(qc -> a.getId().equals(qc.getId()))
+                        .map(QuestionCheckDto::getCorrect)
+                        .findFirst()
+                        .orElse(false)));
+        return testResult;
+    }
+
+    public static TestResultResponse toTestResultResponse(TestResult testResult) {
+        return new TestResultResponse()
+                .setId(testResult.getId())
+                .setParticipant(testResult.getParticipant().getUsername())
+                .setTestName(testResult.getTestTemplate().getTestTemplate().getName());
+    }
+
+    public static TestResultDetailResponse toTestResultDetailResponse(TestResult testResult) {
+        return new TestResultDetailResponse()
+                .setId(testResult.getId())
+                .setQuestionChecks(testResult.getAnswers()
+                        .stream()
+                        .map(TestResultMapper::toQuestionCheckDto)
+                        .collect(Collectors.toList()))
+                .setTestName(testResult.getTestTemplate().getTestTemplate().getName())
+                .setTestTemplateId(testResult.getTestTemplate().getId());
+    }
+
+    private static QuestionCheckDto toQuestionCheckDto(AnswerToQuestion answerToQuestion) {
+        return new QuestionCheckDto()
+                .setId(answerToQuestion.getId())
+                .setQuestionId(answerToQuestion.getQuestion().getId())
+                .setCorrect(answerToQuestion.getCorrect())
+                .setAnswer(answerToQuestion.getAnswer());
     }
 }

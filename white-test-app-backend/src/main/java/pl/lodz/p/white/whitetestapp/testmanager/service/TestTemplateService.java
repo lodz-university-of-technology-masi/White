@@ -6,7 +6,7 @@ import pl.lodz.p.white.whitetestapp.exception.WrongRequestException;
 import pl.lodz.p.white.whitetestapp.model.Position;
 import pl.lodz.p.white.whitetestapp.model.TestTemplate;
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.NewTestTemplateRequest;
-import pl.lodz.p.white.whitetestapp.testmanager.response.TestTemplateResponse;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.TestTemplateResponse;
 
 import java.util.List;
 

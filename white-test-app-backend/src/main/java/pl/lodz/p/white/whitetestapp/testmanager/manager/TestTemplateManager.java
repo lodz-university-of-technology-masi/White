@@ -15,8 +15,8 @@ import pl.lodz.p.white.whitetestapp.repository.PositionRepository;
 import pl.lodz.p.white.whitetestapp.repository.TestTemplateRepository;
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.NewTestTemplateRequest;
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.mapper.NewTestTemplateMapper;
-import pl.lodz.p.white.whitetestapp.testmanager.response.TestTemplateResponse;
-import pl.lodz.p.white.whitetestapp.testmanager.response.mapper.TestTemplateMapper;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.TestTemplateResponse;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.mapper.TestTemplateMapper;
 import pl.lodz.p.white.whitetestapp.testmanager.service.TestTemplateService;
 import pl.lodz.p.white.whitetestapp.translator.service.TranslatorService;
 

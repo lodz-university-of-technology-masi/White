@@ -1,9 +1,9 @@
-package pl.lodz.p.white.whitetestapp.testmanager.response.mapper;
+package pl.lodz.p.white.whitetestapp.testmanager.dtos.mapper;
 
 import pl.lodz.p.white.whitetestapp.model.Account;
 import pl.lodz.p.white.whitetestapp.model.Position;
 import pl.lodz.p.white.whitetestapp.model.TestTemplate;
-import pl.lodz.p.white.whitetestapp.testmanager.response.TestTemplateResponse;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.TestTemplateResponse;
 
 import java.util.ArrayList;
 import java.util.List;
