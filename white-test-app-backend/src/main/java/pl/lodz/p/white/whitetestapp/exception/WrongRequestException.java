@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class WrongRequestException extends AppException {
 
     public static final String EXISTING_DATA_PASSED = "Existing Data Passed";
-    public static final String NOT_EXISTING_DATA_REQUESTED = "Request data not proper";
+    public static final String NOT_EXISTING_DATA_REQUESTED = "Request data not exists";
     public static final String ARGUMENT_MISSING = "Request data missing necessary value";
+    public static final String NOT_ACCEPTABLE_DATA = "Request data not proper";
 
     public WrongRequestException() {
     }
