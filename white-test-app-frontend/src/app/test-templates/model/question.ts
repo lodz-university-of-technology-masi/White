@@ -6,4 +6,5 @@ export class Question {
   questionType: string;
   answers: Answer[] = [];
   answer: string;
+  isCorrect: boolean;
 }

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {TestTemplateDetail} from '../test-templates/model/test-template-detail';
 import {TestTemplateContentService} from '../services/test-template-content.service';
-import {TestResult} from './model/test-result';
+import {TestResultDetail} from './model/test-result-detail';
 import {AnswerToQuestion} from './model/answer-to-question';
 import {TestResultService} from '../services/test-result.service';
 import {MessageService} from '../services/message.service';
@@ -15,7 +15,7 @@ import {MessageService} from '../services/message.service';
 export class TestResultComponent implements OnInit {
   templateId: number;
   template: TestTemplateDetail;
-  testResult: TestResult = new TestResult();
+  testResult: TestResultDetail = new TestResultDetail();
 
   constructor(private templateContentService: TestTemplateContentService,
               private testResultService: TestResultService,
