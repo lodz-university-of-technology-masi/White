@@ -36,11 +36,8 @@ export class TestCheckComponent implements OnInit {
 
   loadTemplate() {
     this.templateContentService.get(this.testChecked.testTemplateId).subscribe(t => {
-      console.log(t);
       this.template = t;
       this.testChecked.questionChecks.forEach(a => this.template.questions.filter(q => q.id === a.questionId)[0].answer = a.answer);
-      console.log(this.template);
-      console.log(this.testChecked);
     });
   }
 
