@@ -38,12 +38,16 @@ export class TestCheckComponent implements OnInit {
     this.templateContentService.get(this.testChecked.testTemplateId).subscribe(t => {
       console.log(t);
       this.template = t;
+      this.testChecked.questionChecks.forEach(a => this.template.questions.filter(q => q.id === a.questionId)[0].answer = a.answer);
+      console.log(this.template);
+      console.log(this.testChecked);
     });
   }
 
   save() {
     this.testChecked.questionChecks = [];
     this.template.questions.forEach(q => this.testChecked.questionChecks.push(new QuestionCheck(q.id, q.isCorrect)));
+    console.log(this.testChecked);
     this.testResultService.addChecked(this.testChecked).subscribe(s => this.messageService.success('Sukces'),
       e => {
         this.messageService.error('Błąd');

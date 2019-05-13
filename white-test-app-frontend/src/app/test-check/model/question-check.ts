@@ -1,9 +1,11 @@
 export class QuestionCheck {
   id: number;
-  isCorrect: boolean;
+  questionId;
+  answer: string;
+  correct: boolean;
 
   constructor(id: number, isCorrect: boolean) {
     this.id = id;
-    this.isCorrect = isCorrect;
+    this.correct = isCorrect;
   }
 }

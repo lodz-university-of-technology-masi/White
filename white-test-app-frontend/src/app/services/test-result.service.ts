@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from './http-service.service';
 import {Configuration} from '../configuration';
-import {TestResult} from '../test-result/model/test-result';
+import {TestResultDetail} from '../test-result/model/test-result-detail';
 import {TestCheck} from '../test-check/model/test-check';
 import {Observable} from 'rxjs';
 import {TestResult} from '../all-test-results/model/test-result';
@@ -21,7 +21,7 @@ export class TestResultService {
     return this.httpService.get(this.endpoint + '/' + id);
   }
 
-  add(testResult: TestResult) {
+  add(testResult: TestResultDetail) {
     return this.httpService.post(this.endpoint, testResult);
   }
 

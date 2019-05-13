@@ -23,6 +23,7 @@ import {TestTemplateContentService} from './services/test-template-content.servi
 import {TestResultService} from './services/test-result.service';
 import { TestCheckComponent } from './test-check/test-check.component';
 import { AllTestResultsComponent } from './all-test-results/all-test-results.component';
+import {UiSwitchModule} from 'ngx-ui-switch';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,16 @@ import { AllTestResultsComponent } from './all-test-results/all-test-results.com
     FormsModule,
     NgbModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    UiSwitchModule.forRoot({
+      size: 'small',
+      color: 'rgb(0, 189, 99)',
+      switchColor: '#80FFA2',
+      defaultBgColor: '#ff1850',
+      defaultBoColor : '#101563',
+      checkedLabel: 'dobrze',
+      uncheckedLabel: 'źle'
+    })
   ],
   providers: [
     Configuration,
