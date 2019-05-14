@@ -24,6 +24,7 @@ import {TestResultService} from './services/test-result.service';
 import {TestCheckComponent} from './test-check/test-check.component';
 import {AllTestResultsComponent} from './all-test-results/all-test-results.component';
 import {UiSwitchModule} from 'ngx-ui-switch';
+import { RedactorsManagementComponent } from './redactors-management/redactors-management.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {UiSwitchModule} from 'ngx-ui-switch';
     NgbdModalNewTest,
     TestResultComponent,
     TestCheckComponent,
-    AllTestResultsComponent
+    AllTestResultsComponent,
+    RedactorsManagementComponent
   ],
   imports: [
     BrowserModule,

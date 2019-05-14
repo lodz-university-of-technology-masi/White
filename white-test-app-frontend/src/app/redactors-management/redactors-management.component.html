@@ -1,0 +1,22 @@
+<button class="btn btn-primary mb-2" >Dodaj</button>
+
+<h1>Redaktorzy</h1>
+
+<table class="table table-striped" align="center">
+  <thead>
+  <tr>
+    <th>Nazwa</th>
+    <th>Operacja</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let redactor of redactors">
+    <td>{{redactor.username}}</td>
+
+    <td>
+        <button type="submit" class="btn btn-danger mb-2" (click)="onDeletedButtonClicked(redactor.username)">Usuń</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
