@@ -13,7 +13,6 @@
   <tbody>
   <tr *ngFor="let redactor of redactors">
     <td>{{redactor.username}}</td>
-
     <td>
         <button type="submit" class="btn btn-danger mb-2" (click)="onDeletedButtonClicked(redactor.username)">Usuń</button>
     </td>
