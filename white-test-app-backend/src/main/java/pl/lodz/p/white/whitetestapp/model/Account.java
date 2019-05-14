@@ -1,5 +1,7 @@
 package pl.lodz.p.white.whitetestapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -30,6 +32,7 @@ public class Account {
     @Enumerated(STRING)
     private Lang lang;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL)
     private List<TestResult> testResults = new ArrayList<>();
 
