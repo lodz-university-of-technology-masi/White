@@ -56,5 +56,4 @@ public class AccountController {
     public List<Account> getAllRedactors() {
         return service.getAllRedactors();
     }
-
 }
