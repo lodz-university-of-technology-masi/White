@@ -24,6 +24,7 @@ public class Account {
             "[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email")
     private String email;
     private boolean deleted;
+    @JsonIgnore
     private String passwordHash;
 
     @Enumerated(STRING)
