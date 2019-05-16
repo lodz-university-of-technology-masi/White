@@ -8,15 +8,16 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+
   <br/>
   <mat-form-field>
-    <input required class="open-question-input form-control field-restriction" matInput placeholder="Wpisz pytanie"
+    <input required class="open-question-input" matInput placeholder="Wpisz pytanie"
            [value]="question.content" (input)="question.content = $event.target.value">
   </mat-form-field>
 
   <div *ngIf="questionType === 'NUMBER'">
-   <label>Odpowiedź:</label>
-    <input required class="number-question-input form-control" type="number"
+    <label>Odpowiedź:</label>
+    <input required class="number-question-input" type="number"
            [value]="question.answer" (input)="question.answer = $event.target.value">
   </div>
 
