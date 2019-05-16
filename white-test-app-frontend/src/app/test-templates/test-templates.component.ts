@@ -125,7 +125,6 @@ export class NgbdModalNewTest implements OnInit {
       this.messageService.error('Błąd');
     });
   }
-
 }
 
 @Component({

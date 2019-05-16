@@ -2,7 +2,7 @@
   <mat-form-field>
     <mat-label>Wybierz typ pytania</mat-label>
     <mat-select [(ngModel)]="question.questionType">
-      <mat-option class="question-type" *ngFor="let type of questionTypes" [value]=type required
+      <mat-option required class="question-type" *ngFor="let type of questionTypes" [value]=type
                   (click)='setQuestionType(type)'>
         {{type}}
       </mat-option>
@@ -10,13 +10,13 @@
   </mat-form-field>
   <br/>
   <mat-form-field>
-    <input class="open-question-input" matInput placeholder="Wpisz pytanie" required
+    <input required class="open-question-input form-control field-restriction" matInput placeholder="Wpisz pytanie"
            [value]="question.content" (input)="question.content = $event.target.value">
   </mat-form-field>
 
   <div *ngIf="questionType === 'NUMBER'">
    <label>Odpowiedź:</label>
-    <input class="number-question-input" type="number" required
+    <input required class="number-question-input form-control" type="number"
            [value]="question.answer" (input)="question.answer = $event.target.value">
   </div>
 
