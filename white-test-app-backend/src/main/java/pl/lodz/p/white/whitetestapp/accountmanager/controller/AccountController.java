@@ -34,7 +34,7 @@ public class AccountController {
         return service.getOne(id);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/redactors/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteRedactor(@PathVariable String id) throws WrongRequestException {
         try {
             ApiResponse response = new ApiResponse();
@@ -50,5 +50,10 @@ public class AccountController {
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<Account> getAll() {
         return service.getAll();
+    }
+
+    @RequestMapping(value = "/redactors", method = RequestMethod.GET)
+    public List<Account> getAllRedactors() {
+        return service.getAllRedactors();
     }
 }

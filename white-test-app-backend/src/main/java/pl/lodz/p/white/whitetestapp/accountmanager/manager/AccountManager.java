@@ -46,4 +46,9 @@ public class AccountManager implements AccountService {
     public List<Account> getAll() {
         return repository.findAll();
     }
+
+    @Override
+    public List<Account> getAllRedactors() {
+        return repository.findAllByRole(Role.REDACTOR);
+    }
 }

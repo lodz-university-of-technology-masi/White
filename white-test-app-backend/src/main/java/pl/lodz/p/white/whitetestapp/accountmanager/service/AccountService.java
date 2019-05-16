@@ -15,4 +15,6 @@ public interface AccountService {
     void deleteRedactor(Account account) throws WrongRequestException;
 
     List<Account> getAll();
+
+    List<Account> getAllRedactors();
 }
