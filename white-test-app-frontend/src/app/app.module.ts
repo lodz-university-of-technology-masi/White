@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {NavbarComponent} from './navbar/navbar.component';
@@ -9,7 +9,7 @@ import {HttpErrorHandlerService} from './services/http-error-handler.service';
 import {HttpService} from './services/http-service.service';
 import {HttpClientModule} from '@angular/common/http';
 import {Configuration} from './configuration';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest, TestTemplatesComponent} from './test-templates/test-templates.component';
 import {TestTemplateService} from './services/test-template.service';
 import {PositionsComponent} from './positions/positions.component';
@@ -24,6 +24,18 @@ import {TestResultService} from './services/test-result.service';
 import {TestCheckComponent} from './test-check/test-check.component';
 import {AllTestResultsComponent} from './all-test-results/all-test-results.component';
 import {UiSwitchModule} from 'ngx-ui-switch';
+import { QuestionsComponent } from './questions/questions.component';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatRadioModule,
+  MatSelectModule
+} from '@angular/material';
+import { QuestionComponent } from './questions/question/question.component';
+import { ChoiceScaleQuestionComponent } from './questions/choice-scale-question/choice-scale-question.component';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +48,10 @@ import {UiSwitchModule} from 'ngx-ui-switch';
     NgbdModalNewTest,
     TestResultComponent,
     TestCheckComponent,
-    AllTestResultsComponent
+    AllTestResultsComponent,
+    QuestionsComponent,
+    QuestionComponent,
+    ChoiceScaleQuestionComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +71,14 @@ import {UiSwitchModule} from 'ngx-ui-switch';
       defaultBoColor : '#101563',
       checkedLabel: 'dobrze',
       uncheckedLabel: 'źle'
-    })
+    }),
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatRadioModule,
+    ReactiveFormsModule,
+    MatSelectModule
   ],
   providers: [
     Configuration,
@@ -69,7 +91,8 @@ import {UiSwitchModule} from 'ngx-ui-switch';
     MessageService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest]
+  entryComponents: [NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule {
 }

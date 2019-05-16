@@ -1,8 +1,8 @@
-import {Question} from './question';
+import {Question, Questions} from './question';
 
 export class NewTemplate {
   testName: string;
   position: string;
   lang: String;
-  question: Question[];
+  questions: Questions;
 }

@@ -35,6 +35,8 @@
   </form>
 </div>
 
+<app-questions></app-questions>
+
 <!-- TODO: MAS19WH-94 Dodać obsługę dodawania pytań (przy tworzeniu nowego testu) gdy będą już gotowe widoki do różnego rodzaju pytań -->
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-dark" [disabled]="!form.form.valid" (click)="activeModal.close('Save click'); addNew()">Zapisz</button>
