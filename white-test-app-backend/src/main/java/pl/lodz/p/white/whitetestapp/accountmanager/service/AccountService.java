@@ -1,5 +1,7 @@
 package pl.lodz.p.white.whitetestapp.accountmanager.service;
 
+import pl.lodz.p.white.whitetestapp.accountmanager.dtos.AccountDto;
+import pl.lodz.p.white.whitetestapp.exception.EntityAlreadyExistsException;
 import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
 import pl.lodz.p.white.whitetestapp.exception.WrongRequestException;
 import pl.lodz.p.white.whitetestapp.model.Account;
@@ -17,4 +19,6 @@ public interface AccountService {
     List<Account> getAll();
 
     List<Account> getAllRedactors();
+
+    void addRedactor(AccountDto account) throws EntityAlreadyExistsException;
 }
