@@ -1,4 +1,51 @@
-<button class="btn btn-primary mb-2" >Dodaj</button>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Dodanie redaktora</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #form="ngForm">
+      <div class="form-row form-group">
+        <label class="required-sign">Pseudonim:</label>
+        <input required type="text" class="form-control" [(ngModel)]="redactor.username" name="Pseudonim">
+      </div>
+
+      <div class="form-row form-group">
+        <label for="email" class="required-sign">Email:</label>
+        <input type="text" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" id="email"
+               name="email" ngModel #emailref="ngModel" [(ngModel)]="redactor.email">
+        <div *ngIf="emailref.errors &&(emailref.touched || emailref.dirty)" class="alert alert-danger">
+          <div [hidden]="!emailref.errors?.pattern">
+            Zły format maila
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row form-group">
+        <label class="required-sign">Hasło:</label>
+        <input required type="password" class="form-control" [(ngModel)]="redactor.password" name="Hasło">
+      </div>
+
+      <div class="form-row form-group">
+        <label for="lang" class="required-sign">Język</label>
+        <select [(ngModel)]="redactor.lang" class="form-control field-restriction"
+                id="lang"
+                name="lang"
+                required>
+          <option [ngValue]="'PL'">polski</option>
+          <option [ngValue]="'EN'">angielski</option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" [disabled]="!form.form.valid" (click)="modal.close('Save click'); addNew()">Zapisz</button>
+  </div>
+</ng-template>
+
+<button class="btn btn-primary mb-2" (click)="open(content)">Dodaj</button>
 
 <h1>Redaktorzy</h1>
 
@@ -14,7 +61,8 @@
   <tr *ngFor="let redactor of redactors">
     <td>{{redactor.username}}</td>
     <td>
-        <button type="submit" class="btn btn-danger mb-2" (click)="onDeletedButtonClicked(redactor.username)">Usuń</button>
+      <button type="submit" class="btn btn-danger mb-2" (click)="onDeletedButtonClicked(redactor.username)">Usuń
+      </button>
     </td>
   </tr>
   </tbody>
