@@ -1,7 +1,6 @@
 package pl.lodz.p.white.whitetestapp.accountmanager.service;
 
 import pl.lodz.p.white.whitetestapp.accountmanager.dtos.AccountDto;
-import pl.lodz.p.white.whitetestapp.accountmanager.dtos.AccountDto;
 import pl.lodz.p.white.whitetestapp.exception.EntityAlreadyExistsException;
 import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
 import pl.lodz.p.white.whitetestapp.exception.WrongRequestException;

@@ -5,7 +5,6 @@ import pl.lodz.p.white.whitetestapp.accountmanager.dtos.AccountDto;
 import pl.lodz.p.white.whitetestapp.accountmanager.manager.AccountManager;
 import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
 import pl.lodz.p.white.whitetestapp.exception.WrongRequestException;
-import pl.lodz.p.white.whitetestapp.accountmanager.dtos.AccountDto;
 import pl.lodz.p.white.whitetestapp.model.Account;
 import pl.lodz.p.white.whitetestapp.model.Lang;
 import pl.lodz.p.white.whitetestapp.model.Role;
