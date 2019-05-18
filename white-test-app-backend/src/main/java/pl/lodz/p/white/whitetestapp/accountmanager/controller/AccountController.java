@@ -38,7 +38,7 @@ public class AccountController {
         return service.getOne(id);
     }
 
-    @RequestMapping(value = "/redactors/", method = RequestMethod.PUT)
+    @RequestMapping(value = "/redactors", method = RequestMethod.PUT)
     public ResponseEntity editRedactor(@RequestBody AccountDto account) throws WrongRequestException {
         try {
             ApiResponse response = new ApiResponse();
