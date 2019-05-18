@@ -62,7 +62,7 @@ public class AccountController {
         return service.getAllRedactors();
     }
 
-    @RequestMapping(value = "/redactors/", method = RequestMethod.POST)
+    @RequestMapping(value = "/redactors", method = RequestMethod.POST)
     public ResponseEntity addRedactor(@RequestBody AccountDto account) throws WrongRequestException {
         try {
             ApiResponse response = new ApiResponse();

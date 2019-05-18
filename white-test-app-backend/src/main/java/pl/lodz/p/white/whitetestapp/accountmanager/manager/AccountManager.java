@@ -3,17 +3,16 @@ package pl.lodz.p.white.whitetestapp.accountmanager.manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.lodz.p.white.whitetestapp.accountmanager.dtos.AccountDto;
+import pl.lodz.p.white.whitetestapp.accountmanager.dtos.mapper.AccountMapper;
 import pl.lodz.p.white.whitetestapp.accountmanager.service.AccountService;
 import pl.lodz.p.white.whitetestapp.exception.EntityAlreadyExistsException;
 import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
 import pl.lodz.p.white.whitetestapp.exception.WrongRequestException;
 import pl.lodz.p.white.whitetestapp.model.Account;
-import pl.lodz.p.white.whitetestapp.model.Lang;
 import pl.lodz.p.white.whitetestapp.model.Role;
 import pl.lodz.p.white.whitetestapp.repository.AccountRepository;
 
 import javax.validation.ConstraintViolationException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -68,13 +67,6 @@ public class AccountManager implements AccountService {
     }
 
     private void createRedactorEntity(AccountDto account) throws ConstraintViolationException, IllegalArgumentException  {
-        Account newUserEntity = new Account();
-        newUserEntity.setUsername(account.getUsername());
-        newUserEntity.setEmail(account.getEmail());
-        newUserEntity.setPasswordHash(account.getPassword()); //todo change to hash method after authentication done
-        newUserEntity.setLang(Lang.valueOf(account.getLang()));
-        newUserEntity.setRole(Role.REDACTOR);
-        newUserEntity.setTestResults(new ArrayList<>());
-        repository.saveAndFlush(newUserEntity);
+       repository.saveAndFlush(AccountMapper.fromDtoConverter(account));
     }
 }
