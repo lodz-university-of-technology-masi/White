@@ -22,7 +22,6 @@ public class AccountDto {
     public AccountDto setEmail(String email) {
         this.email = email;
         return this;
-
     }
 
     public String getPassword() {
@@ -32,7 +31,6 @@ public class AccountDto {
     public AccountDto setPassword(String password) {
         this.password = password;
         return this;
-
     }
 
     public String getLang() {
@@ -42,6 +40,5 @@ public class AccountDto {
     public AccountDto setLang(String lang) {
         this.lang = lang;
         return this;
-
     }
 }

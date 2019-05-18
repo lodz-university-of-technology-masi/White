@@ -57,6 +57,11 @@ public class AccountManager implements AccountService {
     }
 
     @Override
+    public void updateRedactor(AccountDto account) throws EntityNotFoundException, WrongRequestException {
+        repository.saveAndFlush(AccountMapper.updateObject(this,account));
+    }
+
+    @Override
     public void addRedactor(AccountDto account) throws EntityAlreadyExistsException, ConstraintViolationException, IllegalArgumentException {
         try {
             Account daoCheck = findOne(account.getUsername());
