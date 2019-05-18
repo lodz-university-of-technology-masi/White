@@ -1,7 +1,7 @@
-insert into account (username, email,deleted,password_hash,role,lang) values ('USERUNO','user@gmail.com',false,'dsareqw','CANDIDATE','PL');
-insert into account (username, email,deleted,password_hash,role,lang) values ('RED1','user1@gmail.com',false,'dsareqw','REDACTOR','PL');
-insert into account (username, email,deleted,password_hash,role,lang) values ('RED2','user2@gmail.com',false,'dsareqw','REDACTOR','PL');
-insert into account (username, email,deleted,password_hash,role,lang) values ('CAND1','user3@gmail.com',false,'dsareqw','CANDIDATE','PL');
+insert into account (username, email,password_hash,role,lang) values ('USERUNO','user@gmail.com','dsareqw','CANDIDATE','PL');
+insert into account (username, email,password_hash,role,lang) values ('RED1','user1@gmail.com','dsareqw','REDACTOR','PL');
+insert into account (username, email,password_hash,role,lang) values ('RED2','user2@gmail.com','dsareqw','REDACTOR','PL');
+insert into account (username, email,password_hash,role,lang) values ('CAND1','user3@gmail.com','dsareqw','CANDIDATE','PL');
 insert into answer (id,content) values (1001,'nieznana');
 insert into answer (id,content) values (1002,'znana');
 insert into answer (id,content) values (1003,'1');
