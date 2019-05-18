@@ -33,14 +33,10 @@ export class RedactorsManagementComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-    }, (reason) => {
-    });
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
 
   addNew() {
-
-
     this.accountService.addRedactor(this.redactor).subscribe(success => {
       this.messageService.success('Sukces');
       this.loadRedactors();
