@@ -9,17 +9,17 @@ import {Observable} from "rxjs/Observable";
 })
 export class QuestionService {
 
-  private endpoint = this.config.ApiPath + '/testtemplate';
+  private endpoint = this.config.ApiPath + '/testtemplatecontent';
 
   constructor(private httpService: HttpService,
               private config: Configuration) {
   }
 
   add(testId: number, questions: Question[]) {
-    return this.httpService.post( `/${this.endpoint}/${testId}/'questions'`, questions);
+    return this.httpService.post( `/${this.endpoint}/'addquestion'/${testId}`, questions);
   }
 
   get(testId: number): Observable<Question[]> {
-    return this.httpService.get<Question[]>(`/${this.endpoint}/${testId}/'questions'`);
+    return this.httpService.get<Question[]>(`/${this.endpoint}/'addquestion'/${testId}`);
   }
 }
