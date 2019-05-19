@@ -24,7 +24,7 @@ import {TestResultService} from './services/test-result.service';
 import {TestCheckComponent} from './test-check/test-check.component';
 import {AllTestResultsComponent} from './all-test-results/all-test-results.component';
 import {UiSwitchModule} from 'ngx-ui-switch';
-import { QuestionsComponent } from './questions/questions.component';
+import {QuestionsComponent} from './questions/questions.component';
 import {
   MatButtonModule,
   MatCardModule,
@@ -33,9 +33,9 @@ import {
   MatRadioModule,
   MatSelectModule
 } from '@angular/material';
-import { QuestionComponent } from './questions/question/question.component';
-import { ChoiceScaleQuestionComponent } from './questions/choice-scale-question/choice-scale-question.component';
-import { RedactorsManagementComponent } from './redactors-management/redactors-management.component';
+import {QuestionComponent} from './questions/question/question.component';
+import {ChoiceScaleQuestionComponent} from './questions/choice-scale-question/choice-scale-question.component';
+import {RedactorsManagementComponent} from './redactors-management/redactors-management.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +93,7 @@ import { RedactorsManagementComponent } from './redactors-management/redactors-m
   ],
   bootstrap: [AppComponent],
   entryComponents: [NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {
 }
