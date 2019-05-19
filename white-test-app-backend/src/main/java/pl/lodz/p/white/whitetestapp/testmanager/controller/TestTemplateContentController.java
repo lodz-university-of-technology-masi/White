@@ -79,4 +79,20 @@ public class TestTemplateContentController {
         }
     }
 
+    @RequestMapping(value = "/downloadcsv/{id}", method = RequestMethod.GET)
+    public ResponseEntity<StringBuilder> exportCsv(@PathVariable("id") Long id) throws WrongRequestException {
+        try {
+            TestTemplateContent requestedTestContent = service.findOne(id);
+            StringBuilder file = service.exportCsv(requestedTestContent);
+            String filename = requestedTestContent.getTestTemplate().getId() + "_" +
+                    requestedTestContent.getTestTemplate().getName() + "_" +
+                    requestedTestContent.getTestTemplate().getPosition().getName() + ".csv";
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"")
+                    .body(file);
+        }catch (EntityNotFoundException e) {
+            throw new WrongRequestException(WrongRequestException.NOT_EXISTING_DATA_REQUESTED);
+        }
+
+    }
 }

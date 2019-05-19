@@ -15,4 +15,6 @@ public interface TestTemplateContentService {
     void addQuestionToContent(TestTemplateContent content, Question question) throws FailedSaveException;
 
     byte[] generatePDF(TestTemplateContent requestedTest) throws DocumentCreationException;
+
+    StringBuilder exportCsv(TestTemplateContent requestedTest);
 }
