@@ -24,7 +24,7 @@ import {TestResultService} from './services/test-result.service';
 import {TestCheckComponent} from './test-check/test-check.component';
 import {AllTestResultsComponent} from './all-test-results/all-test-results.component';
 import {UiSwitchModule} from 'ngx-ui-switch';
-import { RedactorsManagementComponent } from './redactors-management/redactors-management.component';
+import {NgbdModalEditRedactor, RedactorsManagementComponent} from './redactors-management/redactors-management.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +34,7 @@ import { RedactorsManagementComponent } from './redactors-management/redactors-m
     PositionsComponent,
     NgbdModalContent,
     NgbdModalEditPosition,
+    NgbdModalEditRedactor,
     NgbdModalNewTest,
     TestResultComponent,
     TestCheckComponent,
@@ -71,7 +72,7 @@ import { RedactorsManagementComponent } from './redactors-management/redactors-m
     MessageService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest]
+  entryComponents: [NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest, NgbdModalEditRedactor]
 })
 export class AppModule {
 }

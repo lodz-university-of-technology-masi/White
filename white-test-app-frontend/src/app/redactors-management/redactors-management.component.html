@@ -1,6 +1,6 @@
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Dodanie redaktora</h4>
+    <h4 class="modal-title" id="modal-add-redactor">Dodanie redaktora</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -61,8 +61,8 @@
   <tr *ngFor="let redactor of redactors">
     <td>{{redactor.username}}</td>
     <td>
-      <button type="submit" class="btn btn-danger mb-2" (click)="onDeletedButtonClicked(redactor.username)">Usuń
-      </button>
+      <button type="submit" class="btn btn-primary mb-2" (click)="onEditButtonClicked(redactor)">Edytuj</button>
+      <button type="submit" class="btn btn-danger mb-2" (click)="onDeletedButtonClicked(redactor.username)">Usuń</button>
     </td>
   </tr>
   </tbody>

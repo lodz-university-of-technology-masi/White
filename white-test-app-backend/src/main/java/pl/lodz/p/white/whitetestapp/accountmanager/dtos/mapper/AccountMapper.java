@@ -28,6 +28,9 @@ public class AccountMapper {
         if (dao.getRole() != Role.REDACTOR) {
             throw new WrongRequestException(WrongRequestException.NOT_ACCEPTABLE_DATA);
         }
+        if(account.getPassword().isEmpty()){
+            account.setPassword(dao.getPasswordHash());
+        }
         dao.setEmail(account.getEmail())
                 .setPasswordHash(account.getPassword()) // todo After authentication done implement generate hash
                 .setLang(Lang.valueOf(account.getLang()));
