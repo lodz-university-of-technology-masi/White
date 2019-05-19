@@ -65,7 +65,6 @@ export class NgbdModalContent {
     });
   }
 
-
   exportPDF(test) {
     this.testService.generatePDF(test.id, test).subscribe((response) => {
       this.messageService.success('Sukces');
@@ -74,6 +73,17 @@ export class NgbdModalContent {
       const url = URL.createObjectURL(blob);
       saveAs(blob, filename);
       window.open(url);
+    }, e => {
+      this.messageService.error('Błąd');
+    });
+  }
+
+  exportCSV(test) {
+    this.testService.exportCSV(test.id, test).subscribe((response) => {
+      this.messageService.success('Sukces');
+     const filename = response.headers.get('filename');
+       const blob = new Blob([response.body], {type: 'text/csv'});
+       saveAs(blob,filename);
     }, e => {
       this.messageService.error('Błąd');
     });

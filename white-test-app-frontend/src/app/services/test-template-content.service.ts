@@ -24,4 +24,8 @@ export class TestTemplateContentService {
   get(id: number): Observable<TestTemplateDetail> {
     return this.httpService.get<TestTemplateDetail>(this.endpoint + '/' + id);
   }
+
+  exportCSV(testId: Number, test: TestTemplate): any {
+    return this.httpService.get(this.endpoint + '/downloadcsv/' + testId, {responseType: 'arraybuffer', observe: 'response'});
+  }
 }
