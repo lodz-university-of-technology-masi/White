@@ -50,7 +50,7 @@ import { RedactorsManagementComponent } from './redactors-management/redactors-m
     TestResultComponent,
     TestCheckComponent,
     AllTestResultsComponent,
-    RedactorsManagementComponent
+    RedactorsManagementComponent,
     AllTestResultsComponent,
     QuestionsComponent,
     QuestionComponent,
