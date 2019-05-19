@@ -15,12 +15,6 @@
            [value]="question.content" (input)="question.content = $event.target.value">
   </mat-form-field>
 
-  <div *ngIf="questionType === 'NUMBER'">
-    <label>Odpowiedź:</label>
-    <input required class="number-question-input" type="number"
-           [value]="question.answer" (input)="question.answer = $event.target.value">
-  </div>
-
   <div *ngIf="questionType === 'CHOICE'">
     <app-choice-scale-question>[question]="question"</app-choice-scale-question>
   </div>

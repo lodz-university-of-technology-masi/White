@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpService} from "./http-service.service";
 import {Configuration} from "../configuration";
-import {Question, Questions} from "../test-templates/model/question";
+import {Question} from "../test-templates/model/question";
 import {Observable} from "rxjs/Observable";
 
 @Injectable({
@@ -15,11 +15,11 @@ export class QuestionService {
               private config: Configuration) {
   }
 
-  add(testId: number, questions: Questions) {
+  add(testId: number, questions: Question[]) {
     return this.httpService.post( `/${this.endpoint}/${testId}/'questions'`, questions);
   }
 
-  get(testId: number): Observable<Questions> {
-    return this.httpService.get<Questions>(`/${this.endpoint}/${testId}/'questions'`);
+  get(testId: number): Observable<Question[]> {
+    return this.httpService.get<Question[]>(`/${this.endpoint}/${testId}/'questions'`);
   }
 }

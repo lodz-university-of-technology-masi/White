@@ -9,7 +9,7 @@ import {MessageService} from '../services/message.service';
 import {TestTemplateContentService} from '../services/test-template-content.service';
 import {saveAs} from 'file-saver';
 import {QuestionService} from "../services/question.service";
-import {Questions} from "./model/question";
+import {Question} from "./model/question";
 
 @Component({
   selector: 'ngbd-modal-edit-position',
@@ -94,7 +94,7 @@ export class NgbdModalContent {
 export class NgbdModalNewTest implements OnInit {
   positions: string[];
   newTemplate: NewTemplate;
-  questions: Questions;
+  questions: Question[];
 
   constructor(public activeModal: NgbActiveModal,
               private testTemplateService: TestTemplateService,
@@ -109,8 +109,7 @@ export class NgbdModalNewTest implements OnInit {
     this.newTemplate = new NewTemplate();
     this.getPositions();
     if (this.questions === null || this.questions === undefined) {
-      this.questions = new Questions();
-      this.questions.questions = [];
+      this.questions = [];
     }
   }
 
