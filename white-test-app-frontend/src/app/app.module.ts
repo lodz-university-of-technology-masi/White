@@ -35,7 +35,7 @@ import {
 } from '@angular/material';
 import { QuestionComponent } from './questions/question/question.component';
 import { ChoiceScaleQuestionComponent } from './questions/choice-scale-question/choice-scale-question.component';
-
+import { RedactorsManagementComponent } from './redactors-management/redactors-management.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +51,8 @@ import { ChoiceScaleQuestionComponent } from './questions/choice-scale-question/
     AllTestResultsComponent,
     QuestionsComponent,
     QuestionComponent,
-    ChoiceScaleQuestionComponent
+    ChoiceScaleQuestionComponent,
+    RedactorsManagementComponent
   ],
   imports: [
     BrowserModule,
