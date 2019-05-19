@@ -15,11 +15,7 @@
            [value]="question.content" (input)="question.content = $event.target.value">
   </mat-form-field>
 
-  <div *ngIf="questionType === 'CHOICE'">
-    <app-choice-scale-question>[question]="question"</app-choice-scale-question>
-  </div>
-
-  <div *ngIf="questionType === 'SCALE'">
+  <div *ngIf="questionType === 'CHOICE' || questionType === 'SCALE'">
     <app-choice-scale-question>[question]="question"</app-choice-scale-question>
   </div>
 </div>

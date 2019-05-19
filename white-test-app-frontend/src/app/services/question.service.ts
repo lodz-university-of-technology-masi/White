@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpService} from "./http-service.service";
 import {Configuration} from "../configuration";
 import {Question} from "../test-templates/model/question";
