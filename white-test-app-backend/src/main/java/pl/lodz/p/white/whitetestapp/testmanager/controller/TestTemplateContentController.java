@@ -88,7 +88,7 @@ public class TestTemplateContentController {
                     requestedTestContent.getTestTemplate().getName() + "_" +
                     requestedTestContent.getTestTemplate().getPosition().getName() + ".csv";
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"")
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename + "")
                     .body(file);
         }catch (EntityNotFoundException e) {
             throw new WrongRequestException(WrongRequestException.NOT_EXISTING_DATA_REQUESTED);
