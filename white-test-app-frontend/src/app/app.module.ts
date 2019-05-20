@@ -24,6 +24,7 @@ import {TestResultService} from './services/test-result.service';
 import {TestCheckComponent} from './test-check/test-check.component';
 import {AllTestResultsComponent} from './all-test-results/all-test-results.component';
 import {UiSwitchModule} from 'ngx-ui-switch';
+import {NgbdModalEditRedactor, RedactorsManagementComponent} from './redactors-management/redactors-management.component';
 import {QuestionsComponent} from './questions/questions.component';
 import {
   MatButtonModule,
@@ -45,6 +46,7 @@ import {RedactorsManagementComponent} from './redactors-management/redactors-man
     PositionsComponent,
     NgbdModalContent,
     NgbdModalEditPosition,
+    NgbdModalEditRedactor,
     NgbdModalNewTest,
     TestResultComponent,
     TestCheckComponent,
@@ -92,7 +94,7 @@ import {RedactorsManagementComponent} from './redactors-management/redactors-man
     MessageService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest],
+  entryComponents: [NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest, NgbdModalEditRedactor],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {

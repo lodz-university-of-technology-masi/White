@@ -27,5 +27,9 @@ export class AccountService {
   addRedactor(redactor: Redactor) {
     return this.httpService.post(this.redactors, redactor);
   }
+
+  updateRedactor(redactor: Redactor) {
+    return this.httpService.put(this.redactors, redactor);
+  }
 }
 
