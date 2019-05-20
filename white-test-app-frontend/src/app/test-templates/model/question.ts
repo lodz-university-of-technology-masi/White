@@ -8,7 +8,3 @@ export class Question {
   answer: string;
   isCorrect: boolean;
 }
-
-export class Questions {
-  questions: Question[];
-}

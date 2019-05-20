@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Redactor} from './model/redactor';
 import {MessageService} from '../services/message.service';
 import {AccountService} from '../services/account.service';
-
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-redactors-management',
@@ -15,6 +15,7 @@ export class RedactorsManagementComponent implements OnInit {
   redactors: Redactor[];
 
   constructor(private accountService: AccountService,
+              private modalService: NgbModal,
               private messageService: MessageService) {
   }
 
@@ -29,6 +30,19 @@ export class RedactorsManagementComponent implements OnInit {
         console.log(t);
       }
     );
+  }
+
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+  }
+
+  addNew() {
+    this.accountService.addRedactor(this.redactor).subscribe(success => {
+      this.messageService.success('Sukces');
+      this.loadRedactors();
+    }, error => {
+      this.messageService.error('Błąd');
+    });
   }
 
   onDeletedButtonClicked(username: string) {

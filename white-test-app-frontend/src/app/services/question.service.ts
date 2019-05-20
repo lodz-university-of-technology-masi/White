@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpService} from "./http-service.service";
 import {Configuration} from "../configuration";
-import {Question, Questions} from "../test-templates/model/question";
+import {Question} from "../test-templates/model/question";
 import {Observable} from "rxjs/Observable";
 
 @Injectable({
@@ -9,17 +9,17 @@ import {Observable} from "rxjs/Observable";
 })
 export class QuestionService {
 
-  private endpoint = this.config.ApiPath + '/testtemplate';
+  private endpoint = this.config.ApiPath + '/testtemplatecontent';
 
   constructor(private httpService: HttpService,
               private config: Configuration) {
   }
 
-  add(testId: number, questions: Questions) {
-    return this.httpService.post( `/${this.endpoint}/${testId}/'questions'`, questions);
+  add(testId: number, questions: Question[]) {
+    return this.httpService.post( `/${this.endpoint}/'addquestion'/${testId}`, questions);
   }
 
-  get(testId: number): Observable<Questions> {
-    return this.httpService.get<Questions>(`/${this.endpoint}/${testId}/'questions'`);
+  get(testId: number): Observable<Question[]> {
+    return this.httpService.get<Question[]>(`/${this.endpoint}/'addquestion'/${testId}`);
   }
 }

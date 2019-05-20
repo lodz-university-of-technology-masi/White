@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Question, Questions} from "../test-templates/model/question";
+import {Question} from "../test-templates/model/question";
 
 @Component({
   selector: 'app-questions',
@@ -8,14 +8,13 @@ import {Question, Questions} from "../test-templates/model/question";
 })
 export class QuestionsComponent implements OnInit {
 
-  questions: Questions;
+  questions: Question[];
 
   constructor() { }
 
   ngOnInit() {
     if (this.questions === null || this.questions === undefined) {
-      this.questions = new Questions();
-      this.questions.questions = [];
+      this.questions = [];
     }
   }
 
@@ -24,10 +23,10 @@ export class QuestionsComponent implements OnInit {
     question.answers = [];
     question.content = '';
     question.questionType = 'OPEN';
-    this.questions.questions.push(question);
+    this.questions.push(question);
   }
 
   delete(id: number): void {
-    this.questions.questions.splice(id, 1);
+    this.questions.splice(id, 1);
   }
 }
