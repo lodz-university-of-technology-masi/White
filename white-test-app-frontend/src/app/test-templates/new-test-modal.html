@@ -1,3 +1,4 @@
+<div (mouseup)="showSelectedText()" (window:keydown.control.w)="openWikipedia($event)">
 <div class="modal-header">
   <h4 class="modal-title" id="modal-basic-title">Dodaj test</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -40,4 +41,5 @@
 <!-- TODO: MAS19WH-94 Dodać obsługę dodawania pytań (przy tworzeniu nowego testu) gdy będą już gotowe widoki do różnego rodzaju pytań -->
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-dark" [disabled]="!form.form.valid" (click)="activeModal.close('Save click'); addNew()">Zapisz</button>
+</div>
 </div>

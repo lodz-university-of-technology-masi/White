@@ -124,6 +124,20 @@ export class NgbdModalNewTest implements OnInit {
       this.messageService.error('Błąd');
     });
   }
+
+  selectedText: string= '';
+  showSelectedText() {
+   var text = "";
+   if (window.getSelection) {
+      text = window.getSelection().toString();
+    }
+  this.selectedText = text;
+  }
+
+  openWikipedia(event) {
+    window.open('https://en.wikipedia.org/wiki/' + this.selectedText, '_blank');
+  }
+
 }
 
 @Component({
