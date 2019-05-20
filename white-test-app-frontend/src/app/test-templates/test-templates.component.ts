@@ -81,9 +81,9 @@ export class NgbdModalContent {
   exportCSV(test) {
     this.testService.exportCSV(test.id, test).subscribe((response) => {
       this.messageService.success('Sukces');
-     const filename = response.headers.get('filename');
-       const blob = new Blob([response.body], {type: 'text/csv'});
-       saveAs(blob,filename);
+      const filename = response.headers.get('filename');
+      const blob = new Blob([response.body], {type: 'text/csv'});
+      saveAs(blob, filename);
     }, e => {
       this.messageService.error('Błąd');
     });
