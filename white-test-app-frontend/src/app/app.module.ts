@@ -51,6 +51,8 @@ import {RedactorsManagementComponent} from './redactors-management/redactors-man
     TestResultComponent,
     TestCheckComponent,
     AllTestResultsComponent,
+    RedactorsManagementComponent,
+    AllTestResultsComponent,
     QuestionsComponent,
     QuestionComponent,
     ChoiceScaleQuestionComponent,
