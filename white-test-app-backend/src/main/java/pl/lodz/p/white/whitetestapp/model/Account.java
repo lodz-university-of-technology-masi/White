@@ -23,7 +23,7 @@ public class Account {
     @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*" +
             "[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email")
     private String email;
-    private boolean deleted;
+
     @JsonIgnore
     private String passwordHash;
 
@@ -52,15 +52,6 @@ public class Account {
 
     public Account setEmail(String email) {
         this.email = email;
-        return this;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public Account setDeleted(boolean deleted) {
-        this.deleted = deleted;
         return this;
     }
 

@@ -1,7 +1,7 @@
 export class Redactor {
   username: string;
   email: string;
-  deleted: boolean;
+  password: string;
   role: string;
   lang: string;
 }

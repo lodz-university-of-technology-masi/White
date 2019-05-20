@@ -23,4 +23,13 @@ export class AccountService {
   deleteRedactor(id: string): Observable<Redactor[]> {
     return this.httpService.delete<Redactor[]>(this.redactors + '/' + id);
   }
+
+  addRedactor(redactor: Redactor) {
+    return this.httpService.post(this.redactors, redactor);
+  }
+
+  updateRedactor(redactor: Redactor) {
+    return this.httpService.put(this.redactors, redactor);
+  }
 }
+

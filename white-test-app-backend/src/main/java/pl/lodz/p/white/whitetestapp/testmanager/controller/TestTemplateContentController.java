@@ -87,12 +87,12 @@ public class TestTemplateContentController {
             String filename = requestedTestContent.getTestTemplate().getId() + "_" +
                     requestedTestContent.getTestTemplate().getName() + "_" +
                     requestedTestContent.getTestTemplate().getPosition().getName() + ".csv";
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"")
-                    .body(file);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentDispositionFormData(filename, filename);
+            headers.add("filename", filename);
+            return new ResponseEntity<>(file, headers, HttpStatus.OK);
         }catch (EntityNotFoundException e) {
             throw new WrongRequestException(WrongRequestException.NOT_EXISTING_DATA_REQUESTED);
         }
-
     }
 }
