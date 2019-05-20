@@ -1,0 +1,13 @@
+<div class="questions-container">
+  <div *ngFor="let question of questions; let i = index;">
+    <div class="single-question-container">
+      <app-question [question]="question"></app-question>
+      <div class="danger-button remove-question">
+        <button class="btn btn-danger" mat-button (click)="delete(i)">Usuń pytanie</button>
+      </div>
+    </div>
+  </div>
+  <div class="btn-add-question">
+    <button class="btn btn-success" mat-button (click)="add()">Dodaj pytanie</button>
+  </div>
+</div>

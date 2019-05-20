@@ -1,0 +1,15 @@
+.open-question-container > *{
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+.number-question-input{
+  width: 40%;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
