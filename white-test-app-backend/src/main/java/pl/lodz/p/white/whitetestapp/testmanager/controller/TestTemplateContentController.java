@@ -111,6 +111,7 @@ public class TestTemplateContentController {
         service.importCsv(content, id);
         response.setMessage(DATA_IMPORTED);
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity edit(@RequestBody TemplateToModifyDto template) throws WrongRequestException {
