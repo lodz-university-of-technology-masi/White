@@ -20,10 +20,14 @@ import pl.lodz.p.white.whitetestapp.model.ApiResponse;
 import pl.lodz.p.white.whitetestapp.model.Question;
 import pl.lodz.p.white.whitetestapp.model.TestInformationRequest;
 import pl.lodz.p.white.whitetestapp.model.TestTemplateContent;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.TemplateToModifyDto;
 import pl.lodz.p.white.whitetestapp.testmanager.service.QuestionService;
 import pl.lodz.p.white.whitetestapp.testmanager.service.TestTemplateContentService;
 
 import java.io.IOException;
+
+import javax.validation.ConstraintViolationException;
+
 
 @Controller
 @RestController
@@ -99,7 +103,7 @@ public class TestTemplateContentController {
             throw new WrongRequestException(WrongRequestException.NOT_EXISTING_DATA_REQUESTED);
         }
     }
-
+  
     @RequestMapping(value = "/importcsv/{templateId}", method = RequestMethod.POST)
     public ResponseEntity importCsv(@RequestBody byte[] file,@PathVariable("templateId") Long id) throws AppException {
         ApiResponse response = new ApiResponse();
@@ -107,5 +111,16 @@ public class TestTemplateContentController {
         service.importCsv(content, id);
         response.setMessage(DATA_IMPORTED);
         return ResponseEntity.status(HttpStatus.OK).body(response);
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity edit(@RequestBody TemplateToModifyDto template) throws WrongRequestException {
+        try {
+            ApiResponse response = new ApiResponse();
+            service.editTestContent(template);
+            response.setMessage(OBJECT_UPDATED);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (EntityNotFoundException | IllegalArgumentException | ConstraintViolationException e) {
+            throw new WrongRequestException(WrongRequestException.NOT_ACCEPTABLE_DATA);
+        }
     }
 }

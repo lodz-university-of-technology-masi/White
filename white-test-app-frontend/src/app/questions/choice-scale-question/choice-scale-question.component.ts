@@ -10,9 +10,10 @@ export class ChoiceScaleQuestionComponent implements OnInit {
 
   constructor() { }
 
-  @Input() answers: Answer[]=[];
+  @Input() answers: Answer[];
 
   ngOnInit() {
+    console.log(this.answers);
   }
 
   add(): void {

@@ -10,7 +10,13 @@ import {HttpService} from './services/http-service.service';
 import {HttpClientModule} from '@angular/common/http';
 import {Configuration} from './configuration';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest, TestTemplatesComponent} from './test-templates/test-templates.component';
+import {
+  NgbdModalContent,
+  NgbdModalEditPosition,
+  NgbdModalModifyTest,
+  NgbdModalNewTest,
+  TestTemplatesComponent
+} from './test-templates/test-templates.component';
 import {TestTemplateService} from './services/test-template.service';
 import {PositionsComponent} from './positions/positions.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -26,17 +32,9 @@ import {AllTestResultsComponent} from './all-test-results/all-test-results.compo
 import {UiSwitchModule} from 'ngx-ui-switch';
 import {NgbdModalEditRedactor, RedactorsManagementComponent} from './redactors-management/redactors-management.component';
 import {QuestionsComponent} from './questions/questions.component';
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatRadioModule,
-  MatSelectModule
-} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatRadioModule, MatSelectModule} from '@angular/material';
 import {QuestionComponent} from './questions/question/question.component';
 import {ChoiceScaleQuestionComponent} from './questions/choice-scale-question/choice-scale-question.component';
-import {RedactorsManagementComponent} from './redactors-management/redactors-management.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +46,7 @@ import {RedactorsManagementComponent} from './redactors-management/redactors-man
     NgbdModalEditPosition,
     NgbdModalEditRedactor,
     NgbdModalNewTest,
+    NgbdModalModifyTest,
     TestResultComponent,
     TestCheckComponent,
     AllTestResultsComponent,
@@ -96,7 +95,7 @@ import {RedactorsManagementComponent} from './redactors-management/redactors-man
     MessageService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest, NgbdModalEditRedactor],
+  entryComponents: [NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest, NgbdModalEditRedactor, NgbdModalModifyTest],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {

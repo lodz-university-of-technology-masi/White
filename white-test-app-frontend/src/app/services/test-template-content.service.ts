@@ -21,6 +21,10 @@ export class TestTemplateContentService {
     return this.httpService.post(this.endpoint + '/downloadpdf/' + testId, test, {responseType: 'arraybuffer', observe: 'response'});
   }
 
+  edit(template: TestTemplateDetail) {
+    return this.httpService.put(this.endpoint, template);
+  }
+
   get(id: number): Observable<TestTemplateDetail> {
     return this.httpService.get<TestTemplateDetail>(this.endpoint + '/' + id);
   }

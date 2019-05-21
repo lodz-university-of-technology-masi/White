@@ -8,8 +8,9 @@ import {Position} from '../positions/model/position';
 import {MessageService} from '../services/message.service';
 import {TestTemplateContentService} from '../services/test-template-content.service';
 import {saveAs} from 'file-saver';
-import {QuestionService} from "../services/question.service";
-import {Question} from "./model/question";
+import {QuestionService} from '../services/question.service';
+import {Question} from './model/question';
+import {TestTemplateDetail} from './model/test-template-detail';
 
 @Component({
   selector: 'ngbd-modal-edit-position',
@@ -57,6 +58,16 @@ export class NgbdModalContent {
 
   open(test) {
     const modal: NgbModalRef = this.modalService.open(NgbdModalEditPosition, {ariaLabelledBy: 'modal-basic-title'});
+    modal.componentInstance.test = test;
+    modal.result.then((result) => {
+      console.log(result);
+    }, (reason) => {
+      console.log(reason);
+    });
+  }
+
+  openToModify(test) {
+    const modal: NgbModalRef = this.modalService.open(NgbdModalModifyTest, {ariaLabelledBy: 'modal-basic-title'});
     modal.componentInstance.test = test;
     modal.result.then((result) => {
       console.log(result);
@@ -117,10 +128,8 @@ export class NgbdModalNewTest implements OnInit {
 
   ngOnInit(): void {
     this.newTemplate = new NewTemplate();
+    this.newTemplate.questions = [];
     this.getPositions();
-    if (this.questions === null || this.questions === undefined) {
-      this.questions = [];
-    }
   }
 
   private getPositions() {
@@ -128,7 +137,51 @@ export class NgbdModalNewTest implements OnInit {
   }
 
   addNew() {
+    console.log(this.newTemplate);
+    console.log(this.newTemplate.questions);
     this.testTemplateService.add(this.newTemplate).subscribe(s => {
+      this.messageService.success('Sukces');
+    }, e => {
+      this.messageService.error('Błąd');
+    });
+  }
+}
+
+
+@Component({
+  selector: 'ngbd-modal-modify-modal',
+  templateUrl: './modify-test-modal.html'
+})
+export class NgbdModalModifyTest implements OnInit {
+  @Input() test;
+  positions: string[];
+  testTemplate: TestTemplateDetail;
+
+  constructor(public activeModal: NgbActiveModal,
+              private testTemplateContentService: TestTemplateContentService,
+              private messageService: MessageService,
+              private modalService: NgbModal,
+              private positionsService: PositionsService) {
+  }
+
+  ngOnInit(): void {
+    this.loadTestTemplate();
+    this.getPositions();
+  }
+
+  private loadTestTemplate() {
+    this.testTemplateContentService.get(this.test.id).subscribe(test => {
+      this.testTemplate = test;
+      console.log(this.testTemplate);
+    });
+  }
+
+  private getPositions() {
+    this.positionsService.getAllPositions().subscribe(positions => this.positions = positions.map(p => p.name));
+  }
+
+  save() {
+    this.testTemplateContentService.edit(this.testTemplate).subscribe(s => {
       this.messageService.success('Sukces');
     }, e => {
       this.messageService.error('Błąd');
