@@ -55,6 +55,7 @@ export class NgbdModalEditPosition implements OnInit {
 })
 export class NgbdModalContent {
   @Input() test;
+  fileToUpload: File = null;
 
   open(test) {
     const modal: NgbModalRef = this.modalService.open(NgbdModalEditPosition, {ariaLabelledBy: 'modal-basic-title'});
@@ -86,6 +87,15 @@ export class NgbdModalContent {
       window.open(url);
     }, e => {
       this.messageService.error('Błąd');
+    });
+  }
+
+  importCsv(files) {
+    this.fileToUpload = files.item(0);
+    this.testService.importCsv(this.test.testTemplateId, this.fileToUpload).subscribe((response) => {
+      this.messageService.success('Sukces');
+    }, e => {
+      this.messageService.error(e.error.message);
     });
   }
 
@@ -219,7 +229,7 @@ export class TestTemplatesComponent implements OnInit {
 
   open(content, test) {
     const modal: NgbModalRef = this.modalService.open(NgbdModalContent, {ariaLabelledBy: 'modal-basic-title'});
-    modal.componentInstance.test = test;
+      modal.componentInstance.test = test;
     modal.result.then((result) => {
       this.loadTemplates();
     }, (reason) => {
@@ -250,5 +260,4 @@ export class TestTemplatesComponent implements OnInit {
       },
       e => this.messageService.error('Błąd'));
   }
-
 }
