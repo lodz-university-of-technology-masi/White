@@ -26,17 +26,9 @@ import {AllTestResultsComponent} from './all-test-results/all-test-results.compo
 import {UiSwitchModule} from 'ngx-ui-switch';
 import {NgbdModalEditRedactor, RedactorsManagementComponent} from './redactors-management/redactors-management.component';
 import {QuestionsComponent} from './questions/questions.component';
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatRadioModule,
-  MatSelectModule
-} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatRadioModule, MatSelectModule} from '@angular/material';
 import {QuestionComponent} from './questions/question/question.component';
 import {ChoiceScaleQuestionComponent} from './questions/choice-scale-question/choice-scale-question.component';
-import {RedactorsManagementComponent} from './redactors-management/redactors-management.component';
 
 @NgModule({
   declarations: [
