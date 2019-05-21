@@ -36,7 +36,7 @@ export class TestTemplateService {
   }
 
   deleteTest(id: number, currentLang: string){
-    return this.httpService.delete(this.endpoint+'/'+id+'?lang=' + currentLang);
+    return this.httpService.delete(this.endpoint + '/' + id + '?lang=' + currentLang);
   }
 
 }

@@ -8,8 +8,10 @@ import {Position} from '../positions/model/position';
 import {MessageService} from '../services/message.service';
 import {TestTemplateContentService} from '../services/test-template-content.service';
 import {saveAs} from 'file-saver';
-import {QuestionService} from "../services/question.service";
-import {Question} from "./model/question";
+import {QuestionService} from '../services/question.service';
+import {Question} from './model/question';
+import {TestToModify} from './model/test-to-modify';
+import {TestTemplateDetail} from './model/test-template-detail';
 
 @Component({
   selector: 'ngbd-modal-edit-position',
@@ -56,6 +58,16 @@ export class NgbdModalContent {
   @Input() test;
 
   open(test) {
+    const modal: NgbModalRef = this.modalService.open(NgbdModalEditPosition, {ariaLabelledBy: 'modal-basic-title'});
+    modal.componentInstance.test = test;
+    modal.result.then((result) => {
+      console.log(result);
+    }, (reason) => {
+      console.log(reason);
+    });
+  }
+
+  openToModify(test) {
     const modal: NgbModalRef = this.modalService.open(NgbdModalEditPosition, {ariaLabelledBy: 'modal-basic-title'});
     modal.componentInstance.test = test;
     modal.result.then((result) => {
@@ -117,10 +129,8 @@ export class NgbdModalNewTest implements OnInit {
 
   ngOnInit(): void {
     this.newTemplate = new NewTemplate();
+    this.newTemplate.questions = [];
     this.getPositions();
-    if (this.questions === null || this.questions === undefined) {
-      this.questions = [];
-    }
   }
 
   private getPositions() {
@@ -128,6 +138,8 @@ export class NgbdModalNewTest implements OnInit {
   }
 
   addNew() {
+    console.log(this.newTemplate);
+    console.log(this.newTemplate.questions);
     this.testTemplateService.add(this.newTemplate).subscribe(s => {
       this.messageService.success('Sukces');
     }, e => {

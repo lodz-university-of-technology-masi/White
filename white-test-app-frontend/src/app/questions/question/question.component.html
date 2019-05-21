@@ -16,6 +16,6 @@
   </mat-form-field>
 
   <div *ngIf="questionType === 'CHOICE' || questionType === 'SCALE'">
-    <app-choice-scale-question>[question]="question"</app-choice-scale-question>
+    <app-choice-scale-question [answers]="question.answers"></app-choice-scale-question>
   </div>
 </div>
