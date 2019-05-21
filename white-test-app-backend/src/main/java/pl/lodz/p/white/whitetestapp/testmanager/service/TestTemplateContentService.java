@@ -5,6 +5,7 @@ import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
 import pl.lodz.p.white.whitetestapp.exception.FailedSaveException;
 import pl.lodz.p.white.whitetestapp.model.Question;
 import pl.lodz.p.white.whitetestapp.model.TestTemplateContent;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.TemplateToModifyDto;
 
 public interface TestTemplateContentService {
 
@@ -17,4 +18,6 @@ public interface TestTemplateContentService {
     byte[] generatePDF(TestTemplateContent requestedTest) throws DocumentCreationException;
 
     StringBuilder exportCsv(TestTemplateContent requestedTest);
+
+    void editTestContent(TemplateToModifyDto template) throws EntityNotFoundException;
 }

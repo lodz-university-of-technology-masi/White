@@ -19,8 +19,11 @@ import pl.lodz.p.white.whitetestapp.model.ApiResponse;
 import pl.lodz.p.white.whitetestapp.model.Question;
 import pl.lodz.p.white.whitetestapp.model.TestInformationRequest;
 import pl.lodz.p.white.whitetestapp.model.TestTemplateContent;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.TemplateToModifyDto;
 import pl.lodz.p.white.whitetestapp.testmanager.service.QuestionService;
 import pl.lodz.p.white.whitetestapp.testmanager.service.TestTemplateContentService;
+
+import javax.validation.ConstraintViolationException;
 
 @Controller
 @RestController
@@ -93,6 +96,18 @@ public class TestTemplateContentController {
             return new ResponseEntity<>(file, headers, HttpStatus.OK);
         }catch (EntityNotFoundException e) {
             throw new WrongRequestException(WrongRequestException.NOT_EXISTING_DATA_REQUESTED);
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity edit(@RequestBody TemplateToModifyDto template) throws WrongRequestException {
+        try {
+            ApiResponse response = new ApiResponse();
+            service.editTestContent(template);
+            response.setMessage(OBJECT_UPDATED);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (EntityNotFoundException | IllegalArgumentException | ConstraintViolationException e) {
+            throw new WrongRequestException(WrongRequestException.NOT_ACCEPTABLE_DATA);
         }
     }
 }

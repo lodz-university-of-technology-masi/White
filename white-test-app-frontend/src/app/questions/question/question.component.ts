@@ -25,6 +25,7 @@ export class QuestionComponent implements OnInit {
     {value: 'SCALE', viewValue: 'Skali'},
   ];
   ngOnInit() {
+    console.log(this.question);
   }
 
   setQuestionType(type: string): void {
