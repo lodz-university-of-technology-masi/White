@@ -156,23 +156,17 @@ export class NgbdModalModifyTest implements OnInit {
   @Input() test;
   positions: string[];
   testTemplate: TestTemplateDetail;
-  questions: Question[];
 
   constructor(public activeModal: NgbActiveModal,
               private testTemplateContentService: TestTemplateContentService,
               private messageService: MessageService,
               private modalService: NgbModal,
-              private positionsService: PositionsService,
-              private questionService: QuestionService) {
-
+              private positionsService: PositionsService) {
   }
 
   ngOnInit(): void {
     this.loadTestTemplate();
     this.getPositions();
-    if (this.questions === null || this.questions === undefined) {
-      this.questions = [];
-    }
   }
 
   private loadTestTemplate() {

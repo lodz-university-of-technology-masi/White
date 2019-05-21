@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Question} from "../test-templates/model/question";
+import {Question} from '../test-templates/model/question';
 
 @Component({
   selector: 'app-questions',
@@ -13,7 +13,6 @@ export class QuestionsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.questions);
     if (this.questions === null || this.questions === undefined) {
       this.questions = [];
     }

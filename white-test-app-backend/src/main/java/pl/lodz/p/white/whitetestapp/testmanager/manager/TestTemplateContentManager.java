@@ -60,7 +60,9 @@ public class TestTemplateContentManager implements TestTemplateContentService {
 
     @Override
     public void editTestContent(TemplateToModifyDto template) throws EntityNotFoundException {
-        TestTemplateContent testTemplateContent = repository.findById(template.getId()).orElseThrow(EntityNotFoundException::new);
+        TestTemplateContent testTemplateContent = repository
+                .findById(template.getId())
+                .orElseThrow(EntityNotFoundException::new);
         testTemplateContent = toTestTemplateContent(template, testTemplateContent);
         repository.saveAndFlush(testTemplateContent);
     }
