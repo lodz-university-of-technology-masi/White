@@ -3,6 +3,8 @@ package pl.lodz.p.white.whitetestapp.testmanager.dtos.mapper;
 import pl.lodz.p.white.whitetestapp.model.Account;
 import pl.lodz.p.white.whitetestapp.model.Position;
 import pl.lodz.p.white.whitetestapp.model.TestTemplate;
+import pl.lodz.p.white.whitetestapp.model.TestTemplateContent;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.TemplateToModifyDto;
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.TestTemplateResponse;
 
 import java.util.ArrayList;
@@ -44,5 +46,10 @@ public class TestTemplateMapper {
             }
         }
         return response;
+    }
+
+    public static TestTemplateContent toTestTemplateContent(TemplateToModifyDto templateToModifyDto, TestTemplateContent testTemplate) {
+        return testTemplate
+                .setQuestions(templateToModifyDto.getQuestions());
     }
 }

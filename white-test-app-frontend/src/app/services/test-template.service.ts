@@ -5,6 +5,7 @@ import {TestTemplate} from '../test-templates/model/test-template';
 import {Observable} from 'rxjs';
 import {NewTemplate} from '../test-templates/model/new-template';
 import {ApiResponse} from '../test-templates/model/ApiResponse';
+import {TestTemplateDetail} from '../test-templates/model/test-template-detail';
 
 
 @Injectable({

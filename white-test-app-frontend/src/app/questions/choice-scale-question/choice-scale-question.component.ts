@@ -13,6 +13,7 @@ export class ChoiceScaleQuestionComponent implements OnInit {
   @Input() answers: Answer[];
 
   ngOnInit() {
+    console.log(this.answers);
   }
 
   add(): void {

@@ -10,7 +10,13 @@ import {HttpService} from './services/http-service.service';
 import {HttpClientModule} from '@angular/common/http';
 import {Configuration} from './configuration';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest, TestTemplatesComponent} from './test-templates/test-templates.component';
+import {
+  NgbdModalContent,
+  NgbdModalEditPosition,
+  NgbdModalModifyTest,
+  NgbdModalNewTest,
+  TestTemplatesComponent
+} from './test-templates/test-templates.component';
 import {TestTemplateService} from './services/test-template.service';
 import {PositionsComponent} from './positions/positions.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -40,6 +46,7 @@ import {ChoiceScaleQuestionComponent} from './questions/choice-scale-question/ch
     NgbdModalEditPosition,
     NgbdModalEditRedactor,
     NgbdModalNewTest,
+    NgbdModalModifyTest,
     TestResultComponent,
     TestCheckComponent,
     AllTestResultsComponent,
@@ -88,7 +95,7 @@ import {ChoiceScaleQuestionComponent} from './questions/choice-scale-question/ch
     MessageService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest, NgbdModalEditRedactor],
+  entryComponents: [NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest, NgbdModalEditRedactor, NgbdModalModifyTest],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {

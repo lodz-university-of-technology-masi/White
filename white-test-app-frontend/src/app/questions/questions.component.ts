@@ -13,6 +13,7 @@ export class QuestionsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.questions);
     if (this.questions === null || this.questions === undefined) {
       this.questions = [];
     }

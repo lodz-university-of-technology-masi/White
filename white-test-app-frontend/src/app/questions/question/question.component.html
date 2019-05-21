@@ -12,10 +12,10 @@
   <br/>
   <mat-form-field>
     <input required class="open-question-input" matInput placeholder="Wpisz pytanie"
-           [value]="question.content" (input)="question.content = $event.target.value">
+           [(ngModel)]="question.content">
   </mat-form-field>
 
-  <div *ngIf="questionType === 'CHOICE' || questionType === 'SCALE'">
+  <div *ngIf="question.questionType === 'CHOICE' || question.questionType === 'SCALE'">
     <app-choice-scale-question [answers]="question.answers"></app-choice-scale-question>
   </div>
 </div>
