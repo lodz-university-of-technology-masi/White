@@ -27,7 +27,6 @@ public class CsvDecompositorManager implements CsvDecompositorService {
     @Override
     public TestTemplateContent importCsv(String value, TestTemplate template) throws ParseDataException {
         TestTemplateContent content = new TestTemplateContent();
-        content.setTestTemplate(template);
         List<Question> questions = new ArrayList<>();
         String[] arrOfStr = value.split(NEW_LINE_SIGN);
         for (String line : arrOfStr) {
@@ -36,8 +35,19 @@ public class CsvDecompositorManager implements CsvDecompositorService {
         for (String line : arrOfStr) {
             questions.add(createObject(line));
         }
+        setLanguageVersion(template, content, arrOfStr[0]);
         content.setQuestions(questions);
+        content.setTestTemplate(template);
         return content;
+    }
+
+    private void setLanguageVersion(TestTemplate template, TestTemplateContent content, String s) {
+        String[] questionData = s.split(SEPARATOR);
+        if (questionData[2].equals(LANGUAGE_TYPE_PL)) {
+            template.setPlVersion(content);
+        } else {
+            template.setEnVersion(content);
+        }
     }
 
     private Question createObject(String line) {
