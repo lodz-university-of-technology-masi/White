@@ -13,7 +13,7 @@ public class NewTestTemplateMapper {
 
     public static TestTemplate toTestTemplate(NewTestTemplateRequest newTestTemplateRequest, AccountRepository accountRepository, PositionRepository positionRepository) throws WrongRequestException {
         try {
-            Account author = accountRepository.findByUsername(newTestTemplateRequest.getAuthor()); //TODO: Nazwę użytkownika pobrac z HttpRequesty gdy będzie już logowanie
+            Account author = accountRepository.findByUsername(newTestTemplateRequest.getAuthor());
             Position position = positionRepository.findByName(newTestTemplateRequest.getPosition());
             String lang = newTestTemplateRequest.getLang();
 
@@ -22,11 +22,15 @@ public class NewTestTemplateMapper {
             newTestTemplate.setAuthor(author);
             newTestTemplate.setPosition(position);
             if (lang.contains("EN")) {
-                newTestTemplate.setEnVersion(new TestTemplateContent().setTestTemplate(newTestTemplate));
+                newTestTemplate.setEnVersion(new TestTemplateContent()
+                        .setTestTemplate(newTestTemplate)
+                        .setQuestions(newTestTemplateRequest.getQuestions()));
                 newTestTemplate.setPlVersion(null);
             } else if (lang.contains("PL")) {
                 newTestTemplate.setEnVersion(null);
-                newTestTemplate.setPlVersion(new TestTemplateContent().setTestTemplate(newTestTemplate));
+                newTestTemplate.setPlVersion(new TestTemplateContent()
+                        .setTestTemplate(newTestTemplate)
+                        .setQuestions(newTestTemplateRequest.getQuestions()));
             }
             return newTestTemplate;
         } catch (NullPointerException e) {

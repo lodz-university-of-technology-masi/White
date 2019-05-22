@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Question} from "../test-templates/model/question";
+import {Question} from '../test-templates/model/question';
 
 @Component({
   selector: 'app-questions',
@@ -8,7 +8,7 @@ import {Question} from "../test-templates/model/question";
 })
 export class QuestionsComponent implements OnInit {
 
-  questions: Question[];
+  @Input() questions: Question[];
 
   constructor() { }
 

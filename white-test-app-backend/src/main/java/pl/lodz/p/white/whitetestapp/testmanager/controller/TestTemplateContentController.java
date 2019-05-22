@@ -6,28 +6,36 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import pl.lodz.p.white.whitetestapp.exception.AppException;
+import pl.lodz.p.white.whitetestapp.exception.WrongRequestException;
+import pl.lodz.p.white.whitetestapp.exception.FailedSaveException;
 import pl.lodz.p.white.whitetestapp.exception.DocumentCreationException;
 import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
-import pl.lodz.p.white.whitetestapp.exception.FailedSaveException;
-import pl.lodz.p.white.whitetestapp.exception.WrongRequestException;
 import pl.lodz.p.white.whitetestapp.model.ApiResponse;
 import pl.lodz.p.white.whitetestapp.model.Question;
 import pl.lodz.p.white.whitetestapp.model.TestInformationRequest;
 import pl.lodz.p.white.whitetestapp.model.TestTemplateContent;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.TemplateToModifyDto;
 import pl.lodz.p.white.whitetestapp.testmanager.service.QuestionService;
 import pl.lodz.p.white.whitetestapp.testmanager.service.TestTemplateContentService;
+
+import java.io.IOException;
+
+import javax.validation.ConstraintViolationException;
+
 
 @Controller
 @RestController
 @RequestMapping("/api/testtemplatecontent")
 public class TestTemplateContentController {
 
-    public static final String OBJECT_UPDATED = "Object updated";
+    private static final String OBJECT_UPDATED = "Object updated";
+    private static final String DATA_IMPORTED = "CSV was imported";
     TestTemplateContentService service;
     QuestionService questionService;
 
@@ -79,4 +87,40 @@ public class TestTemplateContentController {
         }
     }
 
+    @RequestMapping(value = "/downloadcsv/{id}", method = RequestMethod.GET)
+    public ResponseEntity<StringBuilder> exportCsv(@PathVariable("id") Long id) throws WrongRequestException {
+        try {
+            TestTemplateContent requestedTestContent = service.findOne(id);
+            StringBuilder file = service.exportCsv(requestedTestContent);
+            String filename = requestedTestContent.getTestTemplate().getId() + "_" +
+                    requestedTestContent.getTestTemplate().getName() + "_" +
+                    requestedTestContent.getTestTemplate().getPosition().getName() + ".csv";
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentDispositionFormData(filename, filename);
+            headers.add("filename", filename);
+            return new ResponseEntity<>(file, headers, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            throw new WrongRequestException(WrongRequestException.NOT_EXISTING_DATA_REQUESTED);
+        }
+    }
+  
+    @RequestMapping(value = "/importcsv/{templateId}", method = RequestMethod.POST)
+    public ResponseEntity importCsv(@RequestBody String file, @PathVariable("templateId") Long id) throws AppException {
+        ApiResponse response = new ApiResponse();
+        service.importCsv(file, id);
+        response.setMessage(DATA_IMPORTED);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity edit(@RequestBody TemplateToModifyDto template) throws WrongRequestException {
+        try {
+            ApiResponse response = new ApiResponse();
+            service.editTestContent(template);
+            response.setMessage(OBJECT_UPDATED);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (EntityNotFoundException | IllegalArgumentException | ConstraintViolationException e) {
+            throw new WrongRequestException(WrongRequestException.NOT_ACCEPTABLE_DATA);
+        }
+    }
 }

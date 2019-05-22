@@ -1,4 +1,4 @@
-import {Component, HostListener, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TestTemplate} from './model/test-template';
 import {TestTemplateService} from '../services/test-template.service';
 import {NgbActiveModal, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
@@ -8,8 +8,9 @@ import {Position} from '../positions/model/position';
 import {MessageService} from '../services/message.service';
 import {TestTemplateContentService} from '../services/test-template-content.service';
 import {saveAs} from 'file-saver';
-import {Question} from "./model/question";
-import {QuestionService} from "../services/question.service";
+import {QuestionService} from '../services/question.service';
+import {Question} from './model/question';
+import {TestTemplateDetail} from './model/test-template-detail';
 import {MatSnackBar} from '@angular/material';
 
 @Component({
@@ -55,6 +56,7 @@ export class NgbdModalEditPosition implements OnInit {
 })
 export class NgbdModalContent {
   @Input() test;
+  fileToUpload: File = null;
 
   open(test) {
     const modal: NgbModalRef = this.modalService.open(NgbdModalEditPosition, {ariaLabelledBy: 'modal-basic-title'});
@@ -66,6 +68,15 @@ export class NgbdModalContent {
     });
   }
 
+  openToModify(test) {
+    const modal: NgbModalRef = this.modalService.open(NgbdModalModifyTest, {ariaLabelledBy: 'modal-basic-title'});
+    modal.componentInstance.test = test;
+    modal.result.then((result) => {
+      console.log(result);
+    }, (reason) => {
+      console.log(reason);
+    });
+  }
 
   exportPDF(test) {
     this.testService.generatePDF(test.id, test).subscribe((response) => {
@@ -75,6 +86,26 @@ export class NgbdModalContent {
       const url = URL.createObjectURL(blob);
       saveAs(blob, filename);
       window.open(url);
+    }, e => {
+      this.messageService.error('Błąd');
+    });
+  }
+
+  importCsv(files) {
+    this.fileToUpload = files.item(0);
+    this.testService.importCsv(this.test.testTemplateId, this.fileToUpload).subscribe((response) => {
+      this.messageService.success('Sukces');
+    }, e => {
+      this.messageService.error(e.error.message);
+    });
+  }
+
+  exportCSV(test) {
+    this.testService.exportCSV(test.id, test).subscribe((response) => {
+      this.messageService.success('Sukces');
+      const filename = response.headers.get('filename');
+      const blob = new Blob([response.body], {type: 'text/csv'});
+      saveAs(blob, filename);
     }, e => {
       this.messageService.error('Błąd');
     });
@@ -110,10 +141,8 @@ export class NgbdModalNewTest implements OnInit {
 
   ngOnInit(): void {
     this.newTemplate = new NewTemplate();
+    this.newTemplate.questions = [];
     this.getPositions();
-    if (this.questions === null || this.questions === undefined) {
-      this.questions = [];
-    }
   }
 
   private getPositions() {
@@ -153,6 +182,48 @@ export class NgbdModalNewTest implements OnInit {
   openSnackBar() {
     this.snackBar.open("CTRL+W -> Open Wiki | CTRL+S -> Search synonym", "close", {
       duration: 4000,
+    });
+  }
+}
+
+
+@Component({
+  selector: 'ngbd-modal-modify-modal',
+  templateUrl: './modify-test-modal.html'
+})
+export class NgbdModalModifyTest implements OnInit {
+  @Input() test;
+  positions: string[];
+  testTemplate: TestTemplateDetail;
+
+  constructor(public activeModal: NgbActiveModal,
+              private testTemplateContentService: TestTemplateContentService,
+              private messageService: MessageService,
+              private modalService: NgbModal,
+              private positionsService: PositionsService) {
+  }
+
+  ngOnInit(): void {
+    this.loadTestTemplate();
+    this.getPositions();
+  }
+
+  private loadTestTemplate() {
+    this.testTemplateContentService.get(this.test.id).subscribe(test => {
+      this.testTemplate = test;
+      console.log(this.testTemplate);
+    });
+  }
+
+  private getPositions() {
+    this.positionsService.getAllPositions().subscribe(positions => this.positions = positions.map(p => p.name));
+  }
+
+  save() {
+    this.testTemplateContentService.edit(this.testTemplate).subscribe(s => {
+      this.messageService.success('Sukces');
+    }, e => {
+      this.messageService.error('Błąd');
     });
   }
 }

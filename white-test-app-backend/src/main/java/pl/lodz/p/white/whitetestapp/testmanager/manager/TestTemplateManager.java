@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
 import pl.lodz.p.white.whitetestapp.exception.FailedSaveException;
 import pl.lodz.p.white.whitetestapp.exception.WrongRequestException;
+import pl.lodz.p.white.whitetestapp.model.Account;
 import pl.lodz.p.white.whitetestapp.model.Answer;
 import pl.lodz.p.white.whitetestapp.model.Position;
 import pl.lodz.p.white.whitetestapp.model.Question;
@@ -14,18 +15,26 @@ import pl.lodz.p.white.whitetestapp.repository.AccountRepository;
 import pl.lodz.p.white.whitetestapp.repository.PositionRepository;
 import pl.lodz.p.white.whitetestapp.repository.TestTemplateRepository;
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.NewTestTemplateRequest;
-import pl.lodz.p.white.whitetestapp.testmanager.dtos.mapper.NewTestTemplateMapper;
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.TestTemplateResponse;
+import pl.lodz.p.white.whitetestapp.testmanager.dtos.mapper.NewTestTemplateMapper;
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.mapper.TestTemplateMapper;
 import pl.lodz.p.white.whitetestapp.testmanager.service.TestTemplateService;
 import pl.lodz.p.white.whitetestapp.translator.service.TranslatorService;
 
 import javax.persistence.PersistenceException;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static pl.lodz.p.white.whitetestapp.Constants.EN;
 import static pl.lodz.p.white.whitetestapp.Constants.PL;
+import static pl.lodz.p.white.whitetestapp.exception.WrongRequestException.NOT_ACCEPTABLE_DATA;
+import static pl.lodz.p.white.whitetestapp.model.Role.CANDIDATE;
+import static pl.lodz.p.white.whitetestapp.model.Role.MODERATOR;
+import static pl.lodz.p.white.whitetestapp.model.Role.REDACTOR;
 
 @Service
 public class TestTemplateManager implements TestTemplateService {
@@ -59,13 +68,25 @@ public class TestTemplateManager implements TestTemplateService {
     }
 
     @Override
-    public List<TestTemplateResponse> getAll() {
-        return repository
+    public List<TestTemplateResponse> getAll(HttpServletRequest request) throws WrongRequestException {
+        Stream<TestTemplateResponse> templates = repository
                 .findAll()
                 .stream()
                 .map(TestTemplateMapper::toTestTemplateResponse)
-                .flatMap(List::stream)
-                .collect(Collectors.toList());
+                .flatMap(List::stream);
+        if (request.isUserInRole(MODERATOR.getAppRole())) {
+            return templates.collect(Collectors.toList());
+        } else if (request.isUserInRole(CANDIDATE.getAppRole())) {
+            Account candidate = accountRepository
+                    .findById(request.getUserPrincipal().getName())
+                    .orElseThrow(() -> new WrongRequestException(NOT_ACCEPTABLE_DATA));
+            return templates.filter(t -> Objects.equals(t.getLang(), candidate.getLang().name()))
+                    .collect(Collectors.toList());
+        } else if (request.isUserInRole(REDACTOR.getAppRole())) {
+           return templates.filter(t -> t.getAuthor().equals(request.getUserPrincipal().getName()))
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
     }
 
     @Override

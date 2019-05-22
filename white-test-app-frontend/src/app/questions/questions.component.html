@@ -1,4 +1,4 @@
-<div class="questions-container">
+<div *ngIf="questions" class="questions-container">
   <div *ngFor="let question of questions; let i = index;">
     <div class="single-question-container">
       <app-question [question]="question"></app-question>

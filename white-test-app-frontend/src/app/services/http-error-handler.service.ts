@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {ErrorObservable} from 'rxjs-compat/observable/ErrorObservable';
 import {Observable, throwError} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
 import {MessageService} from './message.service';
+import {SessionService} from './session.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,8 @@ export class HttpErrorHandlerService implements HttpInterceptor {
   private internalErrorCode = 500;
 
   constructor(private router: Router,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private sessionService: SessionService) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -33,7 +34,8 @@ export class HttpErrorHandlerService implements HttpInterceptor {
             // The backend returned an unsuccessful response code.
             // The response body may contain clues as to what went wrong,
             if (error.status === this.notAuthorizedUserErrorCode) {
-             // this.router.navigateByUrl('/login'); //TODO: odkomentowac i dostosować path gdy będzie już logowanie
+              this.sessionService.resetSession();
+              this.router.navigateByUrl('/login');
               this.messageService.error('Nieautoryzowany dostęp');
             } else if (error.status === this.forbiddenErrorCode) {
               this.messageService.error('Zabroniona akcja');

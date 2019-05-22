@@ -1,8 +1,47 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Redactor} from './model/redactor';
 import {MessageService} from '../services/message.service';
 import {AccountService} from '../services/account.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+
+@Component({
+  selector: 'ngbd-modal-edit-redactor',
+  templateUrl: './edit-redactor-modal.html'
+})
+export class NgbdModalEditRedactor implements OnInit {
+
+  @Input() redactorFromList;
+  redactor: Redactor;
+
+  ngOnInit() {
+    this.redactor = new Redactor();
+    this.redactor.username = this.redactorFromList.username;
+    this.redactor.email = this.redactorFromList.email;
+    this.redactor.password = this.redactorFromList.password;
+    this.redactor.lang = this.redactorFromList.lang;
+    this.redactor.role = this.redactorFromList.role;
+  }
+
+  updateRedactor() {
+    if (this.redactor.password == null) {
+      this.redactor.password = '';
+    }
+
+    this.accountService.updateRedactor(this.redactor).subscribe(success => {
+      this.messageService.success('Sukces');
+    }, error => {
+      this.messageService.error('Błąd');
+    });
+  }
+
+
+  constructor(public activeModal: NgbActiveModal,
+              private modalService: NgbModal,
+              private accountService: AccountService,
+              private messageService: MessageService) {
+  }
+}
+
 
 @Component({
   selector: 'app-redactors-management',
@@ -42,6 +81,16 @@ export class RedactorsManagementComponent implements OnInit {
       this.loadRedactors();
     }, error => {
       this.messageService.error('Błąd');
+    });
+  }
+
+  onEditButtonClicked(redactor) {
+    const modal: NgbModalRef = this.modalService.open(NgbdModalEditRedactor, {ariaLabelledBy: 'modal-edit-redactor'});
+    modal.componentInstance.redactorFromList = redactor;
+    modal.result.then((result) => {
+      this.loadRedactors();
+    }, (reason) => {
+      this.loadRedactors();
     });
   }
 

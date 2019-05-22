@@ -7,10 +7,16 @@ import {AppRoutingModule} from './app-routing.module';
 import {BsDropdownModule, CollapseModule} from 'ngx-bootstrap';
 import {HttpErrorHandlerService} from './services/http-error-handler.service';
 import {HttpService} from './services/http-service.service';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {Configuration} from './configuration';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest, TestTemplatesComponent} from './test-templates/test-templates.component';
+import {
+  NgbdModalContent,
+  NgbdModalEditPosition,
+  NgbdModalModifyTest,
+  NgbdModalNewTest,
+  TestTemplatesComponent
+} from './test-templates/test-templates.component';
 import {TestTemplateService} from './services/test-template.service';
 import {PositionsComponent} from './positions/positions.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -24,6 +30,7 @@ import {TestResultService} from './services/test-result.service';
 import {TestCheckComponent} from './test-check/test-check.component';
 import {AllTestResultsComponent} from './all-test-results/all-test-results.component';
 import {UiSwitchModule} from 'ngx-ui-switch';
+import {NgbdModalEditRedactor, RedactorsManagementComponent} from './redactors-management/redactors-management.component';
 import {QuestionsComponent} from './questions/questions.component';
 import {
   MatButtonModule,
@@ -36,7 +43,9 @@ import {
 } from '@angular/material';
 import {QuestionComponent} from './questions/question/question.component';
 import {ChoiceScaleQuestionComponent} from './questions/choice-scale-question/choice-scale-question.component';
-import {RedactorsManagementComponent} from './redactors-management/redactors-management.component';
+import {LoginComponent} from './login/login.component';
+import {SessionService} from './services/session.service';
+import {AuthService} from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -46,14 +55,19 @@ import {RedactorsManagementComponent} from './redactors-management/redactors-man
     PositionsComponent,
     NgbdModalContent,
     NgbdModalEditPosition,
+    NgbdModalEditRedactor,
     NgbdModalNewTest,
+    NgbdModalModifyTest,
     TestResultComponent,
     TestCheckComponent,
+    AllTestResultsComponent,
+    RedactorsManagementComponent,
     AllTestResultsComponent,
     QuestionsComponent,
     QuestionComponent,
     ChoiceScaleQuestionComponent,
-    RedactorsManagementComponent
+    RedactorsManagementComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -91,10 +105,17 @@ import {RedactorsManagementComponent} from './redactors-management/redactors-man
     PositionsService,
     TestTemplateContentService,
     TestResultService,
-    MessageService
+    MessageService,
+    AuthService,
+    SessionService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorHandlerService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest],
+  entryComponents: [NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest, NgbdModalEditRedactor, NgbdModalModifyTest],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {

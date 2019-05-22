@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-edit-redactor">Edycja redaktora</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form #form="ngForm">
+    <div class="form-row form-group">
+      <label for="email_edit">Email:</label>
+      <input type="text" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" id="email_edit"
+             name="email" ngModel #emailref="ngModel" [(ngModel)]="redactor.email">
+      <div *ngIf="emailref.errors &&(emailref.touched || emailref.dirty)" class="alert alert-danger">
+        <div [hidden]="!emailref.errors?.pattern">
+          Zły format maila
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row form-group">
+      <label >Hasło:</label>
+      <input type="password" class="form-control" [(ngModel)]="redactor.password" name="Hasło" value="">
+    </div>
+
+    <div class="form-row form-group">
+      <label for="lang_edit" class="required-sign">Język</label>
+      <select [(ngModel)]="redactor.lang" class="form-control field-restriction"
+              id="lang_edit"
+              name="lang"
+              required>
+        <option [ngValue]="'PL'">polski</option>
+        <option [ngValue]="'EN'">angielski</option>
+      </select>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" [disabled]="!form.form.valid"
+          (click)="activeModal.close('Save click'); updateRedactor()">Zapisz
+  </button>
+</div>

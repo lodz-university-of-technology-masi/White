@@ -5,6 +5,7 @@ import {TestTemplate} from '../test-templates/model/test-template';
 import {Observable} from 'rxjs';
 import {NewTemplate} from '../test-templates/model/new-template';
 import {ApiResponse} from '../test-templates/model/ApiResponse';
+import {TestTemplateDetail} from '../test-templates/model/test-template-detail';
 
 
 @Injectable({
@@ -36,7 +37,7 @@ export class TestTemplateService {
   }
 
   deleteTest(id: number, currentLang: string){
-    return this.httpService.delete(this.endpoint+'/'+id+'?lang=' + currentLang);
+    return this.httpService.delete(this.endpoint + '/' + id + '?lang=' + currentLang);
   }
 
 }
