@@ -12,7 +12,6 @@ export class AuthService {
 
   private endpoint = this.config.ApiPath + '/auth';
 
-
   constructor(private httpService: HttpService,
               private config: Configuration) {
   }

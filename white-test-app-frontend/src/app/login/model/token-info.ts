@@ -3,7 +3,6 @@ export class TokenInfo {
   authorities: Authority[] = [];
 }
 
-
 export class Authority {
   authority: string;
 }

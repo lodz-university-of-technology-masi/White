@@ -13,7 +13,6 @@ export class NavbarComponent implements OnInit {
   isUserLoggedIn = localStorage.getItem('token') !== null;
   roles = {admin: false, employee: false};
 
-
   constructor(private sessionService: SessionService,
               private router: Router) {
   }
