@@ -6,20 +6,24 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.lodz.p.white.whitetestapp.model.User;
-import pl.lodz.p.white.whitetestapp.repository.UserRepository;
+import pl.lodz.p.white.whitetestapp.model.Account;
+import pl.lodz.p.white.whitetestapp.repository.AccountRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+    private final AccountRepository accountRepository;
+
     @Autowired
-    UserRepository userRepository;
+    public UserDetailsServiceImpl(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = userRepository.findByUsername(username).orElseThrow(
+        Account user = accountRepository.findById(username).orElseThrow(
                 () -> new UsernameNotFoundException("User Not Found with -> username or email : " + username));
 
         return UserPrinciple.build(user);

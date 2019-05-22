@@ -31,8 +31,3 @@ insert into question_answers (question_id, answers_id) values (1004, 1001);
 insert into question_answers (question_id, answers_id) values (1004, 1002);
 insert into question_answers (question_id, answers_id) values (1005, 1003);
 insert into question_answers (question_id, answers_id) values (1005, 1004);
-
-
-INSERT INTO roles(name) VALUES('MODERATOR');
-INSERT INTO roles(name) VALUES('REDACTOR');
-INSERT INTO roles(name) VALUES('CANDIDATE');

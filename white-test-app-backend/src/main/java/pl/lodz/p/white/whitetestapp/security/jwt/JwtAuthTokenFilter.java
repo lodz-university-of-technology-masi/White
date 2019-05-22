@@ -8,7 +8,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
+import pl.lodz.p.white.whitetestapp.accountmanager.manager.AccountManager;
 import pl.lodz.p.white.whitetestapp.security.services.UserDetailsServiceImpl;
+import pl.lodz.p.white.whitetestapp.security.services.UserPrinciple;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

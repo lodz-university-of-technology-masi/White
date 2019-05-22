@@ -1,3 +1,4 @@
+/*
 package pl.lodz.p.white.whitetestapp.model;
 
 import org.hibernate.annotations.NaturalId;
@@ -105,3 +106,4 @@ public class User {
         this.roles = roles;
     }
 }
+*/

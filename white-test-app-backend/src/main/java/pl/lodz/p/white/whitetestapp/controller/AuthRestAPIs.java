@@ -9,21 +9,20 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pl.lodz.p.white.whitetestapp.message.request.LoginForm;
 import pl.lodz.p.white.whitetestapp.message.request.SignUpForm;
 import pl.lodz.p.white.whitetestapp.message.response.JwtResponse;
 import pl.lodz.p.white.whitetestapp.message.response.ResponseMessage;
-import pl.lodz.p.white.whitetestapp.model.Role;
-import pl.lodz.p.white.whitetestapp.model.RoleName;
-import pl.lodz.p.white.whitetestapp.model.User;
-import pl.lodz.p.white.whitetestapp.repository.RoleRepository;
-import pl.lodz.p.white.whitetestapp.repository.UserRepository;
+import pl.lodz.p.white.whitetestapp.model.Account;
+import pl.lodz.p.white.whitetestapp.repository.AccountRepository;
 import pl.lodz.p.white.whitetestapp.security.jwt.JwtProvider;
 
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -34,10 +33,7 @@ public class AuthRestAPIs {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    RoleRepository roleRepository;
+    AccountRepository userRepository;
 
     @Autowired
     PasswordEncoder encoder;
@@ -72,34 +68,14 @@ public class AuthRestAPIs {
         }
 
         // Creating user's account
-        User user = new User(signUpRequest.getName(), signUpRequest.getUsername(), signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()));
+        Account user = new Account()
+                .setUsername(signUpRequest.getUsername())
+                .setEmail(signUpRequest.getEmail())
+                .setPasswordHash(encoder.encode(signUpRequest.getPassword()))
+                .setLang(signUpRequest.getLang())
+                .setRole(signUpRequest.getRole());
 
-        Set<String> strRoles = signUpRequest.getRole();
-        Set<Role> roles = new HashSet<>();
 
-        strRoles.forEach(role -> {
-            switch (role) {
-                case "moderator":
-                    Role adminRole = roleRepository.findByName(RoleName.MODERATOR)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-                    roles.add(adminRole);
-
-                    break;
-                case "redactor":
-                    Role pmRole = roleRepository.findByName(RoleName.REDACTOR)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-                    roles.add(pmRole);
-
-                    break;
-                default:
-                    Role userRole = roleRepository.findByName(RoleName.CANDIDATE)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-                    roles.add(userRole);
-            }
-        });
-
-        user.setRoles(roles);
         userRepository.save(user);
 
         return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);

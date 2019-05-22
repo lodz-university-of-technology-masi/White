@@ -1,5 +1,8 @@
 package pl.lodz.p.white.whitetestapp.message.request;
 
+import pl.lodz.p.white.whitetestapp.model.Lang;
+import pl.lodz.p.white.whitetestapp.model.Role;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -19,11 +22,22 @@ public class SignUpForm {
     @Email
     private String email;
     
-    private Set<String> role;
-    
+    private Role role;
+
+    private Lang lang;
+
     @NotBlank
     @Size(min = 6, max = 40)
     private String password;
+
+    public Lang getLang() {
+        return lang;
+    }
+
+    public SignUpForm setLang(Lang lang) {
+        this.lang = lang;
+        return this;
+    }
 
     public String getName() {
         return name;
@@ -56,12 +70,13 @@ public class SignUpForm {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    public Set<String> getRole() {
-    	return this.role;
+
+    public Role getRole() {
+        return role;
     }
-    
-    public void setRole(Set<String> role) {
-    	this.role = role;
+
+    public SignUpForm setRole(Role role) {
+        this.role = role;
+        return this;
     }
 }
