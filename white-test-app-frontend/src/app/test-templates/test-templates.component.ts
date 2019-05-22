@@ -229,7 +229,7 @@ export class TestTemplatesComponent implements OnInit {
 
   open(content, test) {
     const modal: NgbModalRef = this.modalService.open(NgbdModalContent, {ariaLabelledBy: 'modal-basic-title'});
-      modal.componentInstance.test = test;
+    modal.componentInstance.test = test;
     modal.result.then((result) => {
       this.loadTemplates();
     }, (reason) => {
