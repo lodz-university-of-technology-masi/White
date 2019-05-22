@@ -8,6 +8,7 @@ import pl.lodz.p.white.whitetestapp.model.TestTemplate;
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.NewTestTemplateRequest;
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.TestTemplateResponse;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface TestTemplateService {
@@ -16,7 +17,7 @@ public interface TestTemplateService {
 
     TestTemplate findOne(Long id) throws EntityNotFoundException;
 
-    List<TestTemplateResponse> getAll();
+    List<TestTemplateResponse> getAll(HttpServletRequest request) throws WrongRequestException;
 
     TestTemplate addNewTestTemplate(NewTestTemplateRequest testTemplate) throws WrongRequestException;
 

@@ -14,6 +14,8 @@ import pl.lodz.p.white.whitetestapp.testmanager.dtos.CandidateTestResultRequest;
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.TestCheckRequest;
 import pl.lodz.p.white.whitetestapp.testmanager.service.TestResultService;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RestController
 @RequestMapping("/api/testresult")
@@ -27,13 +29,14 @@ public class TestResultController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    ResponseEntity getAll() {
-        return ResponseEntity.ok(service.getAll());
+    ResponseEntity getAll(HttpServletRequest request) {
+        return ResponseEntity.ok(service.getAll(request.getUserPrincipal().getName()));
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity add(@RequestBody CandidateTestResultRequest candidateTestResultRequest) throws WrongRequestException {
-        service.add(candidateTestResultRequest);
+    ResponseEntity add(@RequestBody CandidateTestResultRequest candidateTestResultRequest, HttpServletRequest request)
+                       throws WrongRequestException {
+        service.add(candidateTestResultRequest, request.getUserPrincipal().getName());
         return ResponseEntity.ok().build();
     }
 

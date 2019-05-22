@@ -3,7 +3,9 @@ package pl.lodz.p.white.whitetestapp.testmanager.manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.lodz.p.white.whitetestapp.exception.WrongRequestException;
+import pl.lodz.p.white.whitetestapp.model.Account;
 import pl.lodz.p.white.whitetestapp.model.TestResult;
+import pl.lodz.p.white.whitetestapp.repository.AccountRepository;
 import pl.lodz.p.white.whitetestapp.repository.QuestionRepository;
 import pl.lodz.p.white.whitetestapp.repository.TestResultRepository;
 import pl.lodz.p.white.whitetestapp.repository.TestTemplateContentRepository;
@@ -26,6 +28,7 @@ public class TestResultManager implements TestResultService {
     private final TestResultRepository repository;
     private final TestTemplateContentRepository templateContentRepository;
     private final QuestionRepository questionRepository;
+    private final AccountRepository accountRepository;
 
 
     @Override
@@ -36,9 +39,12 @@ public class TestResultManager implements TestResultService {
     }
 
     @Override
-    public void add(CandidateTestResultRequest testResultRequest) throws WrongRequestException {
+    public void add(CandidateTestResultRequest testResultRequest, String username) throws WrongRequestException {
         TestResult testResult = toTestResult(testResultRequest, templateContentRepository, questionRepository);
-        //testResult.setParticipant(...); //TODO: ustawiac użytkownika gdy będzie już logowanie
+        Account participant = accountRepository
+                .findById(username)
+                .orElseThrow(() -> new WrongRequestException(WrongRequestException.NOT_EXISTING_DATA_REQUESTED));
+        testResult.setParticipant(participant);
         repository.saveAndFlush(testResult);
     }
 
@@ -51,17 +57,19 @@ public class TestResultManager implements TestResultService {
     }
 
     @Override
-    public List<TestResultResponse> getAll() {
-        return repository.findAll() //TODO: zamienić findAll na findAllByRedactorUsername gdy będzie już logowanie
+    public List<TestResultResponse> getAll(String username) {
+        return repository.findAll()
                 .stream()
+                .filter(t -> t.getTestTemplate().getTestTemplate().getAuthor().getUsername().equals(username))
                 .map(TestResultMapper::toTestResultResponse)
                 .collect(Collectors.toList());
     }
 
     @Autowired
-    public TestResultManager(TestResultRepository repository, TestTemplateContentRepository testTemplateRepository, QuestionRepository questionRepository) {
+    public TestResultManager(TestResultRepository repository, TestTemplateContentRepository testTemplateRepository, QuestionRepository questionRepository, AccountRepository accountRepository) {
         this.repository = repository;
         this.templateContentRepository = testTemplateRepository;
         this.questionRepository = questionRepository;
+        this.accountRepository = accountRepository;
     }
 }
