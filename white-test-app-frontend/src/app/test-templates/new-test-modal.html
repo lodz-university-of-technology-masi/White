@@ -37,8 +37,11 @@
     </form>
   </div>
 
-<app-questions [questions]="newTemplate.questions"></app-questions>
+  <app-questions [questions]="newTemplate.questions"></app-questions>
 
-<div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" [disabled]="!form.form.valid" (click)="addNew(); activeModal.close('Save click');">Zapisz</button>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" [disabled]="!form.form.valid"
+            (click)="addNew(); activeModal.close('Save click');">Zapisz
+    </button>
+  </div>
 </div>
