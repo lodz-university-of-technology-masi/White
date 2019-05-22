@@ -16,15 +16,17 @@ public class LoginForm {
         return username;
     }
 
-    public void setUsername(String username) {
+    public LoginForm setUsername(String username) {
         this.username = username;
+        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public LoginForm setPassword(String password) {
         this.password = password;
+        return this;
     }
 }

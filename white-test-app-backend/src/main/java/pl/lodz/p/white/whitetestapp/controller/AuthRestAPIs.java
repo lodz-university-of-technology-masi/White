@@ -38,7 +38,10 @@ public class AuthRestAPIs {
     private final JwtProvider jwtProvider;
 
     @Autowired
-    public AuthRestAPIs(AuthenticationManager authenticationManager, AccountRepository userRepository, PasswordEncoder encoder, JwtProvider jwtProvider) {
+    public AuthRestAPIs(AuthenticationManager authenticationManager,
+                        AccountRepository userRepository,
+                        PasswordEncoder encoder,
+                        JwtProvider jwtProvider) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.encoder = encoder;
@@ -47,15 +50,11 @@ public class AuthRestAPIs {
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
-
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         String jwt = jwtProvider.generateJwtToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
         return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
     }
 
@@ -78,7 +77,6 @@ public class AuthRestAPIs {
                 .setPasswordHash(encoder.encode(signUpRequest.getPassword()))
                 .setLang(signUpRequest.getLang())
                 .setRole(signUpRequest.getRole());
-
 
         userRepository.save(user);
 

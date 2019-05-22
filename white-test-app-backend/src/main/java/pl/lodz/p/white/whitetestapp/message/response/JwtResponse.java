@@ -16,31 +16,39 @@ public class JwtResponse {
 		this.authorities = authorities;
 	}
 
-	public String getAccessToken() {
+	public String getToken() {
 		return token;
 	}
 
-	public void setAccessToken(String accessToken) {
-		this.token = accessToken;
+	public JwtResponse setToken(String token) {
+		this.token = token;
+		return this;
 	}
 
-	public String getTokenType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setTokenType(String tokenType) {
-		this.type = tokenType;
+	public JwtResponse setType(String type) {
+		this.type = type;
+		return this;
 	}
 
 	public String getUsername() {
 		return username;
 	}
 
-	public void setUsername(String username) {
+	public JwtResponse setUsername(String username) {
 		this.username = username;
+		return this;
 	}
-	
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
-    }
+
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return authorities;
+	}
+
+	public JwtResponse setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+		this.authorities = authorities;
+		return this;
+	}
 }
