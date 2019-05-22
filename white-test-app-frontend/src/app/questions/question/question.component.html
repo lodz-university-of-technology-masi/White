@@ -1,0 +1,21 @@
+<div class="open-question-container">
+  <mat-form-field>
+    <mat-label>Wybierz typ pytania</mat-label>
+    <mat-select [(ngModel)]="question.questionType">
+      <mat-option required class="question-type" *ngFor="let type of questionTypes" [value]=type.value
+                  (click)='setQuestionType(type.value)'>
+        {{type.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <br/>
+  <mat-form-field>
+    <input required class="open-question-input" matInput placeholder="Wpisz pytanie"
+           [(ngModel)]="question.content">
+  </mat-form-field>
+
+  <div *ngIf="question.questionType === 'CHOICE' || question.questionType === 'SCALE'">
+    <app-choice-scale-question [answers]="question.answers"></app-choice-scale-question>
+  </div>
+</div>

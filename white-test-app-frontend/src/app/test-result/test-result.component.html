@@ -1,0 +1,29 @@
+<form *ngIf="template" #form="ngForm" (ngSubmit)="save()">
+  <div *ngFor="let question of template.questions" class="form-row form-group">
+    <label>{{question.content}}</label>
+    <textarea *ngIf="question.questionType === 'OPEN'" required type="text" class="form-control" [(ngModel)]="question.answer"
+              name="Nazwa"></textarea>
+    <div *ngIf="question.questionType === 'CHOICE'">
+      <br />
+      <div *ngFor="let answer of question.answers" class="radioLeft">
+        <label class="form-check-label">
+          <input id="{{answer.id}}" required type="radio" class="form-check-input" name="optradio" [value]='answer.content' [(ngModel)]="question.answer">{{answer.content}}
+        </label>
+      </div>
+    </div>
+    <input *ngIf="question.questionType === 'NUMBER'" required type="number" class="form-control" [(ngModel)]="question.answer"
+           name="Nazwa">
+    <div class='d-inline' *ngIf="question.questionType === 'SCALE'">
+      <label for="select"></label>
+      <select required name="select" [(ngModel)]="question.answer" class="form-control field-restriction"
+                                          id="select">
+        <option *ngFor="let a of question.answers" [ngValue]="a.content">{{a.content}}</option>
+      </select>
+    </div>
+
+  </div>
+  <div class="form-row">
+    <button type="submit" class="btn btn-primary" [disabled]="!form.form.valid">Wyślij
+    </button>
+  </div>
+</form>

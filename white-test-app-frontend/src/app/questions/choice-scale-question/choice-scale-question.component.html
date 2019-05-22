@@ -1,0 +1,14 @@
+<div class="choice-scale-question-container">
+  <div *ngFor="let answer of answers; let i = index;">
+    <mat-form-field>
+      <input required class="input-answer" matInput placeholder="Odpowiedź" [(ngModel)]="answer.content"
+             (click)="answer.content = $event.target.value">
+    </mat-form-field>
+    <button mat-mini-fab color="warn" (click)="delete(i)">
+      <mat-icon>x</mat-icon>
+    </button>
+  </div>
+  <div class="btn-add-answer">
+    <button mat-button  (click)="add()">Dodaj odpowiedź</button>
+  </div>
+</div>

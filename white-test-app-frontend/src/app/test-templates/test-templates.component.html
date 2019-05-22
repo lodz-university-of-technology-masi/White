@@ -1,5 +1,7 @@
+<button class="btn btn-primary mb-2" (click)="openModal(ngModalNewTest)">Dodaj</button>
 
 <h1>Testy</h1>
+
 
 <table class="table table-striped" align="center">
   <thead>
@@ -19,10 +21,14 @@
     <td>{{test.author}}</td>
     <td>{{test.lang}}</td>
     <td>
-        <button type="submit" class="btn btn-primary mb-2" (click)="open(edit_modal,test)">Edytuj</button>
+      <button type="submit" class="btn btn-primary mb-2" (click)="open(edit_modal,test)">Edytuj</button>
       <button type="submit" class="btn btn-primary mb-2" (click)="translate(test.testTemplateId, test.lang)">
         Przetłumacz
       </button>
+      <a routerLink="/test/{{test.id}}">
+        <button type="submit" class="btn btn-primary mb-2">Weź udział</button>
+      </a>
+      <button type="button" class="btn btn-danger mb-2" (click)="deleteTest(test.testTemplateId, test.lang)">Usuń</button>
     </td>
   </tr>
   </tbody>

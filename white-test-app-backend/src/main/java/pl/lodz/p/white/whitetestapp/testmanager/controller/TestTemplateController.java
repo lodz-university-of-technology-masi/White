@@ -4,13 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import pl.lodz.p.white.whitetestapp.accountmanager.service.PositionService;
+import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
+import pl.lodz.p.white.whitetestapp.exception.FailedSaveException;
+import pl.lodz.p.white.whitetestapp.exception.WrongRequestException;
 import pl.lodz.p.white.whitetestapp.model.ApiResponse;
 import pl.lodz.p.white.whitetestapp.model.Position;
 import pl.lodz.p.white.whitetestapp.model.TestTemplate;
@@ -22,11 +27,9 @@ import pl.lodz.p.white.whitetestapp.testmanager.service.TestTemplateService;
 @RequestMapping("/api/testtemplate")
 public class TestTemplateController {
 
-    public static final String TEST_TEMPLATE_COULDN_T_BE_CREATED = "Test template couldn't be created";
-    public static final String TEST_TEMPLATE_WAS_CREATED = "Test template was created";
-    private static final String GIVEN_DATA_WAS_NULL = "Given data was incorrect";
+    private static final String TEST_TEMPLATE_WAS_CREATED = "Test template was created";
     private static final String OBJECT_UPDATE = "Object updated";
-    private static final String UNABLE_TO_EXECUTE_QUERY = "Query unabled to succeed";
+    private static final String OBJECT_DELETE = "Object deleted";
 
     private TestTemplateService service;
     private PositionService positionService;
@@ -38,7 +41,7 @@ public class TestTemplateController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    TestTemplate get(@PathVariable("id") Long id) {
+    TestTemplate get(@PathVariable("id") Long id) throws EntityNotFoundException {
         return service.getOne(id);
     }
 
@@ -48,33 +51,26 @@ public class TestTemplateController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity addNewTestTemplate(@RequestBody NewTestTemplateRequest newTestTemplateRequest) {
+    ResponseEntity addNewTestTemplate(@RequestBody NewTestTemplateRequest newTestTemplateRequest) throws EntityNotFoundException, WrongRequestException {
         ApiResponse response = new ApiResponse();
-        if (service.getOne(newTestTemplateRequest.getId()) != null) {
-            response.setMessage(TEST_TEMPLATE_COULDN_T_BE_CREATED);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-        } else {
-            service.addNewTestTemplate(newTestTemplateRequest);
-            response.setMessage(TEST_TEMPLATE_WAS_CREATED);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        }
+        service.addNewTestTemplate(newTestTemplateRequest);
+        response.setMessage(TEST_TEMPLATE_WAS_CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
     }
-  
+
     @RequestMapping(value = "/setposition/{id}/{positionId}", method = RequestMethod.PUT)
-    ResponseEntity assignPositionToTest(@PathVariable("id") Long id, @PathVariable("positionId") String positionId) {
+    ResponseEntity assignPositionToTest(@PathVariable("id") Long id, @PathVariable("positionId") String positionId) throws WrongRequestException, FailedSaveException {
         ApiResponse response = new ApiResponse();
-        TestTemplate expected = service.findOne(id);
-        String fixedPosId = positionId.replace("+", " ");
-        Position expectedPosition = positionService.getOne(fixedPosId);
-        if(expectedPosition == null || expected == null){
-            response.setMessage(GIVEN_DATA_WAS_NULL);
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(response);
-        } else if(service.setPositionForTest(expected,expectedPosition) == 1){
+        try {
+            TestTemplate expected = service.findOne(id);
+            String fixedPosId = positionId.replace("+", " ");
+            Position expectedPosition = positionService.getOne(fixedPosId);
+            service.setPositionForTest(expected, expectedPosition);
             response.setMessage(OBJECT_UPDATE);
             return ResponseEntity.status(HttpStatus.OK).body(response);
-        } else {
-            response.setMessage(UNABLE_TO_EXECUTE_QUERY);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        } catch (EntityNotFoundException e) {
+            throw new WrongRequestException(WrongRequestException.NOT_EXISTING_DATA_REQUESTED);
         }
     }
 
@@ -82,5 +78,13 @@ public class TestTemplateController {
     ResponseEntity translateTest(@PathVariable("id") Long id, @RequestParam("lang") String sourceLang) {
         service.translate(id, sourceLang);
         return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping(value="/{id}")
+     ResponseEntity deleteTest(@PathVariable Long id, @RequestParam("lang") String lang) throws EntityNotFoundException {
+        ApiResponse response = new ApiResponse();
+        service.deleteTestById(id, lang);
+        response.setMessage(OBJECT_DELETE);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

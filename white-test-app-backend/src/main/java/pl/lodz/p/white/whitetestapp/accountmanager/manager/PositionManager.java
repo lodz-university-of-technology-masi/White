@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.white.whitetestapp.accountmanager.response.PositionResponse;
 import pl.lodz.p.white.whitetestapp.accountmanager.response.mapper.PositionMapper;
 import pl.lodz.p.white.whitetestapp.accountmanager.service.PositionService;
+import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
 import pl.lodz.p.white.whitetestapp.model.Position;
 import pl.lodz.p.white.whitetestapp.repository.PositionRepository;
 
@@ -24,9 +25,9 @@ public class PositionManager implements PositionService {
     }
 
     @Override
-    public Position getOne(String id) {
+    public Position getOne(String id) throws EntityNotFoundException {
         Optional<Position> position = repository.findById(id);
-        return position.orElse(null);
+        return position.orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
@@ -38,8 +39,8 @@ public class PositionManager implements PositionService {
                 .collect(Collectors.toList());
     }
     @Override
-    public Position findOne(String id){
-        return repository.findById(id).orElse(null);
+    public Position findOne(String id) throws EntityNotFoundException {
+        return repository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     @Transactional(readOnly = false)

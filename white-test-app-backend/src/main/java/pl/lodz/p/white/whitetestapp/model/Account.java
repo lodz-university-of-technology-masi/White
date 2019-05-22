@@ -1,5 +1,7 @@
 package pl.lodz.p.white.whitetestapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -21,7 +23,8 @@ public class Account {
     @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*" +
             "[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email")
     private String email;
-    private boolean deleted;
+
+    @JsonIgnore
     private String passwordHash;
 
     @Enumerated(STRING)
@@ -30,7 +33,8 @@ public class Account {
     @Enumerated(STRING)
     private Lang lang;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL)
     private List<TestResult> testResults = new ArrayList<>();
 
     public String getUsername() {
@@ -48,15 +52,6 @@ public class Account {
 
     public Account setEmail(String email) {
         this.email = email;
-        return this;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public Account setDeleted(boolean deleted) {
-        this.deleted = deleted;
         return this;
     }
 

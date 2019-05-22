@@ -1,11 +1,14 @@
 package pl.lodz.p.white.whitetestapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,12 @@ public class TestTemplateContent {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Account> users;
+
+    @OneToOne
+    @JsonIgnore
+    private TestTemplate testTemplate;
+
+    private boolean isDeleted = false;
 
     public Long getId() {
         return id;
@@ -47,6 +56,23 @@ public class TestTemplateContent {
 
     public TestTemplateContent setUsers(List<Account> users) {
         this.users = users;
+        return this;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public TestTemplate getTestTemplate() {
+        return testTemplate;
+    }
+
+    public TestTemplateContent setTestTemplate(TestTemplate testTemplate) {
+        this.testTemplate = testTemplate;
         return this;
     }
 }
