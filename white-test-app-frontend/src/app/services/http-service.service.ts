@@ -1,18 +1,23 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {HttpErrorHandlerService} from './http-error-handler.service';
+import {SessionService} from './session.service';
 
 @Injectable()
 export class HttpService {
 
-  headers = new HttpHeaders({'token': ''});
+  headers = null;
 
   constructor(private http: HttpClient,
-              private httpErrorHandler: HttpErrorHandlerService) {
+              private sessionService: SessionService) {
+  }
+
+  setAuthHeader() {
+    this.headers = new HttpHeaders({'Authorization': 'Bearer ' + this.sessionService.getUser().accessToken});
   }
 
   get<T>(endpoint: string, httpOptions = {}): Observable<T> {
+    this.setAuthHeader();
     return this.http.get<T>(endpoint, {
       headers: this.headers,
       ...httpOptions
@@ -20,6 +25,7 @@ export class HttpService {
   }
 
   post<T>(endpoint: string, body, httpOptions = {}): Observable<T> {
+    this.setAuthHeader();
     return this.http.post<T>(endpoint, body, {
       headers: this.headers,
       ...httpOptions
@@ -27,6 +33,7 @@ export class HttpService {
   }
 
   put<T>(endpoint: string, body, httpOptions = {}): Observable<T> {
+    this.setAuthHeader();
     return this.http.put<T>(endpoint, body, {
       headers: this.headers,
       ...httpOptions
@@ -34,6 +41,7 @@ export class HttpService {
   }
 
   putWithoutBody<T>(endpoint: string, httpOptions = {}): Observable<T> {
+    this.setAuthHeader();
     return this.http.put<T>(endpoint, {
       headers: this.headers,
       ...httpOptions
@@ -41,6 +49,7 @@ export class HttpService {
   }
 
   delete<T>(endpoint: string, httpOptions = {}) {
+    this.setAuthHeader();
     return this.http.delete<T>(endpoint, {
       headers: this.headers,
       ...httpOptions
