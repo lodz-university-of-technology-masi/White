@@ -29,17 +29,21 @@ import javax.validation.Valid;
 @RequestMapping("/api/auth")
 public class AuthRestAPIs {
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+
+    private final AccountRepository userRepository;
+
+    private final PasswordEncoder encoder;
+
+    private final JwtProvider jwtProvider;
 
     @Autowired
-    AccountRepository userRepository;
-
-    @Autowired
-    PasswordEncoder encoder;
-
-    @Autowired
-    JwtProvider jwtProvider;
+    public AuthRestAPIs(AuthenticationManager authenticationManager, AccountRepository userRepository, PasswordEncoder encoder, JwtProvider jwtProvider) {
+        this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
+        this.encoder = encoder;
+        this.jwtProvider = jwtProvider;
+    }
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {

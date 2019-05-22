@@ -10,14 +10,10 @@ import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
 import pl.lodz.p.white.whitetestapp.exception.WrongRequestException;
 import pl.lodz.p.white.whitetestapp.model.Account;
 import pl.lodz.p.white.whitetestapp.model.Role;
-import pl.lodz.p.white.whitetestapp.model.RoleName;
 import pl.lodz.p.white.whitetestapp.repository.AccountRepository;
 
 import javax.validation.ConstraintViolationException;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static pl.lodz.p.white.whitetestapp.model.RoleName.REDACTOR;
 
 
 @Service
