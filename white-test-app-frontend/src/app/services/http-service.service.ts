@@ -13,7 +13,10 @@ export class HttpService {
   }
 
   setAuthHeader() {
-    this.headers = new HttpHeaders({'Authorization': 'Bearer ' + this.sessionService.getUser().accessToken});
+    const token = this.sessionService.getUser().token;
+    if (token !== null) {
+      this.headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
+    }
   }
 
   get<T>(endpoint: string, httpOptions = {}): Observable<T> {

@@ -27,9 +27,7 @@ export class SessionService {
   }
 
   setUser(user: TokenInfo): void {
-    console.log(JSON.parse(window.atob(user.accessToken.split('.')[1])));
-    this.loggedUser = JSON.parse(window.atob(user.accessToken.split('.')[1]));
-    this.loggedUser.accessToken = user.accessToken;
+    this.loggedUser = user;
     localStorage.setItem('token', JSON.stringify(this.loggedUser));
     this.userLoggedIn.next(true);
   }

@@ -1,5 +1,5 @@
 export class TokenInfo {
-  accessToken: string;
+  token: string;
   authorities: Authority[] = [];
 }
 
