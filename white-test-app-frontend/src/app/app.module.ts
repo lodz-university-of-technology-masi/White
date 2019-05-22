@@ -7,7 +7,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {BsDropdownModule, CollapseModule} from 'ngx-bootstrap';
 import {HttpErrorHandlerService} from './services/http-error-handler.service';
 import {HttpService} from './services/http-service.service';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {Configuration} from './configuration';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
@@ -35,6 +35,9 @@ import {QuestionsComponent} from './questions/questions.component';
 import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatRadioModule, MatSelectModule} from '@angular/material';
 import {QuestionComponent} from './questions/question/question.component';
 import {ChoiceScaleQuestionComponent} from './questions/choice-scale-question/choice-scale-question.component';
+import {LoginComponent} from './login/login.component';
+import {SessionService} from './services/session.service';
+import {AuthService} from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -55,7 +58,8 @@ import {ChoiceScaleQuestionComponent} from './questions/choice-scale-question/ch
     QuestionsComponent,
     QuestionComponent,
     ChoiceScaleQuestionComponent,
-    RedactorsManagementComponent
+    RedactorsManagementComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -92,7 +96,14 @@ import {ChoiceScaleQuestionComponent} from './questions/choice-scale-question/ch
     PositionsService,
     TestTemplateContentService,
     TestResultService,
-    MessageService
+    MessageService,
+    AuthService,
+    SessionService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorHandlerService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
   entryComponents: [NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest, NgbdModalEditRedactor, NgbdModalModifyTest],

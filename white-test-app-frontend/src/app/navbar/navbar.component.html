@@ -8,7 +8,7 @@
 
 
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0" *ngIf="isUserLoggedIn">
         <li class="nav-item active">
           <a class="nav-link" [routerLink]="['/test-template']" >Testy</a>
         </li>
@@ -20,6 +20,20 @@
         </li>
         <li class="nav-item active">
           <a class="nav-link" [routerLink]="['/redactors']" >Redaktorzy</a>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav ml-auto" *ngIf="!isUserLoggedIn">
+        <li class="list-item">
+          <a class="nav-link" [routerLink]="['/register']"> Zarejestruj</a>
+        </li>
+        <li class="list-item">
+          <a class="nav-link" [routerLink]="['/login']">Zaloguj</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav ml-auto" *ngIf="isUserLoggedIn">
+        <li class="list-item">
+          <a class="nav-link" (click)="logout()">Wyloguj</a>
         </li>
       </ul>
     </div>
