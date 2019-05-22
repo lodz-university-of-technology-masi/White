@@ -105,10 +105,9 @@ public class TestTemplateContentController {
     }
   
     @RequestMapping(value = "/importcsv/{templateId}", method = RequestMethod.POST)
-    public ResponseEntity importCsv(@RequestBody byte[] file,@PathVariable("templateId") Long id) throws AppException {
+    public ResponseEntity importCsv(@RequestBody String file, @PathVariable("templateId") Long id) throws AppException {
         ApiResponse response = new ApiResponse();
-        String content = new String(file);
-        service.importCsv(content, id);
+        service.importCsv(file, id);
         response.setMessage(DATA_IMPORTED);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

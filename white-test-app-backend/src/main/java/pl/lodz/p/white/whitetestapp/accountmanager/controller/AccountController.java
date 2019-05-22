@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import pl.lodz.p.white.whitetestapp.accountmanager.dtos.AccountDto;
 import pl.lodz.p.white.whitetestapp.accountmanager.service.AccountService;
+import pl.lodz.p.white.whitetestapp.model.Account;
 import org.springframework.web.bind.annotation.RequestBody;
 import pl.lodz.p.white.whitetestapp.exception.EntityAlreadyExistsException;
 import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
