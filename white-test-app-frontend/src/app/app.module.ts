@@ -31,7 +31,8 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatRadioModule,
-  MatSelectModule
+  MatSelectModule,
+  MatSnackBarModule
 } from '@angular/material';
 import {QuestionComponent} from './questions/question/question.component';
 import {ChoiceScaleQuestionComponent} from './questions/choice-scale-question/choice-scale-question.component';
@@ -69,7 +70,7 @@ import {RedactorsManagementComponent} from './redactors-management/redactors-man
       color: 'rgb(0, 189, 99)',
       switchColor: '#80FFA2',
       defaultBgColor: '#ff1850',
-      defaultBoColor : '#101563',
+      defaultBoColor: '#101563',
       checkedLabel: 'dobrze',
       uncheckedLabel: 'źle'
     }),
@@ -79,7 +80,8 @@ import {RedactorsManagementComponent} from './redactors-management/redactors-man
     MatFormFieldModule,
     MatRadioModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
   providers: [
     Configuration,

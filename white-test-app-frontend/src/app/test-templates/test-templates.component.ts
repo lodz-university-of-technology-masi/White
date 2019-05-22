@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {TestTemplate} from './model/test-template';
 import {TestTemplateService} from '../services/test-template.service';
 import {NgbActiveModal, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
@@ -8,8 +8,9 @@ import {Position} from '../positions/model/position';
 import {MessageService} from '../services/message.service';
 import {TestTemplateContentService} from '../services/test-template-content.service';
 import {saveAs} from 'file-saver';
-import {QuestionService} from "../services/question.service";
 import {Question} from "./model/question";
+import {QuestionService} from "../services/question.service";
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'ngbd-modal-edit-position',
@@ -95,13 +96,15 @@ export class NgbdModalNewTest implements OnInit {
   positions: string[];
   newTemplate: NewTemplate;
   questions: Question[];
+  selectedText: string = '';
 
   constructor(public activeModal: NgbActiveModal,
               private testTemplateService: TestTemplateService,
               private messageService: MessageService,
               private modalService: NgbModal,
               private positionsService: PositionsService,
-              private questionService: QuestionService) {
+              private questionService: QuestionService,
+              private snackBar: MatSnackBar) {
 
   }
 
@@ -125,19 +128,33 @@ export class NgbdModalNewTest implements OnInit {
     });
   }
 
-  selectedText: string= '';
-  showSelectedText() {
-   var text = "";
-   if (window.getSelection) {
+  getSelectedText() {
+    let text = "";
+    if (window.getSelection().toString()) {
       text = window.getSelection().toString();
     }
-  this.selectedText = text;
+    this.selectedText = text;
   }
 
   openWikipedia(event) {
     window.open('https://en.wikipedia.org/wiki/' + this.selectedText, '_blank');
   }
 
+  findSynonyms(event) {
+    window.open('https://www.synonimy.pl/synonim/' + this.selectedText, '_blank');
+  }
+
+  @HostListener('mouseup', ['$event']) mouseClick() {
+    if (this.selectedText) {
+      this.openSnackBar();
+    }
+  }
+
+  openSnackBar() {
+    this.snackBar.open("CTRL+W -> Open Wiki | CTRL+S -> Search synonym", "close", {
+      duration: 4000,
+    });
+  }
 }
 
 @Component({
