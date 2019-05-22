@@ -141,7 +141,7 @@ export class NgbdModalNewTest implements OnInit {
   }
 
   findSynonyms(event) {
-    window.open('https://www.synonimy.pl/synonim/' + this.selectedText, '_blank');
+    window.open('https://www.thesaurus.com/browse/' + this.selectedText, '_blank');
   }
 
   @HostListener('mouseup', ['$event']) mouseClick() {
