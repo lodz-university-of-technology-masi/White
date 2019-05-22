@@ -1,6 +1,7 @@
 package pl.lodz.p.white.whitetestapp.accountmanager.manager;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.lodz.p.white.whitetestapp.accountmanager.dtos.AccountDto;
 import pl.lodz.p.white.whitetestapp.accountmanager.dtos.mapper.AccountMapper;
@@ -19,11 +20,13 @@ import java.util.List;
 @Service
 public class AccountManager implements AccountService {
 
-    AccountRepository repository;
+    private final AccountRepository repository;
+    private final PasswordEncoder encoder;
 
     @Autowired
-    public AccountManager(AccountRepository repository) {
+    public AccountManager(AccountRepository repository, PasswordEncoder encoder) {
         this.repository = repository;
+        this.encoder = encoder;
     }
 
     @Override
@@ -58,7 +61,7 @@ public class AccountManager implements AccountService {
 
     @Override
     public void updateRedactor(AccountDto account) throws EntityNotFoundException, WrongRequestException {
-        repository.saveAndFlush(AccountMapper.updateObject(this,account));
+        repository.saveAndFlush(AccountMapper.updateObject(this, account, encoder));
     }
 
     @Override
@@ -72,6 +75,6 @@ public class AccountManager implements AccountService {
     }
 
     private void createRedactorEntity(AccountDto account) throws ConstraintViolationException, IllegalArgumentException  {
-       repository.saveAndFlush(AccountMapper.fromDtoConverter(account));
+        repository.saveAndFlush(AccountMapper.fromDtoConverter(account, encoder));
     }
 }

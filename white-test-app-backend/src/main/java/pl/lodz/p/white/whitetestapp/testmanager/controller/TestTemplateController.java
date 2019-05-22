@@ -22,6 +22,8 @@ import pl.lodz.p.white.whitetestapp.model.TestTemplate;
 import pl.lodz.p.white.whitetestapp.testmanager.dtos.NewTestTemplateRequest;
 import pl.lodz.p.white.whitetestapp.testmanager.service.TestTemplateService;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RestController
 @RequestMapping("/api/testtemplate")
@@ -46,14 +48,16 @@ public class TestTemplateController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    ResponseEntity getAll() {
-        return ResponseEntity.ok(service.getAll());
+    ResponseEntity getAll(HttpServletRequest request) throws WrongRequestException {
+        return ResponseEntity.ok(service.getAll(request));
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity addNewTestTemplate(@RequestBody NewTestTemplateRequest newTestTemplateRequest) throws EntityNotFoundException, WrongRequestException {
+    ResponseEntity addNewTestTemplate(@RequestBody NewTestTemplateRequest newTestTemplateRequest,
+                                      HttpServletRequest request)
+            throws EntityNotFoundException, WrongRequestException {
         ApiResponse response = new ApiResponse();
-        service.addNewTestTemplate(newTestTemplateRequest);
+        service.addNewTestTemplate(newTestTemplateRequest.setAuthor(request.getUserPrincipal().getName()));
         response.setMessage(TEST_TEMPLATE_WAS_CREATED);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
