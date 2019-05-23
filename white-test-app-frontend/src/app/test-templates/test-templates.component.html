@@ -1,4 +1,4 @@
-<button class="btn btn-primary mb-2" (click)="openModal(ngModalNewTest)">Dodaj</button>
+<button class="btn btn-primary mb-2" (click)="openModal(ngModalNewTest)" *ngIf="isActive('ROLE_REDACTOR')">Dodaj</button>
 
 <h1>Testy</h1>
 
@@ -21,14 +21,14 @@
     <td>{{test.author}}</td>
     <td>{{test.lang}}</td>
     <td>
-      <button type="submit" class="btn btn-primary mb-2" (click)="open(edit_modal,test)">Edytuj</button>
-      <button type="submit" class="btn btn-primary mb-2" (click)="translate(test.testTemplateId, test.lang)">
+      <button type="submit" class="btn btn-primary mb-2" (click)="open(edit_modal,test)" *ngIf="isActive('ROLE_MODERATOR') || isActive('ROLE_REDACTOR')">Edytuj</button>
+      <button type="submit" class="btn btn-primary mb-2" (click)="translate(test.testTemplateId, test.lang)" *ngIf="isActive('ROLE_REDACTOR')">
         Przetłumacz
       </button>
       <a routerLink="/test/{{test.id}}">
-        <button type="submit" class="btn btn-primary mb-2">Weź udział</button>
+        <button type="submit" class="btn btn-primary mb-2" *ngIf="isActive('ROLE_CANDIDATE')">Weź udział</button>
       </a>
-      <button type="button" class="btn btn-danger mb-2" (click)="deleteTest(test.testTemplateId, test.lang)">Usuń</button>
+      <button type="button" class="btn btn-danger mb-2" (click)="deleteTest(test.testTemplateId, test.lang)" *ngIf="isActive('ROLE_MODERATOR') || isActive('ROLE_REDACTOR')">Usuń</button>
     </td>
   </tr>
   </tbody>

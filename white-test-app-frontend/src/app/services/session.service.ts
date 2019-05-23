@@ -37,7 +37,7 @@ export class SessionService {
     this.userLoggedIn.next(false);
   }
 
-  hasUserRole(role: string) {
+  hasUserRole(role: string): boolean {
     const user: TokenInfo = this.getUser();
     if (user == null) {
       return false;

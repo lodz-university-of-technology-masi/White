@@ -46,6 +46,8 @@ import {ChoiceScaleQuestionComponent} from './questions/choice-scale-question/ch
 import {LoginComponent} from './login/login.component';
 import {SessionService} from './services/session.service';
 import {AuthService} from './services/auth.service';
+import {ErrorPageComponent} from './error-page/error-page.component';
+import {GeneralRouteGuard} from './services/general-route-guard';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,8 @@ import {AuthService} from './services/auth.service';
     QuestionComponent,
     ChoiceScaleQuestionComponent,
     RedactorsManagementComponent,
-    LoginComponent
+    LoginComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
@@ -112,7 +115,8 @@ import {AuthService} from './services/auth.service';
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorHandlerService,
       multi: true
-    }
+    },
+    GeneralRouteGuard
   ],
   bootstrap: [AppComponent],
   entryComponents: [NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest, NgbdModalEditRedactor, NgbdModalModifyTest],

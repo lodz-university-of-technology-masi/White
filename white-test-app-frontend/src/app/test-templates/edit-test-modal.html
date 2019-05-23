@@ -9,10 +9,11 @@
     <div class="form-group">
       <button type="button" class="btn btn-primary mb-2" (click)="open(test)">Zmień stanowisko</button>
       <button type="button" class="btn btn-primary mb-2" (click)="openToModify(test)">Modyfikuj treść</button>
-      <button type="button" class="btn btn-primary mb-2" (click)="exportPDF(test)">Eksportuj do PDF</button>
-      <button type="button" class="btn btn-primary mb-2" (click)="exportCSV(test)">Eksportuj do CSV</button>
+      <button type="button" class="btn btn-primary mb-2" (click)="exportPDF(test)" *ngIf="isActive('ROLE_REDACTOR')">Eksportuj do PDF</button>
+      <button type="button" class="btn btn-primary mb-2" (click)="exportCSV(test)" *ngIf="isActive('ROLE_REDACTOR')">Eksportuj do CSV</button>
       <input type="file" id="myFileInput" (change)="importCsv($event.target.files)"/>
-      <input type="button"
+      <input *ngIf="isActive('ROLE_REDACTOR')"
+             type="button"
              class="btn btn-primary mb-2"
              onclick="document.getElementById('myFileInput').click()"
              value="Importuj z CSV"/>
