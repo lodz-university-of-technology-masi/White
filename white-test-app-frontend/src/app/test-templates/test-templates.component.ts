@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {TestTemplate} from './model/test-template';
 import {TestTemplateService} from '../services/test-template.service';
 import {NgbActiveModal, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
@@ -12,6 +12,10 @@ import {QuestionService} from '../services/question.service';
 import {Question} from './model/question';
 import {TestTemplateDetail} from './model/test-template-detail';
 import {SessionService} from '../services/session.service';
+import {MatSnackBar} from '@angular/material';
+
+export const WIKI_URL = 'https://en.wikipedia.org/wiki/';
+export const SYNONYMS_URL = 'https://www.thesaurus.com/browse/';
 
 @Component({
   selector: 'ngbd-modal-edit-position',
@@ -132,19 +136,22 @@ export class NgbdModalNewTest implements OnInit {
   positions: string[];
   newTemplate: NewTemplate;
   questions: Question[];
+  selectedText: string;
 
   constructor(public activeModal: NgbActiveModal,
               private testTemplateService: TestTemplateService,
               private messageService: MessageService,
               private modalService: NgbModal,
               private positionsService: PositionsService,
-              private questionService: QuestionService) {
+              private questionService: QuestionService,
+              private snackBar: MatSnackBar) {
 
   }
 
   ngOnInit(): void {
     this.newTemplate = new NewTemplate();
     this.newTemplate.questions = [];
+    this.selectedText ='';
     this.getPositions();
   }
 
@@ -153,12 +160,38 @@ export class NgbdModalNewTest implements OnInit {
   }
 
   addNew() {
-    console.log(this.newTemplate);
-    console.log(this.newTemplate.questions);
     this.testTemplateService.add(this.newTemplate).subscribe(s => {
       this.messageService.success('Sukces');
     }, e => {
       this.messageService.error('Błąd');
+    });
+  }
+
+  getSelectedText() {
+    let text = "";
+    if (window.getSelection().toString()) {
+      text = window.getSelection().toString();
+    }
+    this.selectedText = text;
+  }
+
+  openWikipedia(event) {
+    window.open(WIKI_URL + this.selectedText, '_blank');
+  }
+
+  findSynonyms(event) {
+    window.open(SYNONYMS_URL + this.selectedText, '_blank');
+  }
+
+  @HostListener('mouseup', ['$event']) mouseClick() {
+    if (this.selectedText) {
+      this.openSnackBar();
+    }
+  }
+
+  openSnackBar() {
+    this.snackBar.open("CTRL+W -> Open Wiki | CTRL+S -> Search synonym", "close", {
+      duration: 4000,
     });
   }
 }

@@ -32,7 +32,15 @@ import {AllTestResultsComponent} from './all-test-results/all-test-results.compo
 import {UiSwitchModule} from 'ngx-ui-switch';
 import {NgbdModalEditRedactor, RedactorsManagementComponent} from './redactors-management/redactors-management.component';
 import {QuestionsComponent} from './questions/questions.component';
-import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatRadioModule, MatSelectModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatSnackBarModule
+} from '@angular/material';
 import {QuestionComponent} from './questions/question/question.component';
 import {ChoiceScaleQuestionComponent} from './questions/choice-scale-question/choice-scale-question.component';
 import {LoginComponent} from './login/login.component';
@@ -79,7 +87,7 @@ import {GeneralRouteGuard} from './services/general-route-guard';
       color: 'rgb(0, 189, 99)',
       switchColor: '#80FFA2',
       defaultBgColor: '#ff1850',
-      defaultBoColor : '#101563',
+      defaultBoColor: '#101563',
       checkedLabel: 'dobrze',
       uncheckedLabel: 'źle'
     }),
@@ -89,7 +97,8 @@ import {GeneralRouteGuard} from './services/general-route-guard';
     MatFormFieldModule,
     MatRadioModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
   providers: [
     Configuration,
