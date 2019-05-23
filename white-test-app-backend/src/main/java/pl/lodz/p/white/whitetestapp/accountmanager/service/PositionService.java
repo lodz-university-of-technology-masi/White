@@ -12,8 +12,11 @@ public interface PositionService {
 
     List<PositionResponse> getAllPositions();
 
+    List<PositionResponse> getAllPositionsUnfiltered();
+
     Position findOne(String id) throws EntityNotFoundException;
 
     void addNew(Position position);
 
+    String changeStatus(String id) throws EntityNotFoundException;
 }

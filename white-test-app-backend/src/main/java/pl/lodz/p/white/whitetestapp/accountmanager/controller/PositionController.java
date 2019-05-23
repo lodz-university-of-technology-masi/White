@@ -35,11 +35,25 @@ public class PositionController {
         return ResponseEntity.ok(service.getAllPositions());
     }
 
+    @RequestMapping(value = "/unfiltered",method = RequestMethod.GET)
+    ResponseEntity getAllPositionsUnfiltered() {
+        return ResponseEntity.ok(service.getAllPositionsUnfiltered());
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     @PreAuthorize("hasAnyRole('ROLE_MODERATOR')")
     ResponseEntity get(@PathVariable("id") String id) throws EntityNotFoundException {
         return ResponseEntity.ok(service.getOne(id));
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @ResponseBody
+    @PreAuthorize("hasAnyRole('ROLE_MODERATOR')")
+    ResponseEntity changeStatus(@PathVariable("id") String id) throws EntityNotFoundException {
+        ApiResponse response = new ApiResponse();
+        response.setMessage(service.changeStatus(id));
+        return ResponseEntity.ok(response);
     }
 
     @RequestMapping(method = RequestMethod.POST)
