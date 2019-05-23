@@ -35,6 +35,11 @@ public class PositionController {
         return ResponseEntity.ok(service.getAllPositions());
     }
 
+    @RequestMapping(value = "/unfiltered",method = RequestMethod.GET)
+    ResponseEntity getAllPositionsUnfiltered() {
+        return ResponseEntity.ok(service.getAllPositionsUnfiltered());
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     @PreAuthorize("hasAnyRole('ROLE_MODERATOR')")

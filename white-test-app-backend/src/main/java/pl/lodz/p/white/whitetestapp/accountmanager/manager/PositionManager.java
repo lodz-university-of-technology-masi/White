@@ -37,9 +37,20 @@ public class PositionManager implements PositionService {
         return repository
                 .findAll()
                 .stream()
+                .filter(Position::isActivated)
                 .map(PositionMapper::toPositionResponse)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<PositionResponse> getAllPositionsUnfiltered() {
+        return repository
+                .findAll()
+                .stream()
+                .map(PositionMapper::toPositionResponse)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public Position findOne(String id) throws EntityNotFoundException {
         return repository.findById(id).orElseThrow(EntityNotFoundException::new);
