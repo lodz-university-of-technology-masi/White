@@ -1,42 +1,47 @@
-<div class="modal-header">
-  <h4 class="modal-title" id="modal-basic-title">Dodaj test</h4>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-<div class="modal-body">
-  <form #form="ngForm">
-    <div class="form-row form-group">
-      <label>Nazwa: &nbsp;</label>
-      <input required type="text" class="form-control" [(ngModel)]="newTemplate.testName" name="Nazwa">
-    </div>
+<div (mouseup)="getSelectedText(); mouseClick()()" (window:keydown.control.w)="openWikipedia($event)"
+     (window:keydown.control.s)="findSynonyms($event)">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Dodaj test</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #form="ngForm">
+      <div class="form-row form-group">
+        <label>Nazwa: &nbsp;</label>
+        <input required type="text" class="form-control" [(ngModel)]="newTemplate.testName" name="Nazwa">
+      </div>
 
-    <div class="form-row form-group">
-      <label for="lang" class="required-sign">Język</label>
-      <select [(ngModel)]="newTemplate.lang" class="form-control field-restriction"
-              id="lang"
-              name="lang"
-      required>
-        <option [ngValue]="'PL'">polski</option>
-        <option [ngValue]="'EN'">angielski</option>
-      </select>
-    </div>
+      <div class="form-row form-group">
+        <label for="lang" class="required-sign">Język</label>
+        <select [(ngModel)]="newTemplate.lang" class="form-control field-restriction"
+                id="lang"
+                name="lang"
+                required>
+          <option [ngValue]="'PL'">polski</option>
+          <option [ngValue]="'EN'">angielski</option>
+        </select>
+      </div>
 
-    <div class="form-row form-group">
-      <label for="position"
-             class="required-sign">Stanowisko</label>
-      <select [(ngModel)]="newTemplate.position" class="form-control field-restriction"
-              id="position"
-              name="position"
-      required>
-        <option *ngFor="let p of positions" [ngValue]="p">{{p}}</option>
-      </select>
-    </div>
-  </form>
-</div>
+      <div class="form-row form-group">
+        <label for="position"
+               class="required-sign">Stanowisko</label>
+        <select [(ngModel)]="newTemplate.position" class="form-control field-restriction"
+                id="position"
+                name="position"
+                required>
+          <option *ngFor="let p of positions" [ngValue]="p">{{p}}</option>
+        </select>
+      </div>
+    </form>
+  </div>
 
-<app-questions [questions]="newTemplate.questions"></app-questions>
+  <app-questions [questions]="newTemplate.questions"></app-questions>
 
-<div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" [disabled]="!form.form.valid" (click)="addNew(); activeModal.close('Save click');">Zapisz</button>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" [disabled]="!form.form.valid"
+            (click)="addNew(); activeModal.close('Save click');">Zapisz
+    </button>
+  </div>
 </div>
