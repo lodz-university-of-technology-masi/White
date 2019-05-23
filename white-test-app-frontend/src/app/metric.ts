@@ -3,7 +3,6 @@ export class Metric {
   distance: number;
   time: number;
 
-
   constructor() {
     this.mouseClicks = 0;
     this.distance = 0;
