@@ -10,6 +10,7 @@ import pl.lodz.p.white.whitetestapp.exception.EntityNotFoundException;
 import pl.lodz.p.white.whitetestapp.model.Position;
 import pl.lodz.p.white.whitetestapp.repository.PositionRepository;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 @Service
 public class PositionManager implements PositionService {
 
+    public static final String POSITION_WAS_UPDATED = "Position was updated";
     private PositionRepository repository;
 
     @Autowired
@@ -46,5 +48,13 @@ public class PositionManager implements PositionService {
     @Transactional(readOnly = false)
     public void addNew(Position position) {
         repository.save(position);
+    }
+
+    @Override
+    public String changeStatus(String id) throws EntityNotFoundException, ConstraintViolationException, IllegalArgumentException{
+        Position position = findOne(id);
+        position.setActivated(!position.isActivated());
+        repository.saveAndFlush(position);
+        return POSITION_WAS_UPDATED;
     }
 }

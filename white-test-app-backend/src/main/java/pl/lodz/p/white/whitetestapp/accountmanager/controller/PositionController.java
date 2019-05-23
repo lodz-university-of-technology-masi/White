@@ -40,6 +40,14 @@ public class PositionController {
         return ResponseEntity.ok(service.getOne(id));
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @ResponseBody
+    ResponseEntity changeStatus(@PathVariable("id") String id) throws EntityNotFoundException {
+        ApiResponse response = new ApiResponse();
+        response.setMessage(service.changeStatus(id));
+        return ResponseEntity.ok(response);
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity addNewPosition(@RequestBody Position position) throws WrongRequestException {
         ApiResponse response = new ApiResponse();

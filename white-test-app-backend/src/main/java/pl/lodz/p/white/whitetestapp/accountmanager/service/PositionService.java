@@ -16,4 +16,5 @@ public interface PositionService {
 
     void addNew(Position position);
 
+    String changeStatus(String id) throws EntityNotFoundException;
 }
