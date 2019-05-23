@@ -11,6 +11,7 @@ import {saveAs} from 'file-saver';
 import {QuestionService} from '../services/question.service';
 import {Question} from './model/question';
 import {TestTemplateDetail} from './model/test-template-detail';
+import {SessionService} from '../services/session.service';
 import {MatSnackBar} from '@angular/material';
 
 export const WIKI_URL = 'https://en.wikipedia.org/wiki/';
@@ -114,10 +115,15 @@ export class NgbdModalContent {
     });
   }
 
+  isActive(role: string): boolean {
+    return this.sessionService.hasUserRole(role);
+  }
+
   constructor(public activeModal: NgbActiveModal,
               private modalService: NgbModal,
               private testService: TestTemplateContentService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private sessionService: SessionService) {
 
   }
 }
@@ -204,7 +210,8 @@ export class NgbdModalModifyTest implements OnInit {
               private testTemplateContentService: TestTemplateContentService,
               private messageService: MessageService,
               private modalService: NgbModal,
-              private positionsService: PositionsService) {
+              private positionsService: PositionsService,
+              private sessionService: SessionService) {
   }
 
   ngOnInit(): void {
@@ -246,7 +253,8 @@ export class TestTemplatesComponent implements OnInit {
   constructor(private testTemplateService: TestTemplateService,
               private positionService: PositionsService,
               private modalService: NgbModal,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private sessionService: SessionService) {
   }
 
   ngOnInit() {
@@ -294,4 +302,7 @@ export class TestTemplatesComponent implements OnInit {
       e => this.messageService.error('Błąd'));
   }
 
+  isActive(role: string): boolean {
+    return this.sessionService.hasUserRole(role);
+  }
 }

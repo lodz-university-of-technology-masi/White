@@ -3,6 +3,7 @@ package pl.lodz.p.white.whitetestapp.accountmanager.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,7 @@ public class PositionController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @PreAuthorize("hasAnyRole('ROLE_MODERATOR')")
     ResponseEntity get(@PathVariable("id") String id) throws EntityNotFoundException {
         return ResponseEntity.ok(service.getOne(id));
     }
@@ -49,6 +51,7 @@ public class PositionController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
+    @PreAuthorize("hasAnyRole('ROLE_MODERATOR')")
     ResponseEntity addNewPosition(@RequestBody Position position) throws WrongRequestException {
         ApiResponse response = new ApiResponse();
         try {

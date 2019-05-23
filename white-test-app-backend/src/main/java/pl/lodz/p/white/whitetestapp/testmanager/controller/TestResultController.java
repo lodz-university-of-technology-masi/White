@@ -2,6 +2,7 @@ package pl.lodz.p.white.whitetestapp.testmanager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,16 +25,19 @@ public class TestResultController {
     TestResultService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyRole('ROLE_REDACTOR')")
     ResponseEntity get(@PathVariable("id") Long id) throws WrongRequestException {
         return ResponseEntity.ok(service.getOne(id));
     }
 
     @RequestMapping(method = RequestMethod.GET)
+    @PreAuthorize("hasAnyRole('ROLE_REDACTOR')")
     ResponseEntity getAll(HttpServletRequest request) {
         return ResponseEntity.ok(service.getAll(request.getUserPrincipal().getName()));
     }
 
     @RequestMapping(method = RequestMethod.POST)
+    @PreAuthorize("hasAnyRole('ROLE_CANDIDATE')")
     ResponseEntity add(@RequestBody CandidateTestResultRequest candidateTestResultRequest, HttpServletRequest request)
                        throws WrongRequestException {
         service.add(candidateTestResultRequest, request.getUserPrincipal().getName());
@@ -41,6 +45,7 @@ public class TestResultController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
+    @PreAuthorize("hasAnyRole('ROLE_REDACTOR')")
     ResponseEntity addChecked(@RequestBody TestCheckRequest testCheckRequest) throws WrongRequestException {
         service.addChecked(testCheckRequest);
         return ResponseEntity.ok().build();

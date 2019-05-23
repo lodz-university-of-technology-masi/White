@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,6 +52,7 @@ public class TestTemplateContentController {
     }
 
     @RequestMapping(value = "/addquestion/{id}", method = RequestMethod.PUT)
+    @PreAuthorize("hasAnyRole('ROLE_REDACTOR', 'ROLE_MODERATOR')")
     ResponseEntity addQuestion(@PathVariable("id") Long id, @RequestBody Question question) throws WrongRequestException, FailedSaveException {
         try {
             ApiResponse response = new ApiResponse();
@@ -66,6 +68,7 @@ public class TestTemplateContentController {
     }
 
     @RequestMapping(value = "/downloadpdf/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_PDF_VALUE, consumes = MediaType.ALL_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_REDACTOR')")
     ResponseEntity<byte[]> generatePdf(@PathVariable("id") Long id, @RequestBody TestInformationRequest testInformationRequest) throws WrongRequestException, DocumentCreationException {
         try {
             TestTemplateContent requestedTest = service.findOne(id);
@@ -88,6 +91,7 @@ public class TestTemplateContentController {
     }
 
     @RequestMapping(value = "/downloadcsv/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyRole('ROLE_REDACTOR')")
     public ResponseEntity<StringBuilder> exportCsv(@PathVariable("id") Long id) throws WrongRequestException {
         try {
             TestTemplateContent requestedTestContent = service.findOne(id);
@@ -103,8 +107,9 @@ public class TestTemplateContentController {
             throw new WrongRequestException(WrongRequestException.NOT_EXISTING_DATA_REQUESTED);
         }
     }
-  
+
     @RequestMapping(value = "/importcsv/{templateId}", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyRole('ROLE_REDACTOR')")
     public ResponseEntity importCsv(@RequestBody String file, @PathVariable("templateId") Long id) throws AppException {
         ApiResponse response = new ApiResponse();
         service.importCsv(file, id);
@@ -113,6 +118,7 @@ public class TestTemplateContentController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
+    @PreAuthorize("hasAnyRole('ROLE_REDACTOR', 'ROLE_MODERATOR')")
     public ResponseEntity edit(@RequestBody TemplateToModifyDto template) throws WrongRequestException {
         try {
             ApiResponse response = new ApiResponse();
