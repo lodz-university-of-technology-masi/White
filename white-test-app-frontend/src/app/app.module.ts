@@ -48,6 +48,7 @@ import {SessionService} from './services/session.service';
 import {AuthService} from './services/auth.service';
 import {ErrorPageComponent} from './error-page/error-page.component';
 import {GeneralRouteGuard} from './services/general-route-guard';
+import {DeviceDetectorModule} from 'ngx-device-detector';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import {GeneralRouteGuard} from './services/general-route-guard';
     MatRadioModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    DeviceDetectorModule.forRoot()
   ],
   providers: [
     Configuration,
