@@ -13,6 +13,9 @@ import {Question} from './model/question';
 import {TestTemplateDetail} from './model/test-template-detail';
 import {MatSnackBar} from '@angular/material';
 
+export const WIKI_URL = 'https://en.wikipedia.org/wiki/';
+export const SYNONYMS_URL = 'https://www.thesaurus.com/browse/';
+
 @Component({
   selector: 'ngbd-modal-edit-position',
   templateUrl: './edit-position-in-test.html'
@@ -127,7 +130,7 @@ export class NgbdModalNewTest implements OnInit {
   positions: string[];
   newTemplate: NewTemplate;
   questions: Question[];
-  selectedText: string = '';
+  selectedText: string;
 
   constructor(public activeModal: NgbActiveModal,
               private testTemplateService: TestTemplateService,
@@ -142,6 +145,7 @@ export class NgbdModalNewTest implements OnInit {
   ngOnInit(): void {
     this.newTemplate = new NewTemplate();
     this.newTemplate.questions = [];
+    this.selectedText ='';
     this.getPositions();
   }
 
@@ -166,11 +170,11 @@ export class NgbdModalNewTest implements OnInit {
   }
 
   openWikipedia(event) {
-    window.open('https://en.wikipedia.org/wiki/' + this.selectedText, '_blank');
+    window.open(WIKI_URL + this.selectedText, '_blank');
   }
 
   findSynonyms(event) {
-    window.open('https://www.thesaurus.com/browse/' + this.selectedText, '_blank');
+    window.open(SYNONYMS_URL + this.selectedText, '_blank');
   }
 
   @HostListener('mouseup', ['$event']) mouseClick() {

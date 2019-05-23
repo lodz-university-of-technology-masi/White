@@ -10,7 +10,13 @@ import {HttpService} from './services/http-service.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {Configuration} from './configuration';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NgbdModalContent, NgbdModalEditPosition, NgbdModalModifyTest, NgbdModalNewTest, TestTemplatesComponent} from './test-templates/test-templates.component';
+import {
+  NgbdModalContent,
+  NgbdModalEditPosition,
+  NgbdModalModifyTest,
+  NgbdModalNewTest,
+  TestTemplatesComponent
+} from './test-templates/test-templates.component';
 import {TestTemplateService} from './services/test-template.service';
 import {PositionsComponent} from './positions/positions.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -26,7 +32,15 @@ import {AllTestResultsComponent} from './all-test-results/all-test-results.compo
 import {UiSwitchModule} from 'ngx-ui-switch';
 import {NgbdModalEditRedactor, RedactorsManagementComponent} from './redactors-management/redactors-management.component';
 import {QuestionsComponent} from './questions/questions.component';
-import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatRadioModule, MatSelectModule, MatSnackBarModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatSnackBarModule
+} from '@angular/material';
 import {QuestionComponent} from './questions/question/question.component';
 import {ChoiceScaleQuestionComponent} from './questions/choice-scale-question/choice-scale-question.component';
 import {LoginComponent} from './login/login.component';
