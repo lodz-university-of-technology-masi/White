@@ -10,7 +10,7 @@ public class Position {
     @Id
     private String name;
 
-    private boolean activated;
+    private boolean activated = true;
 
     public String getName() {
         return name;
