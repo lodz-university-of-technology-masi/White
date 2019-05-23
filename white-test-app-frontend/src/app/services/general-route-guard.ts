@@ -23,7 +23,6 @@ export class GeneralRouteGuard implements CanActivate {
       if (!available) {
         this.router.navigateByUrl('/error404');
       }
-
       return available;
     } else {
       this.sessionContextService.resetSession();
