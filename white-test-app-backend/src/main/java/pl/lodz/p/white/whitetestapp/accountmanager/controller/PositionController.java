@@ -44,6 +44,7 @@ public class PositionController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
+    @PreAuthorize("hasAnyRole('ROLE_MODERATOR')")
     ResponseEntity changeStatus(@PathVariable("id") String id) throws EntityNotFoundException {
         ApiResponse response = new ApiResponse();
         response.setMessage(service.changeStatus(id));
