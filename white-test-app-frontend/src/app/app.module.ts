@@ -39,7 +39,9 @@ import {
   MatInputModule,
   MatRadioModule,
   MatSelectModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatSliderModule,
+  MatSlideToggleModule
 } from '@angular/material';
 import {QuestionComponent} from './questions/question/question.component';
 import {ChoiceScaleQuestionComponent} from './questions/choice-scale-question/choice-scale-question.component';
@@ -98,7 +100,9 @@ import {GeneralRouteGuard} from './services/general-route-guard';
     MatRadioModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSliderModule,
+    MatSlideToggleModule
   ],
   providers: [
     Configuration,
