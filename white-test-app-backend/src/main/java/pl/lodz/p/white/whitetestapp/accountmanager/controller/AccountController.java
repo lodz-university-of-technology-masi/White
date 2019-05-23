@@ -3,6 +3,7 @@ package pl.lodz.p.white.whitetestapp.accountmanager.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,11 +38,13 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyRole('ROLE_MODERATOR')")
     Account get(@PathVariable("id") String id) {
         return service.getOne(id);
     }
 
     @RequestMapping(value = "/redactors", method = RequestMethod.PUT)
+    @PreAuthorize("hasAnyRole('ROLE_MODERATOR')")
     public ResponseEntity editRedactor(@RequestBody AccountDto account) throws WrongRequestException {
         try {
             ApiResponse response = new ApiResponse();
@@ -54,6 +57,7 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/redactors/{id}", method = RequestMethod.DELETE)
+    @PreAuthorize("hasAnyRole('ROLE_MODERATOR')")
     public ResponseEntity deleteRedactor(@PathVariable String id) throws WrongRequestException {
         try {
             ApiResponse response = new ApiResponse();
@@ -67,16 +71,19 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyRole('ROLE_MODERATOR')")
     public List<Account> getAll() {
         return service.getAll();
     }
 
     @RequestMapping(value = "/redactors", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyRole('ROLE_MODERATOR')")
     public List<Account> getAllRedactors() {
         return service.getAllRedactors();
     }
 
     @RequestMapping(value = "/redactors", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyRole('ROLE_MODERATOR')")
     public ResponseEntity addRedactor(@RequestBody AccountDto account) throws WrongRequestException {
         try {
             ApiResponse response = new ApiResponse();
