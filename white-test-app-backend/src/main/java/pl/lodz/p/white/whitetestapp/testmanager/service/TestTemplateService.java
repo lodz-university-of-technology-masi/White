@@ -26,4 +26,6 @@ public interface TestTemplateService {
     void translate(Long id, String sourceLang);
 
     void deleteTestById(Long id, String lang) throws EntityNotFoundException;
+
+    void addNewLangContent(NewTestTemplateRequest setAuthor) throws WrongRequestException;
 }
