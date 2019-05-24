@@ -66,8 +66,8 @@ export class AppComponent {
   }
 
   @HostListener('mouseup', ['$event'])
-  onAuxClick($event) {
-    if($event.which === 2 || $event.button===1)
+  onAuxClick(event) {
+    if(event.which === 2 || event.button===1)
       this.getClickCount();
   }
 }
