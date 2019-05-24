@@ -64,6 +64,17 @@ public class TestTemplateController {
 
     }
 
+    @RequestMapping(value = "/addlangversion",method = RequestMethod.PUT)
+    @PreAuthorize("hasAnyRole('ROLE_REDACTOR')")
+    ResponseEntity addNewLangContent(@RequestBody NewTestTemplateRequest newTestTemplateRequest,
+                                      HttpServletRequest request)
+            throws EntityNotFoundException, WrongRequestException {
+        ApiResponse response = new ApiResponse();
+        service.addNewLangContent(newTestTemplateRequest.setAuthor(request.getUserPrincipal().getName()));
+        response.setMessage(TEST_TEMPLATE_WAS_CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
     @RequestMapping(value = "/setposition/{id}/{positionId}", method = RequestMethod.PUT)
     @PreAuthorize("hasAnyRole('ROLE_REDACTOR', 'ROLE_MODERATOR')")
     ResponseEntity assignPositionToTest(@PathVariable("id") Long id, @PathVariable("positionId") String positionId) throws WrongRequestException, FailedSaveException {
