@@ -236,7 +236,6 @@ export class NgbdModalModifyTest implements OnInit {
               private positionsService: PositionsService,
               private snackBar: MatSnackBar,
               private sessionService: SessionService) {
-    
   }
 
   ngOnInit(): void {
