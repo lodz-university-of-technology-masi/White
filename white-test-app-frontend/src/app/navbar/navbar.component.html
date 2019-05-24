@@ -12,13 +12,13 @@
         <li class="nav-item active">
           <a class="nav-link" [routerLink]="['/test-template']" >Testy</a>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/positions']" >Stanowiska</a>
+        <li class="nav-item active" *ngIf="roles['ROLE_MODERATOR']">
+          <a class="nav-link" [routerLink]="['/positions']">Stanowiska</a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item active" *ngIf="roles['ROLE_REDACTOR']">
           <a class="nav-link" [routerLink]="['/results']" >Rozwiązane testy</a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item active" *ngIf="roles['ROLE_MODERATOR']">
           <a class="nav-link" [routerLink]="['/redactors']" >Redaktorzy</a>
         </li>
       </ul>

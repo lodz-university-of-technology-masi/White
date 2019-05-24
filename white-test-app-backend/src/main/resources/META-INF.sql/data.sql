@@ -15,9 +15,12 @@ insert into answer_to_question (id,answer,is_correct,question_id) values (1001,'
 insert into answer_to_question (id,answer,is_correct,question_id) values (1002,'1',TRUE,1003);
 insert into answer_to_question (id,answer,is_correct,question_id) values (1003,'znana',TRUE,1004);
 insert into answer_to_question (id,answer,is_correct,question_id) values (1004,'2',TRUE,1005);
-insert into position (name) values ('junior dev');
+insert into position (name,activated) values ('junior dev', false );
+insert into position (name,activated) values ('architect', true);
+insert into position (name,activated) values ('dev',false );
+insert into position (name,activated) values ('senior', true);
 insert into test_template_content (id, is_deleted) values (1032, false);
-insert into test_template (id,name,en_id,pl_id,position_id,author_id, is_deleted) values (1678,'test',null,1032,'junior dev','USERUNO',false);
+insert into test_template (id,name,en_id,pl_id,position_id,author_id, is_deleted) values (1678,'test',null,1032,'junior dev','RED1',false);
 update test_template_content set test_template_id = 1678 where id = 1032;
 insert into test_result (id,participant_username, template_id) values (1039, 'USERUNO', 1032);
 insert into test_result_answers (test_result_id, answers_id) values (1039, 1001);

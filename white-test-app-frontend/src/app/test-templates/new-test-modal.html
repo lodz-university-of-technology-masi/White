@@ -41,7 +41,10 @@
 
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" [disabled]="!form.form.valid"
-            (click)="addNew(); activeModal.close('Save click');">Zapisz
+            (click)="addNew(); activeModal.close('Save click');" *ngIf="newTemplate.id == null">Zapisz
+    </button>
+    <button type="button" class="btn btn-outline-dark" [disabled]="!form.form.valid"
+            (click)="addNewLangVersion(); activeModal.close('Save click');" *ngIf="newTemplate.id != null">Zapisz
     </button>
   </div>
 </div>

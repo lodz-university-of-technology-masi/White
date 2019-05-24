@@ -39,13 +39,19 @@ import {
   MatInputModule,
   MatRadioModule,
   MatSelectModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatSliderModule,
+  MatSlideToggleModule
 } from '@angular/material';
 import {QuestionComponent} from './questions/question/question.component';
 import {ChoiceScaleQuestionComponent} from './questions/choice-scale-question/choice-scale-question.component';
 import {LoginComponent} from './login/login.component';
 import {SessionService} from './services/session.service';
 import {AuthService} from './services/auth.service';
+import {RegistrationComponent} from './registration/registration.component';
+import {ErrorPageComponent} from './error-page/error-page.component';
+import {GeneralRouteGuard} from './services/general-route-guard';
+import {DeviceDetectorModule} from 'ngx-device-detector';
 
 @NgModule({
   declarations: [
@@ -67,7 +73,9 @@ import {AuthService} from './services/auth.service';
     QuestionComponent,
     ChoiceScaleQuestionComponent,
     RedactorsManagementComponent,
-    LoginComponent
+    LoginComponent,
+    RegistrationComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
@@ -95,7 +103,11 @@ import {AuthService} from './services/auth.service';
     MatRadioModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSnackBarModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    DeviceDetectorModule.forRoot()
   ],
   providers: [
     Configuration,
@@ -112,7 +124,8 @@ import {AuthService} from './services/auth.service';
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorHandlerService,
       multi: true
-    }
+    },
+    GeneralRouteGuard
   ],
   bootstrap: [AppComponent],
   entryComponents: [NgbdModalContent, NgbdModalEditPosition, NgbdModalNewTest, NgbdModalEditRedactor, NgbdModalModifyTest],

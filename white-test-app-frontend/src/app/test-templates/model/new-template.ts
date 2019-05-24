@@ -5,4 +5,5 @@ export class NewTemplate {
   position: string;
   lang: String;
   questions: Question[];
+  id: number;
 }

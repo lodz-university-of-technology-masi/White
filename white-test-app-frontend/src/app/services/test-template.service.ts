@@ -5,7 +5,6 @@ import {TestTemplate} from '../test-templates/model/test-template';
 import {Observable} from 'rxjs';
 import {NewTemplate} from '../test-templates/model/new-template';
 import {ApiResponse} from '../test-templates/model/ApiResponse';
-import {TestTemplateDetail} from '../test-templates/model/test-template-detail';
 
 
 @Injectable({
@@ -36,8 +35,12 @@ export class TestTemplateService {
     return this.httpService.put(this.endpoint + '/translate/' + id + '?lang=' + currentLang, {});
   }
 
-  deleteTest(id: number, currentLang: string){
+  deleteTest(id: number, currentLang: string) {
     return this.httpService.delete(this.endpoint + '/' + id + '?lang=' + currentLang);
+  }
+
+  addNewLanguageVersion(newTemplate) {
+    return this.httpService.put(this.endpoint + '/' + 'addlangversion', newTemplate);
   }
 
 }

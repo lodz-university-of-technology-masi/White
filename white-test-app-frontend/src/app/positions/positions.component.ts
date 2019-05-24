@@ -14,6 +14,7 @@ export class PositionsComponent implements OnInit {
   position: Position;
   positions: Position[];
   closeResult: string;
+  readonly color = 'warn';
 
   constructor(private positionsService: PositionsService,
               private modalService: NgbModal,
@@ -21,7 +22,18 @@ export class PositionsComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => { }, (reason) => {});
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    }, (reason) => {
+    });
+  }
+
+  change(positionId) {
+    this.positionsService.changeStatus(positionId).subscribe(success => {
+      this.messageService.success('Sukces');
+      this.loadPositions();
+    }, error => {
+      this.messageService.error('Błąd');
+    });
   }
 
   addNew() {
@@ -39,6 +51,8 @@ export class PositionsComponent implements OnInit {
   }
 
   loadPositions() {
-    this.positionsService.getAllPositions().subscribe( t => {this.positions = t; console.log(t); } );
+    this.positionsService.getAllPositionsUnfiltered().subscribe(t => {
+      this.positions = t;
+    });
   }
 }

@@ -11,7 +11,7 @@ export class NavbarComponent implements OnInit {
   isCollapsed = true;
 
   isUserLoggedIn = localStorage.getItem('token') !== null;
-  roles = {admin: false, employee: false};
+  roles = {ROLE_CANDIDATE: false, ROLE_REDACTOR: false, ROLE_MODERATOR: false};
 
   constructor(private sessionService: SessionService,
               private router: Router) {

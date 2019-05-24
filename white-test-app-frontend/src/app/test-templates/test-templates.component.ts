@@ -11,6 +11,7 @@ import {saveAs} from 'file-saver';
 import {QuestionService} from '../services/question.service';
 import {Question} from './model/question';
 import {TestTemplateDetail} from './model/test-template-detail';
+import {SessionService} from '../services/session.service';
 import {MatSnackBar} from '@angular/material';
 
 export const WIKI_URL = 'https://en.wikipedia.org/wiki/';
@@ -114,10 +115,15 @@ export class NgbdModalContent {
     });
   }
 
+  isActive(role: string): boolean {
+    return this.sessionService.hasUserRole(role);
+  }
+
   constructor(public activeModal: NgbActiveModal,
               private modalService: NgbModal,
               private testService: TestTemplateContentService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private sessionService: SessionService) {
 
   }
 }
@@ -127,6 +133,7 @@ export class NgbdModalContent {
   templateUrl: './new-test-modal.html'
 })
 export class NgbdModalNewTest implements OnInit {
+  @Input() test;
   positions: string[];
   newTemplate: NewTemplate;
   questions: Question[];
@@ -147,6 +154,7 @@ export class NgbdModalNewTest implements OnInit {
     this.newTemplate.questions = [];
     this.selectedText = '';
     this.getPositions();
+    this.setDataWhenNewLangVersion();
   }
 
   private getPositions() {
@@ -162,7 +170,7 @@ export class NgbdModalNewTest implements OnInit {
   }
 
   getSelectedText() {
-    let text = "";
+    let text = '';
     if (window.getSelection().toString()) {
       text = window.getSelection().toString();
     }
@@ -188,8 +196,28 @@ export class NgbdModalNewTest implements OnInit {
       duration: 4000,
     });
   }
-}
 
+  private setDataWhenNewLangVersion() {
+    if (this.test != null) {
+      this.newTemplate.testName = this.test.name;
+      if (this.newTemplate.lang === 'PL') {
+        this.newTemplate.lang = 'EN';
+      } else {
+        this.newTemplate.lang = 'PL';
+      }
+      this.newTemplate.position = this.test.position;
+      this.newTemplate.id = this.test.testTemplateId;
+    }
+  }
+
+  addNewLangVersion() {
+    this.testTemplateService.addNewLanguageVersion(this.newTemplate).subscribe(s => {
+      this.messageService.success('Sukces');
+    }, e => {
+      this.messageService.error('Błąd');
+    });
+  }
+}
 
 @Component({
   selector: 'ngbd-modal-modify-modal',
@@ -206,7 +234,9 @@ export class NgbdModalModifyTest implements OnInit {
               private messageService: MessageService,
               private modalService: NgbModal,
               private positionsService: PositionsService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private sessionService: SessionService) {
+    
   }
 
   ngOnInit(): void {
@@ -277,7 +307,8 @@ export class TestTemplatesComponent implements OnInit {
   constructor(private testTemplateService: TestTemplateService,
               private positionService: PositionsService,
               private modalService: NgbModal,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private sessionService: SessionService) {
   }
 
   ngOnInit() {
@@ -288,6 +319,16 @@ export class TestTemplatesComponent implements OnInit {
     this.testTemplateService.getAll().subscribe(t => {
       this.testTemplates = t;
       console.log(t);
+    });
+  }
+
+  createNewLangVersion(test, content) {
+    const modal: NgbModalRef = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+    modal.componentInstance.test = test;
+    modal.result.then((result) => {
+      this.loadTemplates();
+    }, (reason) => {
+      this.loadTemplates();
     });
   }
 
@@ -325,4 +366,7 @@ export class TestTemplatesComponent implements OnInit {
       e => this.messageService.error('Błąd'));
   }
 
+  isActive(role: string): boolean {
+    return this.sessionService.hasUserRole(role);
+  }
 }

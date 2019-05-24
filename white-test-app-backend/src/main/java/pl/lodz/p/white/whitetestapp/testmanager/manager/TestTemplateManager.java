@@ -161,4 +161,10 @@ public class TestTemplateManager implements TestTemplateService {
             throw new EntityNotFoundException();
         }
     }
+
+    @Override
+    public void addNewLangContent(NewTestTemplateRequest newTestTemplateRequest) throws WrongRequestException {
+        TestTemplate testTemplate = NewTestTemplateMapper.toTestTemplateAddNewLangVersion(newTestTemplateRequest, accountRepository, positionRepository, repository);
+        repository.saveAndFlush(testTemplate);
+    }
 }
