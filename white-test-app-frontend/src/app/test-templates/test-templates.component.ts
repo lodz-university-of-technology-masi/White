@@ -192,8 +192,8 @@ export class NgbdModalNewTest implements OnInit {
   }
 
   openSnackBar() {
-    this.snackBar.open("SHIFT + ↑  -> Open Wiki | SHIFT + ↓  -> Search synonym", "close", {
-      duration: 4000,
+    this.snackBar.open("SHIFT + ↑  -> Szukaj na Wikipedii | SHIFT + ↓  -> Szukaj synonimu", "close", {
+      duration: 4000
     });
   }
 
@@ -286,8 +286,8 @@ export class NgbdModalModifyTest implements OnInit {
   }
 
   openSnackBar() {
-    this.snackBar.open("SHIFT + ↑ -> Open Wiki | SHIFT + ↓ -> Search synonym", "close", {
-      duration: 4000,
+    this.snackBar.open("SHIFT + ↑  -> Szukaj na Wikipedii | SHIFT + ↓  -> Szukaj synonimu", "close", {
+      duration: 4000
     });
   }
 }
