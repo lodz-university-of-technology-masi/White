@@ -25,6 +25,7 @@
       <button type="submit" class="btn btn-primary mb-2" (click)="translate(test.testTemplateId, test.lang)" *ngIf="isActive('ROLE_REDACTOR')">
         Przetłumacz
       </button>
+      <button type="button" class="btn btn-primary mb-2" (click)="createNewLangVersion(test, ngModalNewTest)">Utwórz inną wersję językową</button>
       <a routerLink="/test/{{test.id}}">
         <button type="submit" class="btn btn-primary mb-2" *ngIf="isActive('ROLE_CANDIDATE')">Weź udział</button>
       </a>

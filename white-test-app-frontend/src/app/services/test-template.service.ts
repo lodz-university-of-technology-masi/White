@@ -39,4 +39,8 @@ export class TestTemplateService {
     return this.httpService.delete(this.endpoint + '/' + id + '?lang=' + currentLang);
   }
 
+  addNewLanguageVersion(newTemplate) {
+    return this.httpService.put(this.endpoint + '/' + 'addlangversion', newTemplate);
+  }
+
 }
