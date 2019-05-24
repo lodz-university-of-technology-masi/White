@@ -52,7 +52,6 @@ export class AppComponent {
   private getClickCount() {
     if (this.metricOn) {
       this.metric.mouseClicks++;
-      console.log(this.metric.mouseClicks);
     }
   }
 
