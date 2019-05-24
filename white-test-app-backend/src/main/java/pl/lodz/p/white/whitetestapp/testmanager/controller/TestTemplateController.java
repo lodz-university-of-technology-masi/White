@@ -73,7 +73,6 @@ public class TestTemplateController {
         service.addNewLangContent(newTestTemplateRequest.setAuthor(request.getUserPrincipal().getName()));
         response.setMessage(TEST_TEMPLATE_WAS_CREATED);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
-
     }
 
     @RequestMapping(value = "/setposition/{id}/{positionId}", method = RequestMethod.PUT)
