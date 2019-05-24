@@ -145,7 +145,7 @@ export class NgbdModalNewTest implements OnInit {
   ngOnInit(): void {
     this.newTemplate = new NewTemplate();
     this.newTemplate.questions = [];
-    this.selectedText ='';
+    this.selectedText = '';
     this.getPositions();
   }
 
@@ -184,7 +184,7 @@ export class NgbdModalNewTest implements OnInit {
   }
 
   openSnackBar() {
-    this.snackBar.open("CTRL+W -> Open Wiki | CTRL+S -> Search synonym", "close", {
+    this.snackBar.open("SHIFT + ↑  -> Open Wiki | SHIFT + ↓  -> Search synonym", "close", {
       duration: 4000,
     });
   }
@@ -199,17 +199,20 @@ export class NgbdModalModifyTest implements OnInit {
   @Input() test;
   positions: string[];
   testTemplate: TestTemplateDetail;
+  selectedText: string;
 
   constructor(public activeModal: NgbActiveModal,
               private testTemplateContentService: TestTemplateContentService,
               private messageService: MessageService,
               private modalService: NgbModal,
-              private positionsService: PositionsService) {
+              private positionsService: PositionsService,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
     this.loadTestTemplate();
     this.getPositions();
+    this.selectedText = '';
   }
 
   private loadTestTemplate() {
@@ -228,6 +231,34 @@ export class NgbdModalModifyTest implements OnInit {
       this.messageService.success('Sukces');
     }, e => {
       this.messageService.error('Błąd');
+    });
+  }
+
+  getSelectedText() {
+    let text = "";
+    if (window.getSelection().toString()) {
+      text = window.getSelection().toString();
+    }
+    this.selectedText = text;
+  }
+
+  openWikipedia(event) {
+    window.open(WIKI_URL + this.selectedText, '_blank');
+  }
+
+  findSynonyms(event) {
+    window.open(SYNONYMS_URL + this.selectedText, '_blank');
+  }
+
+  @HostListener('mouseup', ['$event']) mouseClick() {
+    if (this.selectedText) {
+      this.openSnackBar();
+    }
+  }
+
+  openSnackBar() {
+    this.snackBar.open("SHIFT + ↑ -> Open Wiki | SHIFT + ↓ -> Search synonym", "close", {
+      duration: 4000,
     });
   }
 }
