@@ -45,7 +45,7 @@ export class HttpService {
 
   putWithoutBody<T>(endpoint: string, httpOptions = {}): Observable<T> {
     this.setAuthHeader();
-    return this.http.put<T>(endpoint, {
+    return this.http.put<T>(endpoint, null, {
       headers: this.headers,
       ...httpOptions
     });

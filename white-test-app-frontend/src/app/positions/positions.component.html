@@ -9,7 +9,7 @@
     <form>
       <div class="form-group">
         <label>Podaj nazwę: &nbsp;</label>
-        <input [(ngModel)]="position.name" type="text"  name="Nazwa">
+        <input [(ngModel)]="position.name" type="text" name="Nazwa">
       </div>
     </form>
   </div>
@@ -26,6 +26,7 @@
   <thead>
   <tr>
     <th>Nazwa</th>
+    <th>Status</th>
     <th>Operacja</th>
   </tr>
   </thead>
@@ -33,11 +34,16 @@
   <tbody>
   <tr *ngFor="let position of positions">
     <td>{{position.name}}</td>
+    <td *ngIf="position.activated">Aktywna</td>
+    <td *ngIf="!position.activated">Nieaktywna</td>
 
-    <td>
-      <a routerLink="/test/{{position.id}}">
-        <button type="submit" class="btn btn-primary mb-2">Edytuj</button>
-      </a>
+    <td class="toggle-column">
+      <mat-slide-toggle [color]="color" [checked]="position.activated" *ngIf="position.activated"
+                        (change)="change(position.name)">Dezaktywuj
+      </mat-slide-toggle>
+      <mat-slide-toggle [color]="color" [checked]="position.activated" *ngIf="!position.activated"
+                        (change)="change(position.name)">Aktywuj
+      </mat-slide-toggle>
     </td>
   </tr>
   </tbody>

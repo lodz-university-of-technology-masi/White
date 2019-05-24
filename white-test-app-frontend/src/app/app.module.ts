@@ -39,7 +39,9 @@ import {
   MatInputModule,
   MatRadioModule,
   MatSelectModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatSliderModule,
+  MatSlideToggleModule
 } from '@angular/material';
 import {QuestionComponent} from './questions/question/question.component';
 import {ChoiceScaleQuestionComponent} from './questions/choice-scale-question/choice-scale-question.component';
@@ -100,6 +102,9 @@ import {DeviceDetectorModule} from 'ngx-device-detector';
     ReactiveFormsModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatSnackBarModule,
+    MatSliderModule,
+    MatSlideToggleModule,
     DeviceDetectorModule.forRoot()
   ],
   providers: [
