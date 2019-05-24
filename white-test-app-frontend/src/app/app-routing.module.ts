@@ -8,6 +8,7 @@ import {TestCheckComponent} from './test-check/test-check.component';
 import {AllTestResultsComponent} from './all-test-results/all-test-results.component';
 import {RedactorsManagementComponent} from './redactors-management/redactors-management.component';
 import {LoginComponent} from './login/login.component';
+import {RegistrationComponent} from "./registration/registration.component";
 
 
 const routes: Routes = [
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path: 'results', component: AllTestResultsComponent},
   {path: 'results/check/:id', component: TestCheckComponent},
   {path: 'redactors', component: RedactorsManagementComponent},
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegistrationComponent}
 ];
 
 @NgModule({

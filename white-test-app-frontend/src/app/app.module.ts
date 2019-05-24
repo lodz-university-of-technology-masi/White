@@ -46,6 +46,7 @@ import {ChoiceScaleQuestionComponent} from './questions/choice-scale-question/ch
 import {LoginComponent} from './login/login.component';
 import {SessionService} from './services/session.service';
 import {AuthService} from './services/auth.service';
+import {RegistrationComponent} from './registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import {AuthService} from './services/auth.service';
     QuestionComponent,
     ChoiceScaleQuestionComponent,
     RedactorsManagementComponent,
-    LoginComponent
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

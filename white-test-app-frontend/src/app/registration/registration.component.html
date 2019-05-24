@@ -1,0 +1,51 @@
+<ng-container class="register-container">
+  <div class="col-sm-12 col-md-6 offset-md-3">
+    <h2>Rejestracja</h2>
+    <form #registerForm="ngForm" (ngSubmit)="register()">
+      <div class="form-row form-group">
+        <label for="inputUsername" class="required-sign">Nazwa użytkownika</label>
+        <input class="form-control" id="inputUsername" [(ngModel)]="user.username" name="username"
+               [ngModelOptions]="{updateOn: 'blur'}"
+               #username="ngModel" minlength="3" maxlength="50" required/>
+        <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
+          <div [hidden]="!(username.errors.minlength || username.value !== '' )">
+            Nazwa użytkownika musi zawierać przynajmniej 3 znaki!
+          </div>
+        </div>
+      </div>
+      <div class="form-row form-group">
+        <label for="inputEmail" class="required-sign">Email:</label>
+        <input type="text" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" id="inputEmail"
+               [ngModelOptions]="{updateOn: 'blur'}"
+               name="email" #email="ngModel" [(ngModel)]="user.email" required/>
+        <div *ngIf="email.errors && (email.dirty || email.touched)" class=" alert alert-danger">
+          <div [hidden]="!(email.errors.pattern || email.value !== '' )">
+            Niepoprawny format maila!
+          </div>
+        </div>
+      </div>
+      <div class="form-row form-group">
+        <label for="inputPassword" class="required-sign">Hasło</label>
+        <input name="password" type="password" class="form-control" id="inputPassword"
+               #password="ngModel" [(ngModel)]="user.password" [ngModelOptions]="{updateOn: 'blur'}"
+               minlength="6" required/>
+        <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger">
+          <div [hidden]="!(password.errors.minlength || password.value !== '' )">
+            Hasło musi zawierać przynajmniej 6 znaków!
+          </div>
+        </div>
+      </div>
+      <div class="form-row form-group">
+        <label for="inputLang" class="required-sign">Język</label>
+        <select [(ngModel)]="user.lang" class="form-control" id="inputLang" name="lang"
+                required>
+          <option [ngValue]="'PL'">polski</option>
+          <option [ngValue]="'EN'">angielski</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <button type="submit" class="btn btn-primary" [disabled]="!registerForm.form.valid">Zarejestruj</button>
+      </div>
+    </form>
+  </div>
+</ng-container>
