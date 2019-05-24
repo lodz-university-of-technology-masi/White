@@ -53,7 +53,6 @@ export class PositionsComponent implements OnInit {
   loadPositions() {
     this.positionsService.getAllPositionsUnfiltered().subscribe(t => {
       this.positions = t;
-      console.log(t);
     });
   }
 }
