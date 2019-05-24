@@ -48,4 +48,27 @@ export class AppComponent {
     clearInterval(this.interval);
     this.metric.time = this.metric.time * 100;
   }
+
+  private getClickCount() {
+    if (this.metricOn) {
+      this.metric.mouseClicks++;
+      console.log(this.metric.mouseClicks);
+    }
+  }
+
+  @HostListener('click', ['$event'])
+  onMouseLeft(event: any) {
+    this.getClickCount();
+  }
+
+  @HostListener('contextmenu', ['$event'])
+  onMouseRight(event: any) {
+    this.getClickCount();
+  }
+
+  @HostListener('mouseup', ['$event'])
+  onAuxClick($event) {
+    if($event.which === 2 || $event.button===1)
+      this.getClickCount();
+  }
 }

@@ -19,6 +19,7 @@ import pl.lodz.p.white.whitetestapp.message.request.SignUpForm;
 import pl.lodz.p.white.whitetestapp.message.response.JwtResponse;
 import pl.lodz.p.white.whitetestapp.message.response.ResponseMessage;
 import pl.lodz.p.white.whitetestapp.model.Account;
+import pl.lodz.p.white.whitetestapp.model.Role;
 import pl.lodz.p.white.whitetestapp.repository.AccountRepository;
 import pl.lodz.p.white.whitetestapp.security.jwt.JwtProvider;
 
