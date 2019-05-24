@@ -4,6 +4,7 @@ import {HttpService} from './http-service.service';
 import {TokenInfo} from '../login/model/token-info';
 import {Observable} from 'rxjs';
 import {AuthData} from '../login/model/auth-data';
+import {User} from "../registration/model/user";
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +19,9 @@ export class AuthService {
 
   login(user: AuthData): Observable<TokenInfo> {
     return this.httpService.post(this.endpoint + '/signin', user);
+  }
+
+  register(user: User): Observable<TokenInfo> {
+    return this.httpService.post(this.endpoint + '/signup', user);
   }
 }

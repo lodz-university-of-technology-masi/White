@@ -48,6 +48,7 @@ import {ChoiceScaleQuestionComponent} from './questions/choice-scale-question/ch
 import {LoginComponent} from './login/login.component';
 import {SessionService} from './services/session.service';
 import {AuthService} from './services/auth.service';
+import {RegistrationComponent} from './registration/registration.component';
 import {ErrorPageComponent} from './error-page/error-page.component';
 import {GeneralRouteGuard} from './services/general-route-guard';
 import {DeviceDetectorModule} from 'ngx-device-detector';
@@ -73,6 +74,7 @@ import {DeviceDetectorModule} from 'ngx-device-detector';
     ChoiceScaleQuestionComponent,
     RedactorsManagementComponent,
     LoginComponent,
+    RegistrationComponent,
     ErrorPageComponent
   ],
   imports: [

@@ -8,6 +8,7 @@ import {TestCheckComponent} from './test-check/test-check.component';
 import {AllTestResultsComponent} from './all-test-results/all-test-results.component';
 import {RedactorsManagementComponent} from './redactors-management/redactors-management.component';
 import {LoginComponent} from './login/login.component';
+import {RegistrationComponent} from "./registration/registration.component";
 import {ErrorPageComponent} from './error-page/error-page.component';
 import {GeneralRouteGuard} from './services/general-route-guard';
 
@@ -21,8 +22,8 @@ const routes: Routes = [
   {path: 'results/check/:id', component: TestCheckComponent, canActivate: [GeneralRouteGuard]},
   {path: 'redactors', component: RedactorsManagementComponent, canActivate: [GeneralRouteGuard]},
   {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegistrationComponent}
   {path: 'error404', component: ErrorPageComponent}
-
 ];
 
 @NgModule({
