@@ -22,7 +22,7 @@ const routes: Routes = [
   {path: 'results/check/:id', component: TestCheckComponent, canActivate: [GeneralRouteGuard]},
   {path: 'redactors', component: RedactorsManagementComponent, canActivate: [GeneralRouteGuard]},
   {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegistrationComponent}
+  {path: 'register', component: RegistrationComponent},
   {path: 'error404', component: ErrorPageComponent}
 ];
 
