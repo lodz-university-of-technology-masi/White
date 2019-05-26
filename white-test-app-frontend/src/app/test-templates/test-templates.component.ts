@@ -15,7 +15,9 @@ import {SessionService} from '../services/session.service';
 import {MatSnackBar} from '@angular/material';
 
 export const WIKI_URL = 'https://en.wikipedia.org/wiki/';
+export const WIKI_URL_PL = 'https://pl.wikipedia.org/wiki/';
 export const SYNONYMS_URL = 'https://www.thesaurus.com/browse/';
+export const SYNONYMS_URL_PL = 'https://www.synonimy.pl/synonim/';
 
 @Component({
   selector: 'ngbd-modal-edit-position',
@@ -178,11 +180,19 @@ export class NgbdModalNewTest implements OnInit {
   }
 
   openWikipedia(event) {
-    window.open(WIKI_URL + this.selectedText, '_blank');
+    if (this.newTemplate.lang === 'PL') {
+      window.open(WIKI_URL_PL + this.selectedText, '_blank');
+    } else {
+      window.open(WIKI_URL + this.selectedText, '_blank');
+    }
   }
 
   findSynonyms(event) {
-    window.open(SYNONYMS_URL + this.selectedText, '_blank');
+    if (this.newTemplate.lang === 'PL') {
+      window.open(SYNONYMS_URL_PL + this.selectedText, '_blank');
+    } else {
+      window.open(SYNONYMS_URL + this.selectedText, '_blank');
+    }
   }
 
   @HostListener('mouseup', ['$event']) mouseClick() {
@@ -192,8 +202,8 @@ export class NgbdModalNewTest implements OnInit {
   }
 
   openSnackBar() {
-    this.snackBar.open('CTRL+W -> Open Wiki | CTRL+S -> Search synonym', 'close', {
-      duration: 4000,
+    this.snackBar.open('SHIFT + ↑  -> Szukaj na Wikipedii | SHIFT + ↓  -> Szukaj synonimu', 'zamknij', {
+      duration: 4000
     });
   }
 
@@ -227,18 +237,21 @@ export class NgbdModalModifyTest implements OnInit {
   @Input() test;
   positions: string[];
   testTemplate: TestTemplateDetail;
+  selectedText: string;
 
   constructor(public activeModal: NgbActiveModal,
               private testTemplateContentService: TestTemplateContentService,
               private messageService: MessageService,
               private modalService: NgbModal,
               private positionsService: PositionsService,
+              private snackBar: MatSnackBar,
               private sessionService: SessionService) {
   }
 
   ngOnInit(): void {
     this.loadTestTemplate();
     this.getPositions();
+    this.selectedText = '';
   }
 
   private loadTestTemplate() {
@@ -257,6 +270,42 @@ export class NgbdModalModifyTest implements OnInit {
       this.messageService.success('Sukces');
     }, e => {
       this.messageService.error('Błąd');
+    });
+  }
+
+  getSelectedText() {
+    let text = "";
+    if (window.getSelection().toString()) {
+      text = window.getSelection().toString();
+    }
+    this.selectedText = text;
+  }
+
+  openWikipedia(event) {
+    if (this.test.lang === 'PL') {
+      window.open(WIKI_URL_PL + this.selectedText, '_blank');
+    } else {
+      window.open(WIKI_URL + this.selectedText, '_blank');
+    }
+  }
+
+  findSynonyms(event) {
+    if (this.test.lang === 'PL') {
+      window.open(SYNONYMS_URL_PL + this.selectedText, '_blank');
+    } else {
+      window.open(SYNONYMS_URL + this.selectedText, '_blank');
+    }
+  }
+
+  @HostListener('mouseup', ['$event']) mouseClick() {
+    if (this.selectedText) {
+      this.openSnackBar();
+    }
+  }
+
+  openSnackBar() {
+    this.snackBar.open('SHIFT + ↑  -> Szukaj na Wikipedii | SHIFT + ↓  -> Szukaj synonimu', 'zamknij', {
+      duration: 4000
     });
   }
 }
