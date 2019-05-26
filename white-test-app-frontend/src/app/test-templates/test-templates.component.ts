@@ -19,7 +19,6 @@ export const WIKI_URL_PL = 'https://pl.wikipedia.org/wiki/';
 export const SYNONYMS_URL = 'https://www.thesaurus.com/browse/';
 export const SYNONYMS_URL_PL = 'https://www.synonimy.pl/synonim/';
 
-
 @Component({
   selector: 'ngbd-modal-edit-position',
   templateUrl: './edit-position-in-test.html'
@@ -305,7 +304,7 @@ export class NgbdModalModifyTest implements OnInit {
   }
 
   openSnackBar() {
-    this.snackBar.open("SHIFT + ↑  -> Szukaj na Wikipedii | SHIFT + ↓  -> Szukaj synonimu", "close", {
+    this.snackBar.open('SHIFT + ↑  -> Szukaj na Wikipedii | SHIFT + ↓  -> Szukaj synonimu', 'zamknij', {
       duration: 4000
     });
   }
