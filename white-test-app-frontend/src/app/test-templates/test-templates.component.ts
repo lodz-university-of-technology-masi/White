@@ -15,7 +15,10 @@ import {SessionService} from '../services/session.service';
 import {MatSnackBar} from '@angular/material';
 
 export const WIKI_URL = 'https://en.wikipedia.org/wiki/';
+export const WIKI_URL_PL = 'https://pl.wikipedia.org/wiki/';
 export const SYNONYMS_URL = 'https://www.thesaurus.com/browse/';
+export const SYNONYMS_URL_PL = 'https://www.synonimy.pl/synonim/';
+
 
 @Component({
   selector: 'ngbd-modal-edit-position',
@@ -178,11 +181,19 @@ export class NgbdModalNewTest implements OnInit {
   }
 
   openWikipedia(event) {
-    window.open(WIKI_URL + this.selectedText, '_blank');
+    if (this.newTemplate.lang === 'PL') {
+      window.open(WIKI_URL_PL + this.selectedText, '_blank');
+    } else {
+      window.open(WIKI_URL + this.selectedText, '_blank');
+    }
   }
 
   findSynonyms(event) {
-    window.open(SYNONYMS_URL + this.selectedText, '_blank');
+    if (this.newTemplate.lang === 'PL') {
+      window.open(SYNONYMS_URL_PL + this.selectedText, '_blank');
+    } else {
+      window.open(SYNONYMS_URL + this.selectedText, '_blank');
+    }
   }
 
   @HostListener('mouseup', ['$event']) mouseClick() {
@@ -192,7 +203,7 @@ export class NgbdModalNewTest implements OnInit {
   }
 
   openSnackBar() {
-    this.snackBar.open("SHIFT + ↑  -> Szukaj na Wikipedii | SHIFT + ↓  -> Szukaj synonimu", "close", {
+    this.snackBar.open('SHIFT + ↑  -> Szukaj na Wikipedii | SHIFT + ↓  -> Szukaj synonimu', 'zamknij', {
       duration: 4000
     });
   }
@@ -272,11 +283,19 @@ export class NgbdModalModifyTest implements OnInit {
   }
 
   openWikipedia(event) {
-    window.open(WIKI_URL + this.selectedText, '_blank');
+    if (this.test.lang === 'PL') {
+      window.open(WIKI_URL_PL + this.selectedText, '_blank');
+    } else {
+      window.open(WIKI_URL + this.selectedText, '_blank');
+    }
   }
 
   findSynonyms(event) {
-    window.open(SYNONYMS_URL + this.selectedText, '_blank');
+    if (this.test.lang === 'PL') {
+      window.open(SYNONYMS_URL_PL + this.selectedText, '_blank');
+    } else {
+      window.open(SYNONYMS_URL + this.selectedText, '_blank');
+    }
   }
 
   @HostListener('mouseup', ['$event']) mouseClick() {
