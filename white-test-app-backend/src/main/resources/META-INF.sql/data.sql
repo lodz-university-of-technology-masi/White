@@ -1,8 +1,8 @@
-insert into account (username, email,password_hash,role,lang) values ('useruno','user@gmail.com','$2a$10$ndyS.7lNeC17DjzsRv4ImuuIxBOHLGvP6iIoICxQZasHNMGL0duT.','candIDATE','PL'); --pass: testpass
-insert into account (username, email,password_hash,role,lang) values ('red1','user1@gmail.com','$2a$10$ndyS.7lNeC17DjzsRv4ImuuIxBOHLGvP6iIoICxQZasHNMGL0duT.','redACTOR','PL');
-insert into account (username, email,password_hash,role,lang) values ('red2','user2@gmail.com','$2a$10$ndyS.7lNeC17DjzsRv4ImuuIxBOHLGvP6iIoICxQZasHNMGL0duT.','redACTOR','PL');
-insert into account (username, email,password_hash,role,lang) values ('cand1','user3@gmail.com','$2a$10$ndyS.7lNeC17DjzsRv4ImuuIxBOHLGvP6iIoICxQZasHNMGL0duT.','candIDATE','PL');
-insert into account (username, email,password_hash,role,lang) values ('mod1','user4@gmail.com','$2a$10$ndyS.7lNeC17DjzsRv4ImuuIxBOHLGvP6iIoICxQZasHNMGL0duT.','modERATOR','PL');
+insert into account (username, email,password_hash,role,lang) values ('useruno','user@gmail.com','$2a$10$ndyS.7lNeC17DjzsRv4ImuuIxBOHLGvP6iIoICxQZasHNMGL0duT.','CANDIDATE','PL'); --pass: testpass
+insert into account (username, email,password_hash,role,lang) values ('red1','user1@gmail.com','$2a$10$ndyS.7lNeC17DjzsRv4ImuuIxBOHLGvP6iIoICxQZasHNMGL0duT.','REDACTOR','PL');
+insert into account (username, email,password_hash,role,lang) values ('red2','user2@gmail.com','$2a$10$ndyS.7lNeC17DjzsRv4ImuuIxBOHLGvP6iIoICxQZasHNMGL0duT.','REDACTOR','PL');
+insert into account (username, email,password_hash,role,lang) values ('cand1','user3@gmail.com','$2a$10$ndyS.7lNeC17DjzsRv4ImuuIxBOHLGvP6iIoICxQZasHNMGL0duT.','CANDIDATE','PL');
+insert into account (username, email,password_hash,role,lang) values ('mod1','user4@gmail.com','$2a$10$ndyS.7lNeC17DjzsRv4ImuuIxBOHLGvP6iIoICxQZasHNMGL0duT.','MODERATOR','PL');
 insert into answer (id,content) values (1001,'nieznana');
 insert into answer (id,content) values (1002,'znana');
 insert into answer (id,content) values (1003,'1');
