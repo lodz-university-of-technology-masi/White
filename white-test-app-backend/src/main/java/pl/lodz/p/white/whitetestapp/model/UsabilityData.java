@@ -11,7 +11,7 @@ import java.time.Instant;
 
 import static javax.persistence.EnumType.STRING;
 
-@Entity(name = "USABILITY_DATA")
+@Entity
 @Table(name = "USABILITY_DATA")
 public class UsabilityData {
     @Id
