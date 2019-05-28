@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import pl.lodz.p.white.whitetestapp.metric.service.MetricService;
-import pl.lodz.p.white.whitetestapp.model.Metric;
+import pl.lodz.p.white.whitetestapp.model.UsabilityData;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RestController
@@ -23,8 +25,8 @@ public class MetricController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity add(@RequestBody Metric metric) {
-        service.add(metric);
+    ResponseEntity add(@RequestBody UsabilityData usabilityData, HttpServletRequest request) {
+        service.add(usabilityData, request.getRemoteAddr(), request.getUserPrincipal().getName());
         return ResponseEntity.ok().build();
     }
 }

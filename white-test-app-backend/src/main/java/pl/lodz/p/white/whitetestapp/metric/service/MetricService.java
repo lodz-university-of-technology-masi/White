@@ -1,8 +1,8 @@
 package pl.lodz.p.white.whitetestapp.metric.service;
 
-import pl.lodz.p.white.whitetestapp.model.Metric;
+import pl.lodz.p.white.whitetestapp.model.UsabilityData;
 
 public interface MetricService {
 
-    void add(Metric metric);
+    void add(UsabilityData usabilityData, String ip, String username);
 }
