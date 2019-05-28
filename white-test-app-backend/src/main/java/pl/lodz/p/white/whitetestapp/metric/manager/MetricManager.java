@@ -3,7 +3,7 @@ package pl.lodz.p.white.whitetestapp.metric.manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.lodz.p.white.whitetestapp.metric.service.MetricService;
-import pl.lodz.p.white.whitetestapp.model.Metric;
+import pl.lodz.p.white.whitetestapp.model.UsabilityData;
 import pl.lodz.p.white.whitetestapp.repository.MetricRepository;
 
 @Service
@@ -17,7 +17,7 @@ public class MetricManager implements MetricService {
     }
 
     @Override
-    public void add(Metric metric) {
-        repository.saveAndFlush(metric);
+    public void add(UsabilityData usabilityData) {
+        repository.saveAndFlush(usabilityData);
     }
 }
