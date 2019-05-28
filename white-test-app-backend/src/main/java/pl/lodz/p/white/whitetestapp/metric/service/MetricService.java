@@ -4,5 +4,5 @@ import pl.lodz.p.white.whitetestapp.model.UsabilityData;
 
 public interface MetricService {
 
-    void add(UsabilityData usabilityData);
+    void add(UsabilityData usabilityData, String ip, String username);
 }
