@@ -54,6 +54,7 @@ export class AppComponent {
         this.messageService.warning('Pomiar zatrzymany, nie zapisano metryki');
       } else if (event.key === 'R'.valueOf()) {
         this.metricOn = false;
+        this.doScreenshot();
         this.stopMetrics();
         this.metric.fail = 1;
         this.messageService.info('Metryki STOP');
