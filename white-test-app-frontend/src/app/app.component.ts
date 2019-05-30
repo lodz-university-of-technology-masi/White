@@ -4,6 +4,7 @@ import {MessageService} from './services/message.service';
 import {MetricService} from './services/metric.service';
 import {ViewportScroller} from '@angular/common';
 import {DeviceDetectorService} from 'ngx-device-detector';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-root',
@@ -35,6 +36,7 @@ export class AppComponent {
     if (event.shiftKey) {
       if (event.key === 'D'.valueOf()) {
         this.metricOn = !this.metricOn;
+        this.doScreenshot();
         if (this.metricOn) {
           this.metric = new Metric();
           this.messageService.info('Metryki START');
@@ -52,6 +54,7 @@ export class AppComponent {
         this.messageService.warning('Pomiar zatrzymany, nie zapisano metryki');
       } else if (event.key === 'R'.valueOf()) {
         this.metricOn = false;
+        this.doScreenshot();
         this.stopMetrics();
         this.metric.fail = 1;
         this.messageService.info('Metryki STOP');
@@ -115,6 +118,13 @@ export class AppComponent {
 
   private calculateDistance(x1: number, y1: number, x2: number, y2: number): number {
     return Math.ceil(Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2)));
+  }
+
+  private doScreenshot() {
+    html2canvas(document.body).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      this.metricService.saveScreenshot(imgData).subscribe();
+    });
   }
 
 }

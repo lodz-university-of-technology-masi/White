@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import pl.lodz.p.white.whitetestapp.exception.ScreenshotFileSaveException;
 import pl.lodz.p.white.whitetestapp.metric.service.MetricService;
 import pl.lodz.p.white.whitetestapp.model.UsabilityData;
 
@@ -27,6 +28,12 @@ public class MetricController {
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity add(@RequestBody UsabilityData usabilityData, HttpServletRequest request) {
         service.add(usabilityData, request.getRemoteAddr(), request.getUserPrincipal().getName());
+        return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(value = "/screenshot", method = RequestMethod.POST)
+    ResponseEntity saveScreenshot(@RequestBody String image, HttpServletRequest request) throws ScreenshotFileSaveException {
+        service.saveScreenshot(image, request.getUserPrincipal().getName());
         return ResponseEntity.ok().build();
     }
 }
