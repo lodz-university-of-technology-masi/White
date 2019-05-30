@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Metric} from '../metric';
 import {HttpService} from './http-service.service';
 import {Configuration} from '../configuration';
@@ -16,5 +16,9 @@ export class MetricService {
 
   add(metric: Metric) {
     return this.httpService.post(this.endpoint, metric);
+  }
+
+  saveScreenshot(imgData: string) {
+    return this.httpService.post(this.endpoint + '/screenshot', imgData);
   }
 }
