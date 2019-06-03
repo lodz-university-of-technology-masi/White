@@ -4,7 +4,6 @@ import {MessageService} from './services/message.service';
 import {MetricService} from './services/metric.service';
 import {ViewportScroller} from '@angular/common';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

@@ -13,7 +13,6 @@ import {Question} from './model/question';
 import {TestTemplateDetail} from './model/test-template-detail';
 import {SessionService} from '../services/session.service';
 import {MatSnackBar} from '@angular/material';
-import {Metric} from "../metric";
 import {MetricService} from "../services/metric.service";
 import {ViewportScroller} from "@angular/common";
 
@@ -58,40 +57,6 @@ export class NgbdModalEditPosition implements OnInit {
     this.testTemplateService.assignPositionToTest(id, name).subscribe(success => {
     }, error => {
     });
-  }
-
-  @HostListener('document:keyup', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.shiftKey) {
-      if (event.key === 'D'.valueOf()) {
-        this.metricService.metricOn = !this.metricService.metricOn;
-        this.metricService.doScreenshot();
-        if (this.metricService.metricOn) {
-          this.metricService.metric = new Metric();
-          this.messageService.info('Metryki START');
-          this.metricService.startMetrics();
-        } else {
-          this.metricService.stopMetrics();
-          this.messageService.info('Metryki STOP');
-          this.metricService.add(this.metricService.metric).subscribe(() => {
-            this.messageService.success('Metryka zapisana pomyślnie');
-          });
-        }
-      } else if (event.key === 'W'.valueOf()) {
-        this.metricService.metricOn = false;
-        this.metricService.metric = new Metric();
-        this.messageService.warning('Pomiar zatrzymany, nie zapisano metryki');
-      } else if (event.key === 'R'.valueOf()) {
-        this.metricService.metricOn = false;
-        this.metricService.doScreenshot();
-        this.metricService.stopMetrics();
-        this.metricService.metric.fail = 1;
-        this.messageService.info('Metryki STOP');
-        this.metricService.add(this.metricService.metric).subscribe(() => {
-          this.messageService.success('Metryka zapisana pomyślnie ze statusem "failed"');
-        });
-      }
-    }
   }
 
   @HostListener('click', ['$event'])
@@ -202,40 +167,6 @@ export class NgbdModalContent {
               private metricService: MetricService,
               private scroller: ViewportScroller) {
 
-  }
-
-  @HostListener('document:keyup', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.shiftKey) {
-      if (event.key === 'D'.valueOf()) {
-        this.metricService.metricOn = !this.metricService.metricOn;
-        this.metricService.doScreenshot();
-        if (this.metricService.metricOn) {
-          this.metricService.metric = new Metric();
-          this.messageService.info('Metryki START');
-          this.metricService.startMetrics();
-        } else {
-          this.metricService.stopMetrics();
-          this.messageService.info('Metryki STOP');
-          this.metricService.add(this.metricService.metric).subscribe(() => {
-            this.messageService.success('Metryka zapisana pomyślnie');
-          });
-        }
-      } else if (event.key === 'W'.valueOf()) {
-        this.metricService.metricOn = false;
-        this.metricService.metric = new Metric();
-        this.messageService.warning('Pomiar zatrzymany, nie zapisano metryki');
-      } else if (event.key === 'R'.valueOf()) {
-        this.metricService.metricOn = false;
-        this.metricService.doScreenshot();
-        this.metricService.stopMetrics();
-        this.metricService.metric.fail = 1;
-        this.messageService.info('Metryki STOP');
-        this.metricService.add(this.metricService.metric).subscribe(() => {
-          this.messageService.success('Metryka zapisana pomyślnie ze statusem "failed"');
-        });
-      }
-    }
   }
 
   @HostListener('click', ['$event'])
@@ -371,40 +302,6 @@ export class NgbdModalNewTest implements OnInit {
     });
   }
 
-  @HostListener('document:keyup', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.shiftKey) {
-      if (event.key === 'D'.valueOf()) {
-        this.metricService.metricOn = !this.metricService.metricOn;
-        this.metricService.doScreenshot();
-        if (this.metricService.metricOn) {
-          this.metricService.metric = new Metric();
-          this.messageService.info('Metryki START');
-          this.metricService.startMetrics();
-        } else {
-          this.metricService.stopMetrics();
-          this.messageService.info('Metryki STOP');
-          this.metricService.add(this.metricService.metric).subscribe(() => {
-            this.messageService.success('Metryka zapisana pomyślnie');
-          });
-        }
-      } else if (event.key === 'W'.valueOf()) {
-        this.metricService.metricOn = false;
-        this.metricService.metric = new Metric();
-        this.messageService.warning('Pomiar zatrzymany, nie zapisano metryki');
-      } else if (event.key === 'R'.valueOf()) {
-        this.metricService.metricOn = false;
-        this.metricService.doScreenshot();
-        this.metricService.stopMetrics();
-        this.metricService.metric.fail = 1;
-        this.messageService.info('Metryki STOP');
-        this.metricService.add(this.metricService.metric).subscribe(() => {
-          this.messageService.success('Metryka zapisana pomyślnie ze statusem "failed"');
-        });
-      }
-    }
-  }
-
   @HostListener('click', ['$event'])
   onMouseLeft(event: any) {
     this.metricService.getClickCount();
@@ -518,40 +415,6 @@ export class NgbdModalModifyTest implements OnInit {
     this.snackBar.open('SHIFT + ↑  -> Szukaj na Wikipedii | SHIFT + ↓  -> Szukaj synonimu', 'zamknij', {
       duration: 4000
     });
-  }
-
-  @HostListener('document:keyup', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.shiftKey) {
-      if (event.key === 'D'.valueOf()) {
-        this.metricService.metricOn = !this.metricService.metricOn;
-        this.metricService.doScreenshot();
-        if (this.metricService.metricOn) {
-          this.metricService.metric = new Metric();
-          this.messageService.info('Metryki START');
-          this.metricService.startMetrics();
-        } else {
-          this.metricService.stopMetrics();
-          this.messageService.info('Metryki STOP');
-          this.metricService.add(this.metricService.metric).subscribe(() => {
-            this.messageService.success('Metryka zapisana pomyślnie');
-          });
-        }
-      } else if (event.key === 'W'.valueOf()) {
-        this.metricService.metricOn = false;
-        this.metricService.metric = new Metric();
-        this.messageService.warning('Pomiar zatrzymany, nie zapisano metryki');
-      } else if (event.key === 'R'.valueOf()) {
-        this.metricService.metricOn = false;
-        this.metricService.doScreenshot();
-        this.metricService.stopMetrics();
-        this.metricService.metric.fail = 1;
-        this.messageService.info('Metryki STOP');
-        this.metricService.add(this.metricService.metric).subscribe(() => {
-          this.messageService.success('Metryka zapisana pomyślnie ze statusem "failed"');
-        });
-      }
-    }
   }
 
   @HostListener('click', ['$event'])
