@@ -3,8 +3,7 @@ import {Metric} from './metric';
 import {MessageService} from './services/message.service';
 import {MetricService} from './services/metric.service';
 import {ViewportScroller} from '@angular/common';
-import {DeviceDetectorService} from 'ngx-device-detector';
-import html2canvas from 'html2canvas';
+
 
 @Component({
   selector: 'app-root',
@@ -13,118 +12,77 @@ import html2canvas from 'html2canvas';
 })
 export class AppComponent {
   title = 'white-test-app-frontend';
-  metricOn = false;
-  metric: Metric;
-  interval;
-  private windowHeight: number;
-  private windowWidth: number;
-  private lastX: number;
-  private lastY: number;
 
   constructor(private messageService: MessageService,
               private metricService: MetricService,
-              private scroller: ViewportScroller,
-              private deviceDetectorService: DeviceDetectorService) {
-    this.windowHeight = window.innerHeight;
-    this.windowWidth = window.innerWidth;
-    this.lastX = 0;
-    this.lastY = 0;
+              private scroller: ViewportScroller) {
   }
 
   @HostListener('document:keyup', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.shiftKey) {
       if (event.key === 'D'.valueOf()) {
-        this.metricOn = !this.metricOn;
-        this.doScreenshot();
-        if (this.metricOn) {
-          this.metric = new Metric();
+        this.metricService.metricOn = !this.metricService.metricOn;
+        this.metricService.doScreenshot();
+        if (this.metricService.metricOn) {
+          this.metricService.metric = new Metric();
           this.messageService.info('Metryki START');
-          this.startMetrics();
+          this.metricService.startMetrics();
         } else {
-          this.stopMetrics();
+          this.metricService.stopMetrics();
           this.messageService.info('Metryki STOP');
-          this.metricService.add(this.metric).subscribe(() => {
+          this.metricService.add(this.metricService.metric).subscribe(() => {
             this.messageService.success('Metryka zapisana pomyślnie');
           });
         }
       } else if (event.key === 'W'.valueOf()) {
-        this.metricOn = false;
-        this.metric = new Metric();
+        this.metricService.metricOn = false;
+        this.metricService.metric = new Metric();
         this.messageService.warning('Pomiar zatrzymany, nie zapisano metryki');
       } else if (event.key === 'R'.valueOf()) {
-        this.metricOn = false;
-        this.doScreenshot();
-        this.stopMetrics();
-        this.metric.fail = 1;
+        this.metricService.metricOn = false;
+        this.metricService.doScreenshot();
+        this.metricService.stopMetrics();
+        this.metricService.metric.fail = 1;
         this.messageService.info('Metryki STOP');
-        this.metricService.add(this.metric).subscribe(() => {
+        this.metricService.add(this.metricService.metric).subscribe(() => {
           this.messageService.success('Metryka zapisana pomyślnie ze statusem "failed"');
         });
       }
     }
   }
 
-  startMetrics() {
-    this.interval = setInterval(() => {
-      this.metric.time++;
-    }, 100);
-  }
-
-  stopMetrics() {
-    clearInterval(this.interval);
-    this.metric.time = this.metric.time * 100;
-    this.metric.resW = window.innerWidth;
-    this.metric.resH = window.innerHeight;
-    this.metric.browser = this.deviceDetectorService.browser.charAt(0);
-  }
-
-  private getClickCount() {
-    if (this.metricOn) {
-      this.metric.mouseClicks++;
-    }
-  }
-
   @HostListener('click', ['$event'])
   onMouseLeft(event: any) {
-    this.getClickCount();
-    const [xOffset, yOffset] = this.scroller.getScrollPosition();
+    this.metricService.getClickCount();
+    if (this.metricService.metricOn) {
+      const [xOffset, yOffset] = this.scroller.getScrollPosition();
 
-    const currentX = event.clientX + xOffset;
-    const currentY = event.clientY + yOffset;
+      const currentX = event.clientX + xOffset;
+      const currentY = event.clientY + yOffset;
 
-    this.metric.distance += this.calculateDistance(this.lastX, this.lastY, currentX, currentY);
-    this.lastX = currentX;
-    this.lastY = currentY;
+      this.metricService.metric.distance += this.metricService.calculateDistance(this.metricService.lastX, this.metricService.lastY, currentX, currentY);
+      this.metricService.lastX = currentX;
+      this.metricService.lastY = currentY;
+    }
   }
 
   @HostListener('contextmenu', ['$event'])
   onMouseRight(event: any) {
-    this.getClickCount();
+    this.metricService.getClickCount();
   }
 
   @HostListener('mouseup', ['$event'])
   onAuxClick(event) {
     if (event.which === 2 || event.button === 1) {
-      this.getClickCount();
+      this.metricService.getClickCount();
     }
   }
 
   @HostListener('window:resize', ['$event'])
   onChangeWindowsSize(event: any) {
-    this.metric.resW = event.target.innerWidth;
-    this.metric.resH = event.target.innerHeight;
-  }
-
-  private calculateDistance(x1: number, y1: number, x2: number, y2: number): number {
-    return Math.ceil(Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2)));
-  }
-
-  private doScreenshot() {
-    html2canvas(document.body).then(canvas => {
-      const imgData = canvas.toDataURL('image/png');
-      this.metricService.saveScreenshot(imgData).subscribe();
-    });
+    this.metricService.metric.resW = event.target.innerWidth;
+    this.metricService.metric.resH = event.target.innerHeight;
   }
 
 }
