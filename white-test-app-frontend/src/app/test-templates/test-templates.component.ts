@@ -178,7 +178,9 @@ export class NgbdModalContent {
       const currentX = event.clientX + xOffset;
       const currentY = event.clientY + yOffset;
 
-      this.metricService.metric.distance += this.metricService.calculateDistance(this.metricService.lastX, this.metricService.lastY, currentX, currentY);
+      this.metricService.metric.distance += this.metricService.calculateDistance(
+        this.metricService.lastX, this.metricService.lastY, currentX, currentY
+      );
       this.metricService.lastX = currentX;
       this.metricService.lastY = currentY;
     }
@@ -311,7 +313,9 @@ export class NgbdModalNewTest implements OnInit {
       const currentX = event.clientX + xOffset;
       const currentY = event.clientY + yOffset;
 
-      this.metricService.metric.distance += this.metricService.calculateDistance(this.metricService.lastX, this.metricService.lastY, currentX, currentY);
+      this.metricService.metric.distance += this.metricService.calculateDistance(
+        this.metricService.lastX, this.metricService.lastY, currentX, currentY
+      );
       this.metricService.lastX = currentX;
       this.metricService.lastY = currentY;
     }
@@ -426,7 +430,9 @@ export class NgbdModalModifyTest implements OnInit {
       const currentX = event.clientX + xOffset;
       const currentY = event.clientY + yOffset;
 
-      this.metricService.metric.distance += this.metricService.calculateDistance(this.metricService.lastX, this.metricService.lastY, currentX, currentY);
+      this.metricService.metric.distance += this.metricService.calculateDistance(
+        this.metricService.lastX, this.metricService.lastY, currentX, currentY
+      );
       this.metricService.lastX = currentX;
       this.metricService.lastY = currentY;
     }

@@ -60,7 +60,9 @@ export class AppComponent {
       const currentX = event.clientX + xOffset;
       const currentY = event.clientY + yOffset;
 
-      this.metricService.metric.distance += this.metricService.calculateDistance(this.metricService.lastX, this.metricService.lastY, currentX, currentY);
+      this.metricService.metric.distance += this.metricService.calculateDistance(
+        this.metricService.lastX, this.metricService.lastY, currentX, currentY
+      );
       this.metricService.lastX = currentX;
       this.metricService.lastY = currentY;
     }
