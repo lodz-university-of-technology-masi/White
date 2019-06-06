@@ -45,7 +45,7 @@ public class MetricManager implements MetricService {
                     LocalDateTime.now().format(TIME_FORMAT)
                             .replace(" ", "_")
                             .replace("/", "_")
-                            .replace(":", "_")+
+                            .replace(":", "_") +
                     ".jpg";
             File imageMetric = new File(filename);
             String location = imageMetric.getAbsolutePath();
