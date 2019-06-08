@@ -13,6 +13,8 @@ import {Question} from './model/question';
 import {TestTemplateDetail} from './model/test-template-detail';
 import {SessionService} from '../services/session.service';
 import {MatSnackBar} from '@angular/material';
+import {MetricService} from "../services/metric.service";
+import {ViewportScroller} from "@angular/common";
 
 export const WIKI_URL = 'https://en.wikipedia.org/wiki/';
 export const WIKI_URL_PL = 'https://pl.wikipedia.org/wiki/';
@@ -32,7 +34,10 @@ export class NgbdModalEditPosition implements OnInit {
   constructor(public activeModal: NgbActiveModal,
               private testTemplateService: TestTemplateService,
               private modalService: NgbModal,
-              private positionsService: PositionsService) {
+              private positionsService: PositionsService,
+              private metricService: MetricService,
+              private messageService: MessageService,
+              private scroller: ViewportScroller) {
 
   }
 
@@ -52,6 +57,39 @@ export class NgbdModalEditPosition implements OnInit {
     this.testTemplateService.assignPositionToTest(id, name).subscribe(success => {
     }, error => {
     });
+  }
+
+  @HostListener('click', ['$event'])
+  onMouseLeft(event: any) {
+    this.metricService.getClickCount();
+    if (this.metricService.metricOn) {
+      const [xOffset, yOffset] = this.scroller.getScrollPosition();
+
+      const currentX = event.clientX + xOffset;
+      const currentY = event.clientY + yOffset;
+
+      this.metricService.metric.distance += this.metricService.calculateDistance(this.metricService.lastX, this.metricService.lastY, currentX, currentY);
+      this.metricService.lastX = currentX;
+      this.metricService.lastY = currentY;
+    }
+  }
+
+  @HostListener('contextmenu', ['$event'])
+  onMouseRight(event: any) {
+    this.metricService.getClickCount();
+  }
+
+  @HostListener('mouseup', ['$event'])
+  onAuxClick(event) {
+    if (event.which === 2 || event.button === 1) {
+      this.metricService.getClickCount();
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onChangeWindowsSize(event: any) {
+    this.metricService.metric.resW = event.target.innerWidth;
+    this.metricService.metric.resH = event.target.innerHeight;
   }
 }
 
@@ -125,8 +163,45 @@ export class NgbdModalContent {
               private modalService: NgbModal,
               private testService: TestTemplateContentService,
               private messageService: MessageService,
-              private sessionService: SessionService) {
+              private sessionService: SessionService,
+              private metricService: MetricService,
+              private scroller: ViewportScroller) {
 
+  }
+
+  @HostListener('click', ['$event'])
+  onMouseLeft(event: any) {
+    this.metricService.getClickCount();
+    if (this.metricService.metricOn) {
+      const [xOffset, yOffset] = this.scroller.getScrollPosition();
+
+      const currentX = event.clientX + xOffset;
+      const currentY = event.clientY + yOffset;
+
+      this.metricService.metric.distance += this.metricService.calculateDistance(
+        this.metricService.lastX, this.metricService.lastY, currentX, currentY
+      );
+      this.metricService.lastX = currentX;
+      this.metricService.lastY = currentY;
+    }
+  }
+
+  @HostListener('contextmenu', ['$event'])
+  onMouseRight(event: any) {
+    this.metricService.getClickCount();
+  }
+
+  @HostListener('mouseup', ['$event'])
+  onAuxClick(event) {
+    if (event.which === 2 || event.button === 1) {
+      this.metricService.getClickCount();
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onChangeWindowsSize(event: any) {
+    this.metricService.metric.resW = event.target.innerWidth;
+    this.metricService.metric.resH = event.target.innerHeight;
   }
 }
 
@@ -147,8 +222,9 @@ export class NgbdModalNewTest implements OnInit {
               private modalService: NgbModal,
               private positionsService: PositionsService,
               private questionService: QuestionService,
-              private snackBar: MatSnackBar) {
-
+              private snackBar: MatSnackBar,
+              private metricService: MetricService,
+              private scroller: ViewportScroller) {
   }
 
   ngOnInit(): void {
@@ -227,6 +303,41 @@ export class NgbdModalNewTest implements OnInit {
       this.messageService.error('Błąd');
     });
   }
+
+  @HostListener('click', ['$event'])
+  onMouseLeft(event: any) {
+    this.metricService.getClickCount();
+    if (this.metricService.metricOn) {
+      const [xOffset, yOffset] = this.scroller.getScrollPosition();
+
+      const currentX = event.clientX + xOffset;
+      const currentY = event.clientY + yOffset;
+
+      this.metricService.metric.distance += this.metricService.calculateDistance(
+        this.metricService.lastX, this.metricService.lastY, currentX, currentY
+      );
+      this.metricService.lastX = currentX;
+      this.metricService.lastY = currentY;
+    }
+  }
+
+  @HostListener('contextmenu', ['$event'])
+  onMouseRight(event: any) {
+    this.metricService.getClickCount();
+  }
+
+  @HostListener('mouseup', ['$event'])
+  onAuxClick(event) {
+    if (event.which === 2 || event.button === 1) {
+      this.metricService.getClickCount();
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onChangeWindowsSize(event: any) {
+    this.metricService.metric.resW = event.target.innerWidth;
+    this.metricService.metric.resH = event.target.innerHeight;
+  }
 }
 
 @Component({
@@ -245,7 +356,8 @@ export class NgbdModalModifyTest implements OnInit {
               private modalService: NgbModal,
               private positionsService: PositionsService,
               private snackBar: MatSnackBar,
-              private sessionService: SessionService) {
+              private metricService: MetricService,
+              private scroller: ViewportScroller) {
   }
 
   ngOnInit(): void {
@@ -307,6 +419,41 @@ export class NgbdModalModifyTest implements OnInit {
     this.snackBar.open('SHIFT + ↑  -> Szukaj na Wikipedii | SHIFT + ↓  -> Szukaj synonimu', 'zamknij', {
       duration: 4000
     });
+  }
+
+  @HostListener('click', ['$event'])
+  onMouseLeft(event: any) {
+    this.metricService.getClickCount();
+    if (this.metricService.metricOn) {
+      const [xOffset, yOffset] = this.scroller.getScrollPosition();
+
+      const currentX = event.clientX + xOffset;
+      const currentY = event.clientY + yOffset;
+
+      this.metricService.metric.distance += this.metricService.calculateDistance(
+        this.metricService.lastX, this.metricService.lastY, currentX, currentY
+      );
+      this.metricService.lastX = currentX;
+      this.metricService.lastY = currentY;
+    }
+  }
+
+  @HostListener('contextmenu', ['$event'])
+  onMouseRight(event: any) {
+    this.metricService.getClickCount();
+  }
+
+  @HostListener('mouseup', ['$event'])
+  onAuxClick(event) {
+    if (event.which === 2 || event.button === 1) {
+      this.metricService.getClickCount();
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onChangeWindowsSize(event: any) {
+    this.metricService.metric.resW = event.target.innerWidth;
+    this.metricService.metric.resH = event.target.innerHeight;
   }
 }
 
